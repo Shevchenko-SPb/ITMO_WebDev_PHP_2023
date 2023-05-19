@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.19.4",
+    "prettier": "^2.8.8"
+  },
+  "scripts": {
+    "prettier": "prettier"
+  },
+  "name": "yarn",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Shevchenko-SPb/ITMO_WebDev_PHP_Anton_Shevchenko",
+  "author": "Shevchenko-SPb <Shevchenko-SPb@yandex.ru>",
+  "license": "MIT"
+}
