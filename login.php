@@ -14,6 +14,8 @@ $user_login = $_POST["login"];
 $user_password = $_POST["password"];
 $passwordBase = file($file_User_DATA);
 $salt = "-45dfeHK/";
+$_SESSION["is_auth"] = false;
+$_SESSION["is_auth_admin"] = false;
 
 if (isset($_POST['Login'])) {
     loginUser();
@@ -21,8 +23,6 @@ if (isset($_POST['Login'])) {
 else if (isset($_POST['Registration'])) {
     registrationUser ();
 }
-
-
 function loginUser()
 {
     global $passwordBase,
@@ -40,20 +40,24 @@ function loginUser()
             if ($user_login == "admin") {
                 $passwords[3] = "$Token\r\n";
                 $value = implode(";", $passwords);
+                $_SESSION["is_auth_admin"] = true;
+                file_put_contents($file_User_DATA, $passwordBase);
                 header("Location: ./admin.php");
                 break;
             } else {
                 $passwords[3] = "$Token\r\n";
                 $value = implode(";", $passwords);
+                $_SESSION["is_auth"] = true;
+                file_put_contents($file_User_DATA, $passwordBase);
                 header("Location: ./user.php");
                 break;
             }
+        } else {
+            $_SESSION["is_auth"] = false;
+            $_SESSION["is_auth_admin"] = false;
         }
-    }
-    file_put_contents($file_User_DATA, $passwordBase);
-    echo "Неправильный логин или пароль!";
+    }echo "Неправильный логин или пароль";
 }
-
 function registrationUser()
 {
     global $passwordBase, $user_login, $user_password;

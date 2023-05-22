@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (isset($_SESSION['is_auth']) && $_SESSION['is_auth']){
+if (isset($_SESSION['is_auth_admin']) && $_SESSION['is_auth_admin']){
     echo 'Welcome admin!';
 } else {
-    header('Location: ./login.php');
+    header('Location: ./index.php');
 }
