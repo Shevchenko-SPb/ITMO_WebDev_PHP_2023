@@ -1,12 +1,9 @@
 <?php
 session_start();
-$count = 0;
-if (isset($_COOKIE["count"])) {
-    $count = $_COOKIE["count"] + 1;
-}
-setcookie("count", $count, time() + 3600);
+include "./template/counter.php";
 include "./template/index.html";
-echo "Вы посетили страницу: $count раз.";
+
+
 $size = "large";
 $var_array = [
     "title" => "Загрузка документа",
