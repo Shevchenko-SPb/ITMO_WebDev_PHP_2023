@@ -1,19 +1,11 @@
 <?php
 session_start();
-session_regenerate_id();
 
-$userSessionId = session_id();
-$userSession = str_replace(
-    " ",
-    "",
-    $userSessionId . $_SERVER["REMOTE_ADDR"] . $_SERVER["HTTP_USER_AGENT"]
-);
-$Token = str_replace(";", ",", $userSession);
-$file_User_DATA = "user_DATA.csv";
+require_once "./etc/config.php";
+
 $user_login = $_POST["login"];
 $user_password = $_POST["password"];
-$passwordBase = file($file_User_DATA);
-$salt = "-45dfeHK/";
+
 $_SESSION["is_auth"] = false;
 $_SESSION["is_auth_admin"] = false;
 
@@ -39,15 +31,16 @@ function loginUser()
         ) {
             if ($user_login == "admin") {
                 $passwords[3] = "$Token\r\n";
-                $value = implode(";", $passwords);
                 $_SESSION["is_auth_admin"] = true;
+                $value = implode(";", $passwords);
                 file_put_contents($file_User_DATA, $passwordBase);
                 header("Location: ./admin.php");
                 break;
             } else {
-                $passwords[3] = "$Token\r\n";
-                $value = implode(";", $passwords);
                 $_SESSION["is_auth"] = true;
+                $passwords[3] = "$Token\r\n";
+                $_SESSION["is_auth"] = true;
+                $value = implode(";", $passwords);
                 file_put_contents($file_User_DATA, $passwordBase);
                 header("Location: ./user.php");
                 break;
