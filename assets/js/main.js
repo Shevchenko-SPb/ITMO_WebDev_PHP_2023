@@ -1,6 +1,6 @@
-import 'uno.css';
-import '@unocss/reset/tailwind.css';
-import DOM from './src/constants/dom';
+// import 'uno.css';
+// import '@unocss/reset/tailwind.css';
+import DOM from './dom.js';
 
 const KEY_LOCAL_TASKS = 'tasks';
 
@@ -146,7 +146,7 @@ async function renderTaskPopup(
     domPopupContainer.classList.add('hidden');
   };
 
-  const TaskPopup = (await import('./src/view/popup/TaskPopup')).default;
+  const TaskPopup = (await import('./TaskPopup.js')).default;
   const taskPopupInstance = new TaskPopup(
     popupTitle,
     Tags,

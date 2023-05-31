@@ -4,8 +4,8 @@ class ToDoView extends View
 {
    public function __construct()
    {
-      var_dump('ToDo __constructor');
-      $this->title;
+//      var_dump('ToDo __constructor');
+//      $this->title;
    }
 }
 
