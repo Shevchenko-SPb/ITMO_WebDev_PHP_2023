@@ -11,8 +11,9 @@ class ToDoController
       // var_dump($v);
       
       $result = $v->render('index.html', array());
+
       var_dump($result);
-      
+
    }
 
 }
