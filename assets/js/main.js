@@ -1,5 +1,3 @@
-// import 'uno.css';
-// import '@unocss/reset/tailwind.css';
 import DOM from './dom.js';
 
 const KEY_LOCAL_TASKS = 'tasks';
