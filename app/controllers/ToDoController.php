@@ -12,7 +12,7 @@ class ToDoController
       
       $result = $v->render('index.html', array());
 
-      var_dump($result);
+      echo $result;
 
    }
 

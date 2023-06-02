@@ -3,7 +3,7 @@ session_start();
 define('ROOT', dirname(__FILE__));
 require_once('./core/autoloader.php');
 class Router {
-    
+
     // Хранит конфигурацию маршрутов.
     private $routes;
 
@@ -47,6 +47,7 @@ class Router {
 
                 $controllerFile = ROOT.'/app/controllers/'.$controller.'.php';
                 if(file_exists($controllerFile)){
+
                     include($controllerFile);
                 }
                 // var_dump($controllerFile);
@@ -54,17 +55,19 @@ class Router {
                 $obj->$action();
                 // var_dump($obj);
                 // var_dump($action);
-                call_user_func_array(array($controller, $action), $params);
+//                call_user_func_array(array($controller, $action), $params);
             }
         }
         // Ничего не применилось. 404.
-        header("HTTP/1.0 404 Not Found");
+//        header("HTTP/1.0 404 Not Found");
         return;
     }
 }
 $routes = ROOT.'/routes.php';
 $router = new Router($routes);
 $router->run();
+
+
 
 
 
