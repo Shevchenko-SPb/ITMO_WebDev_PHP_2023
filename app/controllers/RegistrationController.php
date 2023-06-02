@@ -1,11 +1,11 @@
 <?php
-class LoginController
+class RegistrationController
 {
     public function actionIndex()
     {
         $v = new ToDoView();
 
-        $result = $v->render('login.html', array());
+        $result = $v->render('registration.html', array());
         echo $result;
     }
 

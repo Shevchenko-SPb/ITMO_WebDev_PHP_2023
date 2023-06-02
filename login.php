@@ -13,7 +13,7 @@ if (isset($_POST['Login'])) {
     loginUser();
 }
 else if (isset($_POST['Registration'])) {
-    registrationUser ();
+    header("Location: ./registration");
 }
 function loginUser()
 {

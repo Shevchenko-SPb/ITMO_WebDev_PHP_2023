@@ -30,6 +30,9 @@ class Router {
     function run(){
         // Получаем URI.
         $uri = $this->getURI();
+        if (!$uri) {
+            $uri = "login";
+        }
         // Пытаемся применить к нему правила из конфигуации.
         foreach($this->routes as $pattern => $route){
             // Если правило совпало.
