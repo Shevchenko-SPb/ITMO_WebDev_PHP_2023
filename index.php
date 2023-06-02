@@ -1,9 +1,9 @@
 <?php
 session_start();
-
 define('ROOT', dirname(__FILE__));
 require_once('./core/autoloader.php');
 class Router {
+    
     // Хранит конфигурацию маршрутов.
     private $routes;
 
