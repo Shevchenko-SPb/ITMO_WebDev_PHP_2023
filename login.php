@@ -18,11 +18,11 @@ else if (isset($_POST['Registration'])) {
 function loginUser()
 {
     global $passwordBase,
-        $user_password,
-        $user_login,
-        $Token,
-        $salt,
-        $file_User_DATA;
+           $user_password,
+           $user_login,
+           $Token,
+           $salt,
+           $file_User_DATA;
     foreach ($passwordBase as &$value) {
         $passwords = explode(";", $value);
         if (
@@ -32,6 +32,7 @@ function loginUser()
             if ($user_login == "admin") {
                 $passwords[3] = "$Token\r\n";
                 $_SESSION["is_auth_admin"] = true;
+                $_SESSION["id_user"] = 1;
                 $value = implode(";", $passwords);
                 file_put_contents($file_User_DATA, $passwordBase);
                 header("Location: ./todo");
@@ -72,11 +73,11 @@ function registrationUser()
 function createUser()
 {
     global $file_User_DATA,
-        $user_password,
-        $user_login,
-        $Token,
-        $salt,
-        $passwordBase;
+           $user_password,
+           $user_login,
+           $Token,
+           $salt,
+           $passwordBase;
     if (count($passwordBase) == null) {
         $uniqId = 1;
     } else {

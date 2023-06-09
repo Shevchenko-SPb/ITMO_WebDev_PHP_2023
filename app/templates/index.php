@@ -4,35 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite App</title>
-  <script src="./../../assets/js/cdn.tailwindcss.com_3.3.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-            .spinner {
-          display: inline-block;
-          width: 50px;
-          height: 50px;
-          border: 3px solid rgba(255, 255, 255, 0.3);
-          border-radius: 50%;
-          border-top-color: #fff;
-          animation: spin 1s ease-in-out infinite;
-          -webkit-animation: spin 1s ease-in-out infinite;
-      }
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
 
-      @keyframes spin {
-          to {
-              -webkit-transform: rotate(360deg);
-          }
+    .spinner {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to {
+        -webkit-transform: rotate(360deg);
       }
-      @-webkit-keyframes spin {
-          to {
-              -webkit-transform: rotate(360deg);
-          }
+    }
+    @-webkit-keyframes spin {
+      to {
+        -webkit-transform: rotate(360deg);
       }
+    }
   </style>
 </head>
 <body class="grid h-screen w-screen place-items-center bg-teal-100/50 p-6 font-sans">
 <div
-  id="popupContainer"
-  class="fixed left-0 top-0 z-10 grid hidden h-screen w-screen place-items-center bg-black/70"
+    id="popupContainer"
+    class="fixed left-0 top-0 z-10 grid hidden h-screen w-screen place-items-center bg-black/70"
 >
   <div class="spinner"></div>
 </div>
@@ -46,8 +50,8 @@
       <div class="flex flex-row">
         <div>
           <img
-            src="https://cdn3.iconfinder.com/data/icons/user-2/100/10-512.png"
-            class="m-auto w-12 rounded-full shadow"
+              src="https://cdn3.iconfinder.com/data/icons/user-2/100/10-512.png"
+              class="m-auto w-12 rounded-full shadow"
           />
         </div>
         <div class="mx-2 flex flex-col justify-center">
@@ -123,7 +127,7 @@
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
-                class="i-ic:sharp-play-arrow h-7 w-7 bg-red-500 hover:text-neutral-600"
+                  class="i-ic:sharp-play-arrow h-7 w-7 bg-red-500 hover:text-neutral-600"
               ></i>
               <span class="mx-2">High Priority</span>
             </div>
@@ -134,7 +138,7 @@
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
-                class="i-ic:sharp-play-arrow h-7 w-7 bg-orange-400 hover:text-neutral-600"
+                  class="i-ic:sharp-play-arrow h-7 w-7 bg-orange-400 hover:text-neutral-600"
               ></i>
               <span class="mx-2">Medium Priority</span>
             </div>
@@ -145,7 +149,7 @@
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
-                class="i-ic:sharp-play-arrow h-7 w-7 bg-yellow-300 hover:text-neutral-600"
+                  class="i-ic:sharp-play-arrow h-7 w-7 bg-yellow-300 hover:text-neutral-600"
               ></i>
               <span class="mx-2">Low Priority</span>
             </div>
@@ -156,7 +160,7 @@
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
-                class="i-ic:sharp-play-arrow h-7 w-7 bg-emerald-500 hover:text-neutral-600"
+                  class="i-ic:sharp-play-arrow h-7 w-7 bg-emerald-500 hover:text-neutral-600"
               ></i>
               <span class="mx-2">On Standby</span>
             </div>
@@ -227,7 +231,7 @@
       <hr />
       <div class="flex flex-row justify-between gap-x-4">
         <div
-          class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
+            class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
         >
           <div class="flex flex-row justify-between px-1 py-1">
             <div class="flex flex-row gap-x-1 font-bold">
@@ -238,26 +242,26 @@
           </div>
           <div class="flex flex-row pt-2">
             <div
-              data-test-id="tasks-column"
-              class="flex w-full flex-col justify-start justify-between gap-y-4"
+                data-test-id="tasks-column"
+                class="flex w-full flex-col justify-start justify-between gap-y-4"
             >
               <div
-                id="templateTask"
-                class="border-1 flex flex-row rounded-lg border-neutral-100 bg-neutral-50 px-3 py-3 shadow"
+                  id="templateTask"
+                  class="border-1 flex flex-row rounded-lg border-neutral-100 bg-neutral-50 px-3 py-3 shadow"
               >
                 <div class="flex w-full flex-col gap-y-3">
                       <span data-id="templateTaskTitle" class="pointer-events-none font-bold"
-                      >Layout Design</span
+                      >$name</span
                       >
                   <div class="pointer-events-none flex flex-row justify-between">
                     <div class="flex flex-row gap-x-2">
                       <div
-                        class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600"
+                          class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600"
                       >
                         Update
                       </div>
                       <div
-                        class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600"
+                          class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600"
                       >
                         Web
                       </div>
@@ -270,31 +274,31 @@
                   <div class="flex justify-between">
                     <div class="flex flex-row -space-x-2">
                           <span
-                            class="h-6 w-6 rounded-full border-2 border-green-500 bg-green-300"
+                              class="h-6 w-6 rounded-full border-2 border-green-500 bg-green-300"
                           ></span>
                       <span
-                        class="h-6 w-6 rounded-full border-2 border-yellow-500 bg-yellow-300"
+                          class="h-6 w-6 rounded-full border-2 border-yellow-500 bg-yellow-300"
                       ></span>
                       <span
-                        class="grid h-6 w-6 place-items-center rounded-full border-2 border-blue-500 bg-blue-300"
+                          class="grid h-6 w-6 place-items-center rounded-full border-2 border-blue-500 bg-blue-300"
                       ><span class="text-xs font-bold text-blue-600">+2</span></span
                       >
                     </div>
                     <div class="flex flex-row gap-2">
                       <button
-                        data-btn="btnEdit"
-                        class="text-neutral-400 hover:text-neutral-800"
+                          data-btn="btnEdit"
+                          class="text-neutral-400 hover:text-neutral-800"
                       >
                         <i
-                          class="i-material-symbols-edit pointer-events-none block text-2xl"
+                            class="i-material-symbols-edit pointer-events-none block text-2xl"
                         ></i>
                       </button>
                       <button
-                        data-btn="btnDelete"
-                        class="text-neutral-400 hover:text-neutral-800"
+                          data-btn="btnDelete"
+                          class="text-neutral-400 hover:text-neutral-800"
                       >
                         <i
-                          class="i-material-symbols-delete pointer-events-none block text-2xl"
+                            class="i-material-symbols-delete pointer-events-none block text-2xl"
                         ></i>
                       </button>
                     </div>
@@ -308,7 +312,7 @@
           </div>
         </div>
         <div
-          class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
+            class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
         >
           <div class="flex flex-row justify-between px-1 py-1">
             <div class="flex flex-row gap-x-1 font-bold">
@@ -319,8 +323,8 @@
           </div>
           <div class="flex flex-row pt-2">
             <div
-              data-test-id="tasks-column"
-              class="flex w-full flex-col justify-start justify-between gap-y-4"
+                data-test-id="tasks-column"
+                class="flex w-full flex-col justify-start justify-between gap-y-4"
             >
               <button class="w-full rounded-lg bg-neutral-50 py-2 text-neutral-500 shadow">
                 + Add task
@@ -329,7 +333,7 @@
           </div>
         </div>
         <div
-          class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
+            class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
         >
           <div class="flex flex-row justify-between px-1 py-1">
             <div class="flex flex-row gap-x-1 font-bold">
@@ -340,8 +344,8 @@
           </div>
           <div class="flex flex-row pt-2">
             <div
-              data-test-id="tasks-column"
-              class="flex w-full flex-col justify-start justify-between gap-y-4"
+                data-test-id="tasks-column"
+                class="flex w-full flex-col justify-start justify-between gap-y-4"
             >
               <button class="w-full rounded-lg bg-neutral-50 py-2 text-neutral-500 shadow">
                 + Add task
@@ -352,12 +356,10 @@
       </div>
     </div>
     <div
-      class="mt-1 flex w-full flex-row gap-y-4 rounded-b-2xl bg-gray-50 px-4 pb-4 pt-2"
+        class="mt-1 flex w-full flex-row gap-y-4 rounded-b-2xl bg-gray-50 px-4 pb-4 pt-2"
     >
       <div class="flex flex-row ml-3 items-center text-neutral-400 hover:text-teal-600">
-        <div class="font-semibold">
-          <?php echo $count . " tasks" ?>
-        </div>
+        <div class="font-semibold"><?php echo $count . " tasks" ?></div>
         <i class="i-ion:chevron-down-outline  ml-3"></i>
       </div>
     </div>
@@ -366,4 +368,3 @@
 <script type="module" src="./../../assets/js/main.js"></script>
 </body>
 </html>
-
