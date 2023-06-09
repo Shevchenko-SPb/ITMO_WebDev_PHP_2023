@@ -251,7 +251,7 @@
               >
                 <div class="flex w-full flex-col gap-y-3">
                       <span data-id="templateTaskTitle" class="pointer-events-none font-bold"
-                      >Layout Design</span
+                      >$name</span
                       >
                   <div class="pointer-events-none flex flex-row justify-between">
                     <div class="flex flex-row gap-x-2">
@@ -359,7 +359,7 @@
       class="mt-1 flex w-full flex-row gap-y-4 rounded-b-2xl bg-gray-50 px-4 pb-4 pt-2"
     >
       <div class="flex flex-row ml-3 items-center text-neutral-400 hover:text-teal-600">
-        <div class="font-semibold">10 tasks</div>
+        <div class="font-semibold"><?php echo $count . " tasks" ?></div>
         <i class="i-ion:chevron-down-outline  ml-3"></i>
       </div>
     </div>
