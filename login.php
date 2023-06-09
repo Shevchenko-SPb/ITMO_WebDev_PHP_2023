@@ -34,7 +34,7 @@ function loginUser()
                 $_SESSION["is_auth_admin"] = true;
                 $value = implode(";", $passwords);
                 file_put_contents($file_User_DATA, $passwordBase);
-                header("Location: ./app/templates/index.html");
+                header("Location: ./todo");
                 break;
             } else {
                 $_SESSION["is_auth"] = true;
@@ -42,7 +42,7 @@ function loginUser()
                 $_SESSION["is_auth"] = true;
                 $value = implode(";", $passwords);
                 file_put_contents($file_User_DATA, $passwordBase);
-                header("Location: ./app/templates/index.html");
+                header("Location: ./todo");
                 break;
             }
         } else {
