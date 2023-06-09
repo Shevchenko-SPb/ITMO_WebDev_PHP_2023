@@ -1,7 +1,5 @@
 <?php
 
-
-
 class ToDoController
 {
     public function actionIndex()
