@@ -2,6 +2,7 @@
 
 require_once (__DIR__ . "/../../core/db_mysql.php");
 
+
 class ToDoModel
 {
     const SQL_COUNT_USER_TASK = "SELECT ut.id_users, COUNT(ut.id_users)

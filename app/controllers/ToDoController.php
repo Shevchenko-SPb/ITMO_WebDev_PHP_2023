@@ -1,5 +1,6 @@
 <?php
 
+
 class ToDoController
 {
     public function actionIndex()
@@ -11,7 +12,6 @@ class ToDoController
         $result = $v->render('index.php', array_merge(array("name" => 1234), $resultCount));
         echo $result;
     }
-
 }
 
 
