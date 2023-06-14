@@ -4,39 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite App</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./../../assets/js/cdn.tailwindcss.com_3.3.js"></script>
   <style>
-      @tailwind base;
-      @tailwind components;
-      @tailwind utilities;
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
 
-      .spinner {
-          display: inline-block;
-          width: 50px;
-          height: 50px;
-          border: 3px solid rgba(255, 255, 255, 0.3);
-          border-radius: 50%;
-          border-top-color: #fff;
-          animation: spin 1s ease-in-out infinite;
-          -webkit-animation: spin 1s ease-in-out infinite;
-      }
+    .spinner {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      -webkit-animation: spin 1s ease-in-out infinite;
+    }
 
-      @keyframes spin {
-          to {
-              -webkit-transform: rotate(360deg);
-          }
+    @keyframes spin {
+      to {
+        -webkit-transform: rotate(360deg);
       }
-      @-webkit-keyframes spin {
-          to {
-              -webkit-transform: rotate(360deg);
-          }
+    }
+    @-webkit-keyframes spin {
+      to {
+        -webkit-transform: rotate(360deg);
       }
+    }
   </style>
 </head>
 <body class="grid h-screen w-screen place-items-center bg-teal-100/50 p-6 font-sans">
 <div
-  id="popupContainer"
-  class="fixed left-0 top-0 z-10 grid hidden h-screen w-screen place-items-center bg-black/70"
+    id="popupContainer"
+    class="fixed left-0 top-0 z-10 grid hidden h-screen w-screen place-items-center bg-black/70"
 >
   <div class="spinner"></div>
 </div>
@@ -44,14 +44,14 @@
   <aside class="flex min-w-[300px] flex-col">
     <div>
       <div class="flex flex-row items-center gap-x-2 py-4">
-        <i class="i-ph:cube-focus-bold text-3xl text-teal-700"></i>
+        <i class="text-teal-700"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 256 256"><path fill="currentColor" d="M196 157.43V98.57a17 17 0 0 0-8.42-14.71l-51.34-29.65a16.55 16.55 0 0 0-16.48 0L68.43 83.86A17 17 0 0 0 60 98.57v58.86a17 17 0 0 0 8.42 14.71l51.34 29.65a16.53 16.53 0 0 0 16.48 0l51.33-29.65a17 17 0 0 0 8.43-14.71Zm-68-80.26L160.59 96L128 114.81L95.41 96Zm-44 40l32 18.48v36.3l-32-18.53Zm56 54.78V135.6l32-18.48v36.3ZM236 48v40a12 12 0 0 1-24 0V60h-28a12 12 0 0 1 0-24h40a12 12 0 0 1 12 12ZM84 208a12 12 0 0 1-12 12H32a12 12 0 0 1-12-12v-40a12 12 0 0 1 24 0v28h28a12 12 0 0 1 12 12Zm152-40v40a12 12 0 0 1-12 12h-40a12 12 0 0 1 0-24h28v-28a12 12 0 0 1 24 0ZM20 88V48a12 12 0 0 1 12-12h40a12 12 0 0 1 0 24H44v28a12 12 0 0 1-24 0Z"/></svg></i>
         <span class="text-xl font-bold">Taski</span>
       </div>
       <div class="flex flex-row">
         <div>
           <img
-            src="https://cdn3.iconfinder.com/data/icons/user-2/100/10-512.png"
-            class="m-auto w-12 rounded-full shadow"
+              src="https://cdn3.iconfinder.com/data/icons/user-2/100/10-512.png"
+              class="m-auto w-12 rounded-full shadow"
           />
         </div>
         <div class="mx-2 flex flex-col justify-center">
@@ -59,12 +59,11 @@
           <div class="text-xs font-thin">Premium account</div>
         </div>
       </div>
-
       <div class="my-4 mr-4 flex flex-col text-neutral-500">
         <div class="mr-4 flex w-full">
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center hover:text-teal-900 hover:font-bold">
-              <i class="i-carbon:user-activity w h-5 w-5"></i>
+              <i><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32"><path fill="currentColor" d="M25 23h-.021a1.002 1.002 0 0 1-.94-.726L20.87 11.19l-1.935 5.16A1 1 0 0 1 18 17h-4v-2h3.307l2.757-7.351a1 1 0 0 1 1.898.076l3.111 10.892l1.979-5.933A.999.999 0 0 1 28 12h4v2h-3.28l-2.772 8.316A.998.998 0 0 1 25 23zm-10 7h-2v-7a3.003 3.003 0 0 0-3-3H6a3.003 3.003 0 0 0-3 3v7H1v-7a5.006 5.006 0 0 1 5-5h4a5.006 5.006 0 0 1 5 5zM8 8a3 3 0 1 1-3 3a3 3 0 0 1 3-3m0-2a5 5 0 1 0 5 5a5 5 0 0 0-5-5z"/></svg></i>
               <span class="mx-2">Activity</span>
             </div>
             <div class="flex rounded-2xl bg-teal-600 px-2.5 py-0.5">
@@ -73,7 +72,7 @@
           </div>
         </div>
         <div class="my-1 flex flex-row items-center rounded-md hover:text-teal-900 hover:font-bold">
-          <i class="i-et:profile-male h-5 w-5"></i>
+          <i><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 36 32"><path fill="currentColor" d="M.5 31.983a.503.503 0 0 0 .612-.354c1.03-3.843 5.216-4.839 7.718-5.435c.627-.149 1.122-.267 1.444-.406c2.85-1.237 3.779-3.227 4.057-4.679a.5.5 0 0 0-.165-.473c-1.484-1.281-2.736-3.204-3.526-5.416a.492.492 0 0 0-.103-.171c-1.045-1.136-1.645-2.337-1.645-3.294c0-.559.211-.934.686-1.217a.5.5 0 0 0 .243-.408C10.042 5.036 13.67 1.026 18.12 1l.107.007c4.472.062 8.077 4.158 8.206 9.324a.498.498 0 0 0 .178.369c.313.265.459.601.459 1.057c0 .801-.427 1.786-1.201 2.772a.522.522 0 0 0-.084.158c-.8 2.536-2.236 4.775-3.938 6.145a.502.502 0 0 0-.178.483c.278 1.451 1.207 3.44 4.057 4.679c.337.146.86.26 1.523.403c2.477.536 6.622 1.435 7.639 5.232a.5.5 0 0 0 .966-.26c-1.175-4.387-5.871-5.404-8.393-5.95c-.585-.127-1.09-.236-1.336-.344c-1.86-.808-3.006-2.039-3.411-3.665c1.727-1.483 3.172-3.771 3.998-6.337c.877-1.14 1.359-2.314 1.359-3.317c0-.669-.216-1.227-.644-1.663C27.189 4.489 23.19.076 18.227.005l-.149-.002c-4.873.026-8.889 4.323-9.24 9.83c-.626.46-.944 1.105-.944 1.924c0 1.183.669 2.598 1.84 3.896c.809 2.223 2.063 4.176 3.556 5.543c-.403 1.632-1.55 2.867-3.414 3.676c-.241.105-.721.22-1.277.352c-2.541.604-7.269 1.729-8.453 6.147a.5.5 0 0 0 .354.612z"/></svg></i>
           <span class="mx-2">My Profile</span>
         </div>
       </div>
@@ -83,33 +82,33 @@
         <div class="flex flex-row ml-1.5 items-center justify-between">
           <div class="my-2 text-xl font-bold">Pages</div>
           <div class="mr-1.5 flex text-neutral-400">
-            <i class="i-fa-solid:chevron-up hover:text-neutral-600"></i>
+            <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 448 512"><path fill="currentColor" d="m240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495L69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"/></svg></i>
           </div>
         </div>
         <div class="flex flex-col text-neutral-500">
           <div class="flex flex-row rounded-md hover:bg-teal-600/20 hover:text-teal-900 hover:font-bold">
             <div class="flex flex-row items-center m-1.5">
-              <i class="i-radix-icons:dashboard"></i>
+              <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 15 15"><path fill="currentColor" fill-rule="evenodd" d="M2.8 1h-.05c-.229 0-.426 0-.6.041A1.5 1.5 0 0 0 1.04 2.15c-.04.174-.04.37-.04.6v2.5c0 .229 0 .426.041.6A1.5 1.5 0 0 0 2.15 6.96c.174.04.37.04.6.04h2.5c.229 0 .426 0 .6-.041A1.5 1.5 0 0 0 6.96 5.85c.04-.174.04-.37.04-.6v-2.5c0-.229 0-.426-.041-.6A1.5 1.5 0 0 0 5.85 1.04C5.676 1 5.48 1 5.25 1H2.8Zm-.417 1.014c.043-.01.11-.014.417-.014h2.4c.308 0 .374.003.417.014a.5.5 0 0 1 .37.37c.01.042.013.108.013.416v2.4c0 .308-.003.374-.014.417a.5.5 0 0 1-.37.37C5.575 5.996 5.509 6 5.2 6H2.8c-.308 0-.374-.003-.417-.014a.5.5 0 0 1-.37-.37C2.004 5.575 2 5.509 2 5.2V2.8c0-.308.003-.374.014-.417a.5.5 0 0 1 .37-.37ZM9.8 1h-.05c-.229 0-.426 0-.6.041A1.5 1.5 0 0 0 8.04 2.15c-.04.174-.04.37-.04.6v2.5c0 .229 0 .426.041.6A1.5 1.5 0 0 0 9.15 6.96c.174.04.37.04.6.04h2.5c.229 0 .426 0 .6-.041a1.5 1.5 0 0 0 1.11-1.109c.04-.174.04-.37.04-.6v-2.5c0-.229 0-.426-.041-.6a1.5 1.5 0 0 0-1.109-1.11c-.174-.04-.37-.04-.6-.04H9.8Zm-.417 1.014c.043-.01.11-.014.417-.014h2.4c.308 0 .374.003.417.014a.5.5 0 0 1 .37.37c.01.042.013.108.013.416v2.4c0 .308-.004.374-.014.417a.5.5 0 0 1-.37.37c-.042.01-.108.013-.416.013H9.8c-.308 0-.374-.003-.417-.014a.5.5 0 0 1-.37-.37C9.004 5.575 9 5.509 9 5.2V2.8c0-.308.003-.374.014-.417a.5.5 0 0 1 .37-.37ZM2.75 8h2.5c.229 0 .426 0 .6.041A1.5 1.5 0 0 1 6.96 9.15c.04.174.04.37.04.6v2.5c0 .229 0 .426-.041.6a1.5 1.5 0 0 1-1.109 1.11c-.174.04-.37.04-.6.04h-2.5c-.229 0-.426 0-.6-.041a1.5 1.5 0 0 1-1.11-1.109c-.04-.174-.04-.37-.04-.6v-2.5c0-.229 0-.426.041-.6A1.5 1.5 0 0 1 2.15 8.04c.174-.04.37-.04.6-.04Zm.05 1c-.308 0-.374.003-.417.014a.5.5 0 0 0-.37.37C2.004 9.425 2 9.491 2 9.8v2.4c0 .308.003.374.014.417a.5.5 0 0 0 .37.37c.042.01.108.013.416.013h2.4c.308 0 .374-.004.417-.014a.5.5 0 0 0 .37-.37c.01-.042.013-.108.013-.416V9.8c0-.308-.003-.374-.014-.417a.5.5 0 0 0-.37-.37C5.575 9.004 5.509 9 5.2 9H2.8Zm7-1h-.05c-.229 0-.426 0-.6.041A1.5 1.5 0 0 0 8.04 9.15c-.04.174-.04.37-.04.6v2.5c0 .229 0 .426.041.6a1.5 1.5 0 0 0 1.109 1.11c.174.041.371.041.6.041h2.5c.229 0 .426 0 .6-.041a1.5 1.5 0 0 0 1.109-1.109c.041-.174.041-.371.041-.6V9.75c0-.229 0-.426-.041-.6a1.5 1.5 0 0 0-1.109-1.11c-.174-.04-.37-.04-.6-.04H9.8Zm-.417 1.014c.043-.01.11-.014.417-.014h2.4c.308 0 .374.003.417.014a.5.5 0 0 1 .37.37c.01.042.013.108.013.416v2.4c0 .308-.004.374-.014.417a.5.5 0 0 1-.37.37c-.042.01-.108.013-.416.013H9.8c-.308 0-.374-.004-.417-.014a.5.5 0 0 1-.37-.37C9.004 12.575 9 12.509 9 12.2V9.8c0-.308.003-.374.014-.417a.5.5 0 0 1 .37-.37Z" clip-rule="evenodd"/></svg></i>
               <span class="mx-2">Dashboard</span></div>
           </div>
           <div class="flex flex-row rounded-md hover:bg-teal-600/20 hover:text-teal-900 hover:font-bold">
             <div class="flex flex-row items-center m-1.5">
-              <i class="i-clarity:tasks-solid"></i>
+              <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 36 36"><path fill="currentColor" d="M29.29 4.95h-7.2a4.31 4.31 0 0 0-8.17 0H7a1.75 1.75 0 0 0-2 1.69v25.62a1.7 1.7 0 0 0 1.71 1.69h22.58A1.7 1.7 0 0 0 31 32.26V6.64a1.7 1.7 0 0 0-1.71-1.69Zm-18 3a1 1 0 0 1 1-1h3.44v-.63a2.31 2.31 0 0 1 4.63 0V7h3.44a1 1 0 0 1 1 1v1.8H11.25Zm14.52 9.23l-9.12 9.12l-5.24-5.24a1.4 1.4 0 0 1 2-2l3.26 3.26l7.14-7.14a1.4 1.4 0 1 1 2 2Z" class="clr-i-solid clr-i-solid-path-1"/><path fill="none" d="M0 0h36v36H0z"/></svg></i>
               <span class="mx-2">Tasks</span></div>
           </div>
           <div class="flex flex-row rounded-md hover:bg-teal-600/20 hover:text-teal-900 hover:font-bold">
             <div class="flex flex-row items-center m-1.5">
-              <i class="i-fluent:people-team-16-regular"></i>
+              <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16"><path fill="currentColor" d="M6.002 4a1.998 1.998 0 1 1 3.996 0a1.998 1.998 0 0 1-3.996 0ZM8 3.002a.998.998 0 1 0 0 1.996a.998.998 0 0 0 0-1.996ZM11 4.5a1.5 1.5 0 1 1 3 0a1.5 1.5 0 0 1-3 0Zm1.5-.5a.5.5 0 1 0 0 1a.5.5 0 0 0 0-1Zm-9-1a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3ZM3 4.5a.5.5 0 1 1 1 0a.5.5 0 0 1-1 0ZM4.268 7A1.99 1.99 0 0 0 4 8H2v2.5a1.5 1.5 0 0 0 2.096 1.377c.074.331.19.647.34.942A2.5 2.5 0 0 1 1 10.5V8a1 1 0 0 1 1-1h2.268Zm7.296 5.819A2.5 2.5 0 0 0 15 10.5V8a1 1 0 0 0-1-1h-2.268c.17.294.268.635.268 1h2v2.5a1.5 1.5 0 0 1-2.096 1.377c-.075.331-.19.647-.34.942ZM6 6.999a1 1 0 0 0-1 1V11a3 3 0 0 0 6 0V8a1 1 0 0 0-1-1H6Zm0 1h4V11a2 2 0 0 1-4 0V8Z"/></svg></i>
               <span class="mx-2">Teams</span></div>
           </div>
           <div class="flex flex-row rounded-md hover:bg-teal-600/20 hover:text-teal-900 hover:font-bold">
             <div class="flex flex-row items-center m-1.5">
-              <i class="i-jam:messages"></i>
+              <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="-2 -2.5 24 24"><path fill="currentColor" d="M3.656 17.979A1 1 0 0 1 2 17.243V15a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H8.003l-4.347 2.979zm.844-3.093a.536.536 0 0 0 .26-.069l2.355-1.638A1 1 0 0 1 7.686 13H12a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v5c0 .54.429.982 1 1c.41.016.707.083.844.226c.128.134.135.36.156.79c.003.063.003.177 0 .37a.5.5 0 0 0 .5.5zm11.5-4.87a7.136 7.136 0 0 0 0 .37v-.37c.02-.43.028-.656.156-.79c.137-.143.434-.21.844-.226c.571-.018 1-.46 1-1V3a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1H5V2a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2v2.243a1 1 0 0 1-1.656.736L16 13.743v-3.726z"/></svg></i>
               <span class="mx-2">Messages</span></div>
           </div>
           <div class="flex flex-row rounded-md hover:bg-teal-600/20 hover:text-teal-900 hover:font-bold">
             <div class="flex flex-row items-center m-1.5">
-              <i class="i-solar:calendar-linear"></i>
+              <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" stroke-width="1.5" d="M2 12c0-3.771 0-5.657 1.172-6.828C4.343 4 6.229 4 10 4h4c3.771 0 5.657 0 6.828 1.172C22 6.343 22 8.229 22 12v2c0 3.771 0 5.657-1.172 6.828C19.657 22 17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172C2 19.657 2 17.771 2 14v-2Z"/><path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M7 4V2.5M17 4V2.5M2.5 9h19"/><path fill="currentColor" d="M18 17a1 1 0 1 1-2 0a1 1 0 0 1 2 0Zm0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0Zm-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0Zm0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0Zm-5 4a1 1 0 1 1-2 0a1 1 0 0 1 2 0Zm0-4a1 1 0 1 1-2 0a1 1 0 0 1 2 0Z"/></g></svg></i>
               <span class="mx-2">Calendar</span></div>
           </div>
         </div>
@@ -120,15 +119,15 @@
         <div class="flex flex-row ml-1.5 items-center justify-between">
           <div class="my-2 text-xl font-bold">Labels</div>
           <div class="mr-1.5 flex text-neutral-400">
-            <i class="i-fa-solid:chevron-up hover:text-neutral-600"></i>
+            <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 448 512"><path fill="currentColor" d="m240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495L69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"/></svg></i>
           </div>
         </div>
         <div class="flex flex-col text-neutral-500">
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
-                class="i-ic:sharp-play-arrow h-7 w-7 bg-red-500 hover:text-neutral-600"
-              ></i>
+                  class=" text-red-500 hover:text-neutral-600"
+              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
               <span class="mx-2">High Priority</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
@@ -138,8 +137,8 @@
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
-                class="i-ic:sharp-play-arrow h-7 w-7 bg-orange-400 hover:text-neutral-600"
-              ></i>
+                  class="text-orange-400 hover:text-neutral-600"
+              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
               <span class="mx-2">Medium Priority</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
@@ -149,8 +148,8 @@
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
-                class="i-ic:sharp-play-arrow h-7 w-7 bg-yellow-300 hover:text-neutral-600"
-              ></i>
+                  class="text-yellow-300 hover:text-neutral-600"
+              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
               <span class="mx-2">Low Priority</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
@@ -160,8 +159,8 @@
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
-                class="i-ic:sharp-play-arrow h-7 w-7 bg-emerald-500 hover:text-neutral-600"
-              ></i>
+                  class="text-emerald-500 hover:text-neutral-600"
+              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
               <span class="mx-2">On Standby</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
@@ -172,11 +171,11 @@
       </div>
       <div class="my-2 flex flex-col text-neutral-400">
         <div class="my-1 flex flex-row items-center hover:text-neutral-600">
-          <i class="i-material-symbols:info-outline "></i>
+          <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17h2v-6h-2v6Zm1-8q.425 0 .713-.288T13 8q0-.425-.288-.713T12 7q-.425 0-.713.288T11 8q0 .425.288.713T12 9Zm0 13q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Zm0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20Zm0-8Z"/></svg></i>
           <span class="mx-2">Help center</span>
         </div>
         <div class="my-1 flex flex-row items-center hover:text-neutral-600">
-          <i class="i-ic:baseline-log-out"></i>
+          <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2h9a2 2 0 0 1 2 2v2h-2V4H6v16h9v-2h2v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path fill="currentColor" d="M16.09 15.59L17.5 17l5-5l-5-5l-1.41 1.41L18.67 11H9v2h9.67z"/></svg></i>
           <span class="mx-2">Log out</span>
         </div>
       </div>
@@ -190,8 +189,8 @@
         </div>
         <div class="flex flex-col">
           <div class="flex flex-row items-center gap-x-4 ">
-            <div class="flex flex-row px-18 py-1 bg-gray-200/90 rounded-md pl-1 items-center text-neutral-400 ">
-              <i class="i-system-uicons:search hover:text-neutral-600"></i>
+            <div class="flex flex-row px-18 py-1 mr-3 w-36 bg-gray-200/90 rounded-md pl-1 items-center text-neutral-400 ">
+              <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="5"/><path d="M17.571 17.5L12 12"/></g></svg></i>
               <div>Search</div>
             </div>
             <button id="btnCreateTask" class="rounded-md bg-teal-600 px-4 py-1.5">
@@ -203,16 +202,16 @@
       <div class="flex flex-row items-center justify-between">
         <div class="flex flex-col">
           <div class="flex flex-row items-center gap-x-1 text-neutral-400">
-            <i class="i-mdi-filter hover:text-neutral-600"></i>
+            <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14 12v7.88c.04.3-.06.62-.29.83a.996.996 0 0 1-1.41 0l-2.01-2.01a.989.989 0 0 1-.29-.83V12h-.03L4.21 4.62a1 1 0 0 1 .17-1.4c.19-.14.4-.22.62-.22h14c.22 0 .43.08.62.22a1 1 0 0 1 .17 1.4L14.03 12H14Z"/></svg></i>
             <span class="text-xs"> Filters </span>
-            <i class="i-mdi-chevron-down hover:text-neutral-600"></i>
+            <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6l1.41-1.42Z"/></svg></i>
           </div>
         </div>
         <div class="flex flex-col">
           <div class="flex flex-row items-center gap-x-8">
             <div class="flex flex-row gap-x-1 text-neutral-400">
               <span class="text-xs">Sort by</span>
-              <i class="i-mdi-chevron-down hover:text-neutral-600"></i>
+              <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6l1.41-1.42Z"/></svg></i>
             </div>
             <div class="flex flex-row">
               <div class="flex flex-col">
@@ -220,7 +219,7 @@
                   <span class="text-xs mr-1">Group by:</span>
                   <div class="flex flex-row">
                     <span class="text-xs">Status</span>
-                    <i class="i-mdi-chevron-down hover:text-neutral-600"></i>
+                    <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6l1.41-1.42Z"/></svg></i>
                   </div>
                 </div>
               </div>
@@ -231,7 +230,7 @@
       <hr />
       <div class="flex flex-row justify-between gap-x-4">
         <div
-          class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
+            class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
         >
           <div class="flex flex-row justify-between px-1 py-1">
             <div class="flex flex-row gap-x-1 font-bold">
@@ -242,12 +241,12 @@
           </div>
           <div class="flex flex-row pt-2">
             <div
-              data-test-id="tasks-column"
-              class="flex w-full flex-col justify-start justify-between gap-y-4"
+                data-test-id="tasks-column"
+                class="flex w-full flex-col justify-start justify-between gap-y-4"
             >
               <div
-                id="templateTask"
-                class="border-1 flex flex-row rounded-lg border-neutral-100 bg-neutral-50 px-3 py-3 shadow"
+                  id="templateTask"
+                  class="border-1 flex flex-row rounded-lg border-neutral-100 bg-neutral-50 px-3 py-3 shadow"
               >
                 <div class="flex w-full flex-col gap-y-3">
                       <span data-id="templateTaskTitle" class="pointer-events-none font-bold"
@@ -256,50 +255,50 @@
                   <div class="pointer-events-none flex flex-row justify-between">
                     <div class="flex flex-row gap-x-2">
                       <div
-                        class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600"
+                          class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600"
                       >
                         Update
                       </div>
                       <div
-                        class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600"
+                          class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600"
                       >
                         Web
                       </div>
                     </div>
                     <div class="flex flex-row items-center gap-x-1">
-                      <div class="i-mdi-clock-time-eight-outline text-sm text-green-600"></div>
+                      <div class="text-sm text-green-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20c4.4 0 8-3.6 8-8s-3.6-8-8-8s-8 3.6-8 8s3.6 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2m.5 10.8l-4.8 2.8l-.7-1.4l4-2.3V7h1.5v5.8Z"/></svg></div>
                       <div class="text-xs text-neutral-400">12 days left</div>
                     </div>
                   </div>
                   <div class="flex justify-between">
                     <div class="flex flex-row -space-x-2">
                           <span
-                            class="h-6 w-6 rounded-full border-2 border-green-500 bg-green-300"
+                              class="h-6 w-6 rounded-full border-2 border-green-500 bg-green-300"
                           ></span>
                       <span
-                        class="h-6 w-6 rounded-full border-2 border-yellow-500 bg-yellow-300"
+                          class="h-6 w-6 rounded-full border-2 border-yellow-500 bg-yellow-300"
                       ></span>
                       <span
-                        class="grid h-6 w-6 place-items-center rounded-full border-2 border-blue-500 bg-blue-300"
+                          class="grid h-6 w-6 place-items-center rounded-full border-2 border-blue-500 bg-blue-300"
                       ><span class="text-xs font-bold text-blue-600">+2</span></span
                       >
                     </div>
                     <div class="flex flex-row gap-2">
                       <button
-                        data-btn="btnEdit"
-                        class="text-neutral-400 hover:text-neutral-800"
+                          data-btn="btnEdit"
+                          class="text-neutral-400 hover:text-neutral-800"
                       >
                         <i
-                          class="i-material-symbols-edit pointer-events-none block text-2xl"
-                        ></i>
+                            class="pointer-events-none block text-2xl"
+                        ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M3.548 20.938h16.9a.5.5 0 0 0 0-1h-16.9a.5.5 0 0 0 0 1ZM9.71 17.18a2.587 2.587 0 0 0 1.12-.65l9.54-9.54a1.75 1.75 0 0 0 0-2.47l-.94-.93a1.788 1.788 0 0 0-2.47 0l-9.54 9.53a2.473 2.473 0 0 0-.64 1.12L6.04 17a.737.737 0 0 0 .19.72a.767.767 0 0 0 .53.22Zm.41-1.36a1.468 1.468 0 0 1-.67.39l-.97.26l-1-1l.26-.97a1.521 1.521 0 0 1 .39-.67l.38-.37l1.99 1.99Zm1.09-1.08l-1.99-1.99l6.73-6.73l1.99 1.99Zm8.45-8.45L18.65 7.3l-1.99-1.99l1.01-1.02a.748.748 0 0 1 1.06 0l.93.94a.754.754 0 0 1 0 1.06Z"/></svg></i>
                       </button>
                       <button
-                        data-btn="btnDelete"
-                        class="text-neutral-400 hover:text-neutral-800"
+                          data-btn="btnDelete"
+                          class="text-neutral-400 hover:text-neutral-800"
                       >
                         <i
-                          class="i-material-symbols-delete pointer-events-none block text-2xl"
-                        ></i>
+                            class="pointer-events-none block text-2xl"
+                        ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024"><path fill="currentColor" d="M160 256H96a32 32 0 0 1 0-64h256V95.936a32 32 0 0 1 32-32h256a32 32 0 0 1 32 32V192h256a32 32 0 1 1 0 64h-64v672a32 32 0 0 1-32 32H192a32 32 0 0 1-32-32V256zm448-64v-64H416v64h192zM224 896h576V256H224v640zm192-128a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32zm192 0a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32z"/></svg></i>
                       </button>
                     </div>
                   </div>
@@ -312,7 +311,7 @@
           </div>
         </div>
         <div
-          class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
+            class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
         >
           <div class="flex flex-row justify-between px-1 py-1">
             <div class="flex flex-row gap-x-1 font-bold">
@@ -323,8 +322,8 @@
           </div>
           <div class="flex flex-row pt-2">
             <div
-              data-test-id="tasks-column"
-              class="flex w-full flex-col justify-start justify-between gap-y-4"
+                data-test-id="tasks-column"
+                class="flex w-full flex-col justify-start justify-between gap-y-4"
             >
               <button class="w-full rounded-lg bg-neutral-50 py-2 text-neutral-500 shadow">
                 + Add task
@@ -333,7 +332,7 @@
           </div>
         </div>
         <div
-          class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
+            class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
         >
           <div class="flex flex-row justify-between px-1 py-1">
             <div class="flex flex-row gap-x-1 font-bold">
@@ -344,8 +343,8 @@
           </div>
           <div class="flex flex-row pt-2">
             <div
-              data-test-id="tasks-column"
-              class="flex w-full flex-col justify-start justify-between gap-y-4"
+                data-test-id="tasks-column"
+                class="flex w-full flex-col justify-start justify-between gap-y-4"
             >
               <button class="w-full rounded-lg bg-neutral-50 py-2 text-neutral-500 shadow">
                 + Add task
@@ -356,7 +355,7 @@
       </div>
     </div>
     <div
-      class="mt-1 flex w-full flex-row gap-y-4 rounded-b-2xl bg-gray-50 px-4 pb-4 pt-2"
+        class="mt-1 flex w-full flex-row gap-y-4 rounded-b-2xl bg-gray-50 px-4 pb-4 pt-2"
     >
       <div class="flex flex-row ml-3 items-center text-neutral-400 hover:text-teal-600">
         <div class="font-semibold"><?php echo $count . " tasks" ?></div>
@@ -368,4 +367,3 @@
 <script type="module" src="./../../assets/js/main.js"></script>
 </body>
 </html>
-

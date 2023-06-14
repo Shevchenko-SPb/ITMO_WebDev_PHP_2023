@@ -18,11 +18,11 @@ else if (isset($_POST['Registration'])) {
 function loginUser()
 {
     global $passwordBase,
-        $user_password,
-        $user_login,
-        $Token,
-        $salt,
-        $file_User_DATA;
+           $user_password,
+           $user_login,
+           $Token,
+           $salt,
+           $file_User_DATA;
     foreach ($passwordBase as &$value) {
         $passwords = explode(";", $value);
         if (
@@ -73,11 +73,11 @@ function registrationUser()
 function createUser()
 {
     global $file_User_DATA,
-        $user_password,
-        $user_login,
-        $Token,
-        $salt,
-        $passwordBase;
+           $user_password,
+           $user_login,
+           $Token,
+           $salt,
+           $passwordBase;
     if (count($passwordBase) == null) {
         $uniqId = 1;
     } else {
