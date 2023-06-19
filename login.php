@@ -2,6 +2,7 @@
 session_start();
 
 require_once "./etc/config.php";
+require_once "./core/db_mysql.php";
 
 $user_login = $_POST["login"];
 $user_password = $_POST["password"];
@@ -17,15 +18,36 @@ else if (isset($_POST['Registration'])) {
 }
 function loginUser()
 {
+    $login = $_POST['login'];
+    $pass = $_POST["password"];
+    $pass = sha1($pass . $salt);
+    $db = DB::getDB();
+    $sql = "SELECT id, login, pass, name, surname, href_avatar 
+              FROM `user`  
+             WHERE is_block = 0
+               AND login LIKE '%s'
+               AND pass LIKE '%s'";
+    $sql = sprintf($sql, $login, $pass);
+    // var_dump($sql);
+    $stmt = $db->query($sql);
+    $result = $stmt->fetch(1);
+    var_dump($result);
+    if($result){
+        $_SESSION["is_auth"] = true;
+        $_SESSION["id_user"] = $result["id"];
+    }
+    var_dump($_SESSION);
+    exit(0);
     global $passwordBase,
-           $user_password,
-           $user_login,
-           $Token,
-           $salt,
-           $file_User_DATA;
+        $user_password,
+        $user_login,
+        $Token,
+        $salt,
+        $file_User_DATA;
     foreach ($passwordBase as &$value) {
         $passwords = explode(";", $value);
         if (
+            
             $passwords[1] == $user_login &&
             $passwords[2] == sha1($user_password . $salt)
         ) {
@@ -73,11 +95,11 @@ function registrationUser()
 function createUser()
 {
     global $file_User_DATA,
-           $user_password,
-           $user_login,
-           $Token,
-           $salt,
-           $passwordBase;
+        $user_password,
+        $user_login,
+        $Token,
+        $salt,
+        $passwordBase;
     if (count($passwordBase) == null) {
         $uniqId = 1;
     } else {
@@ -95,3 +117,7 @@ function createUser()
         FILE_APPEND
     );
 }
+
+
+
+
