@@ -6,6 +6,7 @@ const Tags = ['Web', 'Update', 'Design', 'Content'];
 
 class TaskVO {
   static fromJSON(json) {
+    console.log(json)
     return new TaskVO(json.id, json.title, json.date, json.tag);
   }
   constructor(id, title, date, tag) {
@@ -24,13 +25,38 @@ const domTaskColumn = domTemplateTask.parentNode;
 domTemplateTask.removeAttribute('id');
 domTemplateTask.remove();
 
-const rawTasks = localStorage.getItem(KEY_LOCAL_TASKS);
+//const rawTasks = localStorage.getItem(KEY_LOCAL_TASKS);
+var rawTasks = undefined;
+//document.addEventListener("DOMContentLoaded", function(event) { 
+  const headers = {
+    'Content-Type': 'application/json'
+  }
+  axios.get('/tasks', {
+    headers: headers
+  })
+  .then(function (response) {
+    rawTasks = response.data.result
+    //console.log(JSON.parse(response.data.result));
+    const tasks = rawTasks
+      ? rawTasks.map((json) => TaskVO.fromJSON(json))
+      : [];
+    tasks.forEach((taskVO) => renderTask(taskVO));
+  })
+  .catch(function (error) {
+    // handle error
+    //console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+  //console.log('finish');
+//});
 
 const tasks = rawTasks
   ? JSON.parse(rawTasks).map((json) => TaskVO.fromJSON(json))
   : [];
 tasks.forEach((taskVO) => renderTask(taskVO));
-console.log('> tasks:', tasks);
+//console.log('> tasks:', tasks);
 
 const taskOperations = {
   [DOM.Template.Task.BTN_DELETE]: (taskVO, domTask) => {

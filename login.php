@@ -1,16 +1,25 @@
 <?php
 session_start();
 
+
 require_once "./etc/config.php";
+
+
 require_once "./core/db_mysql.php";
+
+
 
 $user_login = $_POST["login"];
 $user_password = $_POST["password"];
 
+
 $_SESSION["is_auth"] = false;
 $_SESSION["is_auth_admin"] = false;
 
+
+
 if (isset($_POST['Login'])) {
+    // var_dump('stage 2');
     loginUser();
 }
 else if (isset($_POST['Registration'])) {
@@ -18,9 +27,11 @@ else if (isset($_POST['Registration'])) {
 }
 function loginUser()
 {
+
     $login = $_POST['login'];
     $pass = $_POST["password"];
     $pass = sha1($pass . $salt);
+    // var_dump($pass );
     $db = DB::getDB();
     $sql = "SELECT id, login, pass, name, surname, href_avatar 
               FROM `user`  
@@ -31,49 +42,22 @@ function loginUser()
     // var_dump($sql);
     $stmt = $db->query($sql);
     $result = $stmt->fetch(1);
-    var_dump($result);
+
+
     if($result){
         $_SESSION["is_auth"] = true;
         $_SESSION["id_user"] = $result["id"];
+        $_SESSION["name"] = $result["name"];
+        $_SESSION["surname"] = $result["surname"];
+        $_SESSION["href_avatar"] = $result["href_avatar"];
+        $_SESSION["is_auth"] = true;
+    } else {
+        $_SESSION["is_auth"] = false;
     }
-    var_dump($_SESSION);
-    exit(0);
-    global $passwordBase,
-        $user_password,
-        $user_login,
-        $Token,
-        $salt,
-        $file_User_DATA;
-    foreach ($passwordBase as &$value) {
-        $passwords = explode(";", $value);
-        if (
-            
-            $passwords[1] == $user_login &&
-            $passwords[2] == sha1($user_password . $salt)
-        ) {
-            if ($user_login == "admin") {
-                $passwords[3] = "$Token\r\n";
-                $_SESSION["is_auth_admin"] = true;
-                $_SESSION["id_user"] = 1;
-                $value = implode(";", $passwords);
-                file_put_contents($file_User_DATA, $passwordBase);
-                header("Location: ./todo");
-                break;
-            } else {
-                $_SESSION["is_auth"] = true;
-                $passwords[3] = "$Token\r\n";
-                $_SESSION["is_auth"] = true;
-                $value = implode(";", $passwords);
-                file_put_contents($file_User_DATA, $passwordBase);
-                header("Location: ./todo");
-                break;
-            }
-        } else {
-            $_SESSION["is_auth"] = false;
-            $_SESSION["is_auth_admin"] = false;
-        }
-    }echo "Неправильный логин или пароль";
-}
+    header('location: ./todo');
+}  
+
+    
 function registrationUser()
 {
     global $passwordBase, $user_login, $user_password;

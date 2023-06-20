@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite App</title>
   <script src="./../../assets/js/cdn.tailwindcss.com_3.3.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+  <!--script src="./../../assets/js/application.js"></script-->
   <style>
     @tailwind base;
     @tailwind components;
@@ -50,13 +52,13 @@
       <div class="flex flex-row">
         <div>
           <img
-              src="https://cdn3.iconfinder.com/data/icons/user-2/100/10-512.png"
+              src="<?php echo './assets/avatars/'.$href_avatar; ?>"
               class="m-auto w-12 rounded-full shadow"
           />
         </div>
         <div class="mx-2 flex flex-col justify-center">
-          <div class="text-xl font-bold">Name Surname</div>
-          <div class="text-xs font-thin">Premium account</div>
+          <div class="text-xl font-bold"><?php echo $name." ".$surname; ?></div>
+          <div class="text-xs font-thin">Admin account</div>
         </div>
       </div>
       <div class="my-4 mr-4 flex flex-col text-neutral-500">

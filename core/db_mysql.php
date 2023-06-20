@@ -1,6 +1,6 @@
 <?php
 
-require 'config.php';
+require_once 'config.php';
 $obj  = Config::instance();
 define('HOST', $obj->get('host'));
 define('PORT', $obj->get('port'));

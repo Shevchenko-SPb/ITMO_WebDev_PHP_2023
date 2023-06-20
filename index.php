@@ -2,6 +2,8 @@
 
 session_start();
 
+// var_dump($_SESSION);
+// exit(0);
 
 define('ROOT', dirname(__FILE__));
 require_once('./core/autoloader.php');
