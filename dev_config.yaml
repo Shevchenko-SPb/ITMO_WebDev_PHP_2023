@@ -1,0 +1,6 @@
+#########  DB  ##########
+host: 'localhost'
+port: '3306'
+db: 'todo'
+user: 'todo'
+pass: '123'

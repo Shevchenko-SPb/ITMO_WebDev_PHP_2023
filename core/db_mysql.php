@@ -1,13 +1,23 @@
 <?php
-class DB {
-    static function getDb() {
-        try {
-            $db = new PDO('mysql:host=localhost;dbname=todo', 'root', '');
-        } catch (PDOException $e) {
-            print "Error!: " . $e->getMessage();
-            die();
-        }
-        return $db;
-    }
 
+require_once 'config.php';
+$obj  = Config::instance();
+define('HOST', $obj->get('host'));
+define('PORT', $obj->get('port'));
+define('DB', $obj->get('db'));
+define('USER', $obj->get('user'));
+define('PASS', $obj->get('pass'));
+
+class DB {
+  static function getDb() {
+      try {
+        $db = new PDO('mysql:host='.HOST.':'.PORT.';dbname='.DB, USER, PASS);
+      } catch (PDOException $e) {
+        print "Error!: " . $e->getMessage();
+        die();
+      }
+      return $db;
+    }
+    
 }
+
