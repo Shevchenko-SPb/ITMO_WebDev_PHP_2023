@@ -3,6 +3,7 @@ session_start();
 
 
 require_once "./etc/config.php";
+require_once "./core/db_mysql.php";
 
 
 require_once "./core/db_mysql.php";
