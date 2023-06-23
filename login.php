@@ -3,6 +3,7 @@ session_start();
 
 
 require_once "./etc/config.php";
+require_once "./core/db_mysql.php";
 
 
 require_once "./core/db_mysql.php";
@@ -55,9 +56,9 @@ function loginUser()
         $_SESSION["is_auth"] = false;
     }
     header('location: ./todo');
-}  
+}
 
-    
+
 function registrationUser()
 {
     global $passwordBase, $user_login, $user_password;
@@ -79,11 +80,11 @@ function registrationUser()
 function createUser()
 {
     global $file_User_DATA,
-        $user_password,
-        $user_login,
-        $Token,
-        $salt,
-        $passwordBase;
+           $user_password,
+           $user_login,
+           $Token,
+           $salt,
+           $passwordBase;
     if (count($passwordBase) == null) {
         $uniqId = 1;
     } else {
@@ -101,7 +102,4 @@ function createUser()
         FILE_APPEND
     );
 }
-
-
-
 
