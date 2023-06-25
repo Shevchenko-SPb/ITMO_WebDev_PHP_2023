@@ -6,7 +6,7 @@ session_start();
 // exit(0);
 
 define('ROOT', dirname(__FILE__));
-require_once('./core/autoloader.php');
+require_once('./vendor/autoload.php');
 class Router {
 
     // Хранит конфигурацию маршрутов.
