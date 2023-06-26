@@ -10,7 +10,7 @@ class ToDoModel
                                 WHERE ut.id_users  = %d
                              GROUP BY ut.id_users";
     
-    const SQL_GET_LIST_TASKS = "SELECT tk.id_status, tg.name tag, tk.title, tk.dt_end 
+    const SQL_GET_LIST_TASKS = "SELECT tk.id_status, tg.name tag, tk.title, tk.dt_end
                                   FROM task tk, user_task ut, status st, tag tg
                                  WHERE st.id=tk.id_status 
                                    AND tg.id=tk.id_tag 
