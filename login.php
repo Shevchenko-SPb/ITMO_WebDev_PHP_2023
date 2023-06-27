@@ -58,7 +58,6 @@ function loginUser()
     header('location: ./todo');
 }
 
-
 function registrationUser()
 {
     global $passwordBase, $user_login, $user_password;
@@ -80,11 +79,11 @@ function registrationUser()
 function createUser()
 {
     global $file_User_DATA,
-           $user_password,
-           $user_login,
-           $Token,
-           $salt,
-           $passwordBase;
+        $user_password,
+        $user_login,
+        $Token,
+        $salt,
+        $passwordBase;
     if (count($passwordBase) == null) {
         $uniqId = 1;
     } else {
