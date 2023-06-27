@@ -23,9 +23,10 @@ DROP TABLE IF EXISTS `status`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `status` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+                          `id` int NOT NULL AUTO_INCREMENT,
+                          `name` varchar(255) NOT NULL,
+                          PRIMARY KEY (`id`)
+
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -47,9 +48,11 @@ DROP TABLE IF EXISTS `tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tag` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+
+                       `id` int NOT NULL AUTO_INCREMENT,
+                       `name` varchar(255) NOT NULL,
+                       PRIMARY KEY (`id`)
+
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -71,17 +74,18 @@ DROP TABLE IF EXISTS `task`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `task` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_status` int NOT NULL,
-  `id_tag` int NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `dt_end` date DEFAULT NULL,
-  `is_archive` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_task__id_status` (`id_status`),
-  KEY `idx_task__id_tag` (`id_tag`),
-  CONSTRAINT `fk_task__id_status` FOREIGN KEY (`id_status`) REFERENCES `status` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_task__id_tag` FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE
+                        `id` int NOT NULL AUTO_INCREMENT,
+                        `id_status` int NOT NULL,
+                        `id_tag` int NOT NULL,
+                        `title` varchar(100) NOT NULL,
+                        `dt_end` date DEFAULT NULL,
+                        `is_archive` tinyint(1) DEFAULT NULL,
+                        PRIMARY KEY (`id`),
+                        KEY `idx_task__id_status` (`id_status`),
+                        KEY `idx_task__id_tag` (`id_tag`),
+                        CONSTRAINT `fk_task__id_status` FOREIGN KEY (`id_status`) REFERENCES `status` (`id`) ON DELETE CASCADE,
+                        CONSTRAINT `fk_task__id_tag` FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id`) ON DELETE CASCADE
+
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -103,16 +107,17 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `login` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `pass` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `dt_create` datetime DEFAULT NULL,
-  `is_block` tinyint(1) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `surname` varchar(255) NOT NULL,
-  `href_avatar` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `login` (`login`)
+                        `id` int NOT NULL AUTO_INCREMENT,
+                        `login` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+                        `pass` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                        `dt_create` datetime DEFAULT NULL,
+                        `is_block` tinyint(1) DEFAULT NULL,
+                        `name` varchar(255) NOT NULL,
+                        `surname` varchar(255) NOT NULL,
+                        `href_avatar` varchar(255) DEFAULT NULL,
+                        PRIMARY KEY (`id`),
+                        UNIQUE KEY `login` (`login`)
+
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -134,15 +139,16 @@ DROP TABLE IF EXISTS `user_task`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_task` (
-  `id_users` int NOT NULL,
-  `id_tasks` int NOT NULL,
-  `id_user_owner` int NOT NULL,
-  PRIMARY KEY (`id_users`,`id_tasks`),
-  KEY `idx_user_task__id_tasks` (`id_tasks`),
-  KEY `idx_user_task__id_user_owner` (`id_user_owner`),
-  CONSTRAINT `fk_user_task__id_tasks` FOREIGN KEY (`id_tasks`) REFERENCES `task` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_user_task__id_user_owner` FOREIGN KEY (`id_user_owner`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_user_task__id_users` FOREIGN KEY (`id_users`) REFERENCES `user` (`id`) ON DELETE CASCADE
+                             `id_users` int NOT NULL,
+                             `id_tasks` int NOT NULL,
+                             `id_user_owner` int NOT NULL,
+                             PRIMARY KEY (`id_users`,`id_tasks`),
+                             KEY `idx_user_task__id_tasks` (`id_tasks`),
+                             KEY `idx_user_task__id_user_owner` (`id_user_owner`),
+                             CONSTRAINT `fk_user_task__id_tasks` FOREIGN KEY (`id_tasks`) REFERENCES `task` (`id`) ON DELETE CASCADE,
+                             CONSTRAINT `fk_user_task__id_user_owner` FOREIGN KEY (`id_user_owner`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+                             CONSTRAINT `fk_user_task__id_users` FOREIGN KEY (`id_users`) REFERENCES `user` (`id`) ON DELETE CASCADE
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -165,4 +171,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+
 -- Dump completed on 2023-06-22 17:20:24
+

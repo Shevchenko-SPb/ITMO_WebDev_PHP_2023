@@ -56,9 +56,8 @@ function loginUser()
         $_SESSION["is_auth"] = false;
     }
     header('location: ./todo');
-}  
+}
 
-    
 function registrationUser()
 {
     global $passwordBase, $user_login, $user_password;
@@ -102,7 +101,4 @@ function createUser()
         FILE_APPEND
     );
 }
-
-
-
 
