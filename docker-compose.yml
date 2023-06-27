@@ -5,6 +5,8 @@ services:
     build: .
     ports:
       - 8008:80
+    depends_on:
+      - db
 
   db:
     image: mysql
@@ -12,6 +14,13 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: 12345
+    container_name: db
+    ports:
+      - 3318:3306
+    volumes:
+        - ./db:/./dump/todo.sql
+        - ./file_setting/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   phpmyadmin:
     image: phpmyadmin
