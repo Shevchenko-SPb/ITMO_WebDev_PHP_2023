@@ -6,11 +6,27 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit39689221ca3e17d2221925bcd7063819
 {
+    public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Predis\\' => 7,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Predis\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/predis/predis/src',
+        ),
+    );
+
     public static $classMap = array (
         'AboutController' => __DIR__ . '/../..' . '/app/controllers/AboutController.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'LoginController' => __DIR__ . '/../..' . '/app/controllers/LoginController.php',
+        'PublishController' => __DIR__ . '/../..' . '/app/controllers/PublishController.php',
         'RegistrationController' => __DIR__ . '/../..' . '/app/controllers/RegistrationController.php',
+        'SubscribeController' => __DIR__ . '/../..' . '/app/controllers/SubscribeController.php',
         'ToDoController' => __DIR__ . '/../..' . '/app/controllers/ToDoController.php',
         'ToDoModel' => __DIR__ . '/../..' . '/app/models/ToDoModel.php',
         'ToDoView' => __DIR__ . '/../..' . '/app/view/ToDoView.php',
@@ -19,6 +35,8 @@ class ComposerStaticInit39689221ca3e17d2221925bcd7063819
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit39689221ca3e17d2221925bcd7063819::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit39689221ca3e17d2221925bcd7063819::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit39689221ca3e17d2221925bcd7063819::$classMap;
 
         }, null, ClassLoader::class);

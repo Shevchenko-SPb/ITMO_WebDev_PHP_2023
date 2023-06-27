@@ -35,15 +35,19 @@ class Router {
     function run(){
         // Получаем URI.
         $uri = $this->getURI();
+        var_dump($uri);
         if (!$uri) {
             $uri = "login";
         }
+//        var_dump($this->routes);
         // Пытаемся применить к нему правила из конфигуации.
         foreach($this->routes as $pattern => $route){
+
             // Если правило совпало.
             if(preg_match("~$pattern~", $uri)){
                 // Получаем внутренний путь из внешнего согласно правилу.
                 $internalRoute = preg_replace("~$pattern~", $route, $uri);
+                var_dump($internalRoute);
                 // Разбиваем внутренний путь на сегменты.
                 $segments = explode('/', $internalRoute);
                 // Первый сегмент — контроллер.
@@ -60,7 +64,8 @@ class Router {
                 }
                 // var_dump($controllerFile);
                 $obj = new $controller();
-                $obj->$action();
+                $obj->$action($parameters);
+
                 // var_dump($obj);
                 // var_dump($action);
 //                call_user_func_array(array($controller, $action), $params);

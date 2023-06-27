@@ -18,8 +18,8 @@ services:
     ports:
       - 3318:3306
     volumes:
-        - ./db:/./dump/todo.sql
-        - ./file_setting/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db:/./dump/todo.sql
+      - ./file_setting/init.sql:/docker-entrypoint-initdb.d/init.sql
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   phpmyadmin:

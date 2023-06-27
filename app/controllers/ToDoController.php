@@ -34,6 +34,20 @@ class ToDoController
       header('Content-Type: application/json; charset=utf-8');
       echo json_encode($tasks);
    }
+   public function actionGetTaskById ($id_task)
+   {
+       $model = new ToDoModel();
+       $result = $model -> getTaskById($id_task);
+       $tasks = array('result' => $result);
+       header('Content-Type: application/json; charset=utf-8');
+       echo json_encode($tasks);
+   }
+
+   public function actionCreateTask ()
+   {
+       $model = new ToDoModel();
+       $result = $model -> createTask();
+   }
 }
 
 
