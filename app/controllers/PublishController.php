@@ -1,16 +1,18 @@
 <?php
 
 class PublishController {
-    public function actionIndex ()
+    static function publicTaskInRedis ($id_task)
     {
+
         $redisClient = new Predis\Client([
             'scheme' => 'tcp',
             'host'   => 'localhost',
-            'port'   => 6379
+            'port'   => 6379,
+//            'pass' => 'sOmE_sEcUrE_pAsS'
         ]);
 
 // Accept message
-        $message = $_POST['message'] ?? null;
+        $message = $id_task ?? null;
         $success = false;
 
         if ($message) {

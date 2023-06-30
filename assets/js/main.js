@@ -52,6 +52,18 @@ var rawTasks = undefined;
   //console.log('finish');
 //});
 
+const eventSource = new EventSource('http://localhost:8081/sse');
+const listElement = document.getElementById('message-list');
+
+eventSource.onmessage = function (currentEvent) {
+  // const newElement = document.createElement('li');
+  // newElement.innerText = currentEvent.data;
+
+  // listElement.appendChild(newElement)
+  console.log(currentEvent);
+};
+
+
 const tasks = rawTasks
   ? JSON.parse(rawTasks).map((json) => TaskVO.fromJSON(json))
   : [];

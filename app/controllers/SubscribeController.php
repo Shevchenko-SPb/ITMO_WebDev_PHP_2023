@@ -1,7 +1,7 @@
 <?php
 
 class SubscribeController {
-    public function actionIndex ()
+    static function subscribeForCreateTask ()
     {
 
         $redisClient = new Predis\Client([

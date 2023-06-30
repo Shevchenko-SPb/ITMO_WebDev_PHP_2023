@@ -47,6 +47,16 @@ class ToDoController
    {
        $model = new ToDoModel();
        $result = $model -> createTask();
+//       var_dump($result);
+//       exit();
+
+       PublishController::publicTaskInRedis($result);
+
+   }
+
+   public function actionSse()
+   {
+       SubscribeController::subscribeForCreateTask();
    }
 }
 
