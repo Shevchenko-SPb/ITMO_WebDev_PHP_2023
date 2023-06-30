@@ -2,6 +2,7 @@
 
 
 
+
 class ToDoController 
 {
    public function actionIndex()
@@ -57,6 +58,7 @@ class ToDoController
    public function actionSse()
    {
        SubscribeController::subscribeForCreateTask();
+
    }
 }
 
