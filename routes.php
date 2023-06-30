@@ -9,6 +9,6 @@ return array(
     'users/([-_a-z0-9]+)' => 'users/show/$1',
     'tasks' => 'ToDo/getList',
     'gettask' => 'ToDo/getTaskById',
-    'sse' => 'Subscribe/index',
-    'createtask' => 'ToDo/createTask'
+    'createtask' => 'ToDo/createTask',
+    'sse' => 'ToDo/sse'
 );

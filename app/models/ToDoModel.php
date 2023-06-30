@@ -28,6 +28,14 @@ class ToDoModel
                                    AND tk.id = %d
                                    AND ut.id_users = %d";
 
+    const SQL_INSERT_TASK = "INSERT INTO todo.task
+                                (id_status, id_tag, title, dt_end, is_archive)
+                                 VALUES(%d, %d, '%s', '%s', NULL );";
+
+    const SQL_CREATE_USER_TASK = "INSERT INTO todo.user_task
+                                  (id_users, id_tasks, id_user_owner)   
+                                  VALUES(%d, %d, %d);";
+
     public function countUserTask()
     {
         $db = DB::getDb();
@@ -80,24 +88,38 @@ class ToDoModel
         }
         return $tasks;
     }
-    const SQL_CREATE_TASK = "INSERT INTO todo.task
-                                (id_status, id_tag, title, dt_end, is_archive)
-                                 VALUES(%d, %d, %s, %s, %d);";
+
     // ToDo: дописать insert задачи, подключить класс Publisher.
     public function createTask ()
-    {   $sql1 = "INSERT INTO status 
-                (name)
-                VALUES('dff');";
-
-//        $sql2 = "SELECT LAST_INSERT_ID();";
-
+    {
         $db = DB::getDb();
+        $sql = sprintf(self::SQL_INSERT_TASK, 1, 2, 'title', '2023-10-10');
 
-//        $id_user = Session::instance() -> get("id_user");
-        //var_dump($db);
-//        $sql = sprintf(self::SQL_GET_LIST_TASKS, $id_user);
-        //var_dump($sql);
-        $stmt = $db->query($sql1);
+//        var_dump($sql);
+//        exit();
+        $db->query($sql);
         var_dump($db->lastInsertId());
+        $id_task = $db->lastInsertId();
+        $id_user = 1;
+        $id_user_owner = 2;
+        $sql = sprintf(self::SQL_CREATE_USER_TASK, $id_user, $id_task, $id_user_owner);
+        $db->query($sql);
+        var_dump($sql);
+        return $id_task;
     }
 }
+
+//$sql1 = "INSERT INTO status
+//                (name)
+//                VALUES('dff');";
+//
+////        $sql2 = "SELECT LAST_INSERT_ID();";
+//
+//$db = DB::getDb();
+//
+////        $id_user = Session::instance() -> get("id_user");
+////var_dump($db);
+////        $sql = sprintf(self::SQL_GET_LIST_TASKS, $id_user);
+////var_dump($sql);
+//$db->query(self::SQL_CREATE_TASK);
+//var_dump($db->lastInsertId());
