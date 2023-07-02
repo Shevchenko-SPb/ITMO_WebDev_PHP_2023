@@ -79,7 +79,7 @@ class ToDoModel
         $db = DB::getDb();
         $id_user = 1;
         $sql = sprintf(self::SQL_GET_TASK_BY_ID, $id_task, $id_user);
-        var_dump($sql);
+//        var_dump($sql);
         $stmt = $db->query($sql);
         $tasks = [];
         while ($row = $stmt->fetch())
@@ -95,17 +95,13 @@ class ToDoModel
         $db = DB::getDb();
         $sql = sprintf(self::SQL_INSERT_TASK, 1, 2, 'title', '2023-10-10');
 
-//        var_dump($sql);
-//        exit();
         $db->query($sql);
-        var_dump($db->lastInsertId());
         $id_task = $db->lastInsertId();
         $id_user = 1;
         $id_user_owner = 2;
         $sql = sprintf(self::SQL_CREATE_USER_TASK, $id_user, $id_task, $id_user_owner);
         $db->query($sql);
-        var_dump($sql);
-        return $id_task;
+        return array('id_task'=>$id_task, 'id_user'=>$id_user);
     }
 }
 

@@ -35,7 +35,7 @@ class Router {
     function run(){
         // Получаем URI.
         $uri = $this->getURI();
-        var_dump($uri);
+//        var_dump($uri);
         if (!$uri) {
             $uri = "login";
         }

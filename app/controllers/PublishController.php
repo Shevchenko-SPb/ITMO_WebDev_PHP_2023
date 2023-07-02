@@ -1,7 +1,7 @@
 <?php
 
 class PublishController {
-    static function publicTaskInRedis ($id_task)
+    static function publicTaskInRedis ($arrTasks)
     {
 
         $redisClient = new Predis\Client([
@@ -11,14 +11,15 @@ class PublishController {
 //            'pass' => 'sOmE_sEcUrE_pAsS'
         ]);
 
-// Accept message
-        $message = $id_task ?? null;
+//      Accept message
+        $jsonArrTasks = json_encode($arrTasks);
+        $message = $jsonArrTasks ?? null;
         $success = false;
 
         if ($message) {
             try {
-                // Publish to 'message_update' channle whenever there is a new message
-                $redisClient->publish('message_update', $message);
+//              Publish to 'message_update' channle whenever there is a new message
+                $redisClient->publish('queue_tasks', $message);
                 $success = true;
             } catch (\Exception $e) {
                 $message = $e->getMessage();
@@ -27,6 +28,6 @@ class PublishController {
 
         header("Content-Type: application/json");
         echo json_encode(['success' => $success, 'message' => $message]);
-//        exit();
+//      exit();
     }
 }
