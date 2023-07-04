@@ -60,7 +60,7 @@ eventSource.onmessage = function (currentEvent) {
   // newElement.innerText = currentEvent.data;
 
   // listElement.appendChild(newElement)
-  console.log(currentEvent);
+  console.log(currentEvent.data);
 };
 
 

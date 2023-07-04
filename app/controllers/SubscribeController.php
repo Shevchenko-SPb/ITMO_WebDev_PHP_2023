@@ -1,4 +1,6 @@
 <?php
+use Josantonius\Logger\Logger;
+
 
 class SubscribeController {
     static function subscribeForCreateTask ()
@@ -10,7 +12,7 @@ class SubscribeController {
             'port'   => 6379,
         ]);
 
-        set_time_limit(0);
+        set_time_limit(0);0
         header('Content-Type: text/event-stream');
         header('Connection: keep-alive');
         header('Cache-Control: no-store');
@@ -18,16 +20,20 @@ class SubscribeController {
         header('Access-Control-Allow-Origin: *');
 
         $pubsub = $redisClient->pubSubLoop();
-        $pubsub->subscribe('message_update');  // Subscribe to channel named 'message_update'
+        $pubsub->subscribe('queue_tasks');  // Subscribe to channel named 'queue_tasks'
 
         foreach ($pubsub as $message) {
+        var_dump($message);
             switch ($message->kind) {
                 case 'subscribe':
-                    $data = "Subscribed to {$message->channel}";
+//                  $data = "Subscribed to {$message->channel}";
+                    $data = "Data = {$message->payload}";
+                    $jsonArrTasks = json_decode($message->payload);
+                    file_put_contents('logger.txt', 'subscribe='.$message->payload);
                     break;
-
                 case 'message':
                     $data = date('Y-m-d H:i:s') . ": " . $message->payload;
+                    file_put_contents('logger.txt', 'message='.$message->payload);
                     break;
             }
 
