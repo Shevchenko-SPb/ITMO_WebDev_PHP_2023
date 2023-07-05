@@ -1,7 +1,5 @@
 <?php
 use Josantonius\Logger\Logger;
-
-
 class SubscribeController {
     static function subscribeForCreateTask ()
     {
@@ -12,7 +10,7 @@ class SubscribeController {
             'port'   => 6379,
         ]);
 
-        set_time_limit(0);0
+        set_time_limit(0);
         header('Content-Type: text/event-stream');
         header('Connection: keep-alive');
         header('Cache-Control: no-store');

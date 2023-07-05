@@ -15,4 +15,5 @@ return array(
     'ToDoController' => $baseDir . '/app/controllers/ToDoController.php',
     'ToDoModel' => $baseDir . '/app/models/ToDoModel.php',
     'ToDoView' => $baseDir . '/app/view/ToDoView.php',
+    'UserModel' => $baseDir . '/app/models/UserModel.php',
 );

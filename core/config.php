@@ -1,17 +1,13 @@
 <?php
 require ('helper.php');
+require_once ('registry.php');
 define('DEV_CONFIG', __DIR__."/../dev_config.yaml");
 define('PROD_CONFIG', __DIR__."/../prod_config.yaml");
 define('DEV', 1);
 define('PROD', 2);
 define('TEST', 3);
 
-abstract class Registry
-{
-    abstract protected function get($key);
-    abstract protected function set($key, $val);
-    
-}
+
 
 class Config extends Registry
 {
@@ -50,34 +46,6 @@ class Config extends Registry
 Config::$type_cnf = DEV;
 
 
-
-class Session extends Registry
-{
-    private static $instance = null;
-    private function  __construct() {
-        session_start();
-    }
-
-    static function instance() 
-    {
-        if (! isset(self::$instance) ) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
-
-    public function get($key) 
-    {
-        if (isset($_SESSION[$key])) {
-            return $_SESSION[$key];
-        }
-        return null;
-    }
-    public function set($key, $value) 
-    {
-        $_SESSION[$key] = $value;
-    }
-}
 
 
    
