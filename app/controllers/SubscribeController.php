@@ -1,7 +1,5 @@
 <?php
 use Josantonius\Logger\Logger;
-
-
 class SubscribeController {
     static function subscribeForCreateTask ()
     {

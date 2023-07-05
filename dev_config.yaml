@@ -4,3 +4,7 @@ port: '3306'
 db: 'todo'
 user: 'todo'
 pass: '123'
+
+
+#########  AUTH  ##########
+salt: '-45dfeHK/'
