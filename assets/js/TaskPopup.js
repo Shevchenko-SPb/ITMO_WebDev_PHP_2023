@@ -1,5 +1,3 @@
-import { randomString } from './stringUtils.js';
-
 class TaskPopup {
   #title;
   #tags;
@@ -15,9 +13,13 @@ class TaskPopup {
   }
 
   #taskTitle = '';
+  #taskBody = '';
 
   set taskTitle(value) {
     this.#taskTitle = value;
+  }
+  set taskBody(value) {
+    this.#taskBody = value;
   }
 
   render() {
@@ -36,22 +38,20 @@ class TaskPopup {
               data-id="inpTitle"
               type="text"
               value="${this.#taskTitle}"
-              placeholder="e.g. Read books"
+              placeholder="Title"
             />
-          </div>
+          </div> 
         </div>
-        <div class="flex flex-row">
+      
           <div class="flex flex-col w-full">
-            <label class="ml-1 text-sm text-neutral-600" for="inpDate">End date: </label>
-            <input
+            <label class="ml-1 text-sm text-neutral-600" for="inpDate">Description: </label>
+            <textarea
               class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200"
-              type="date"
-              id="inpDate"
-              name="trip-start"
-              min="2018-01-01"
-            />
-          </div>
-        </div>
+              data-id="inpBody"
+              type="text"
+              placeholder="Description"
+            >${this.#taskBody}</textarea>
+          </div> 
         <div class="flex flex-row">
           <div class="flex flex-col w-full">
             <label for="countries" class="ml-1 text-sm text-neutral-600">Select tag:</label>
@@ -67,6 +67,21 @@ class TaskPopup {
             </select>
           </div>
         </div>
+        <div class="flex flex-row">
+          <div class="flex flex-col w-full">
+            <label for="countries" class="ml-1 text-sm text-neutral-600">Select tag:</label>
+            <select
+              id="countries_"
+              class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"
+            >
+              <option selected>Priority choice</option>
+              <option value="highPriority">High Priority</option>
+              <option value="mediumPriority">Medium Priority</option>
+              <option value="lowPriority">Low Priority</option>
+              <option value="onStandby">On Standby</option>
+            </select>
+          </div>
+        </div>
         
           <button data-id="btnConfirm" class="bg-teal-600 text-white p-2 rounded-lg w-full font-bold">${this.#confirmText}</button>
        
@@ -79,8 +94,10 @@ class TaskPopup {
     const domBtnClose = popup.querySelector('[data-id="btnClose"]');
     const domBtnConfirm = popup.querySelector('[data-id="btnConfirm"]');
     const domInpTitle = popup.querySelector('[data-id="inpTitle"]');
+    const domInpBody = popup.querySelector('[data-id="inpBody"]');
 
     domBtnClose.onclick = () => {
+      console.log("Кнопка закрыть")
       domBtnClose.onclick = null;
       domBtnConfirm.onclick = null;
       this.#closeCallback();
@@ -88,9 +105,10 @@ class TaskPopup {
 
     domBtnConfirm.onclick = () => {
       const taskTitle = domInpTitle.value;
+      const taskBody = domInpBody.value;
       const taskDate = Date.now();
       const taskTags = this.#tags[0];
-      this.#confirmCallback(taskTitle, taskDate, taskTags);
+      this.#confirmCallback(taskTitle, taskBody, taskDate, taskTags);
     };
 
     return div.children[0];
