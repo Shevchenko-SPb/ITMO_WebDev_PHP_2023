@@ -87,7 +87,9 @@ class ToDoModel
     public function createTask ()
     {
         $db = DB::getDb();
+        
         $sql = sprintf(self::SQL_INSERT_TASK, 1, 2, 'title', '2023-10-10');
+
 
         $db->query($sql);
         $id_task = $db->lastInsertId();
