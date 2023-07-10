@@ -2,11 +2,8 @@
 
 class View {
     function render($path, $data) {
-//        var_dump($path);
-//        var_dump($data);
         extract($data);
         $fullpath = __DIR__."/../app/templates/" . $path;
-//        var_dump($fullpath);
         if (file_exists($fullpath) ) {
             ob_start();
             include $fullpath;

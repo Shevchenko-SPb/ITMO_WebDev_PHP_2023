@@ -6,4 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Predis\\' => array($vendorDir . '/predis/predis/src'),
+    'Josantonius\\Logger\\' => array($vendorDir . '/josantonius/logger/src'),
 );

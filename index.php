@@ -2,8 +2,6 @@
 
 session_start();
 
-// var_dump($_SESSION);
-// exit(0);
 
 define('ROOT', dirname(__FILE__));
 require_once('./vendor/autoload.php');
@@ -40,6 +38,7 @@ class Router {
         }
         // Пытаемся применить к нему правила из конфигуации.
         foreach($this->routes as $pattern => $route){
+
             // Если правило совпало.
             if(preg_match("~$pattern~", $uri)){
                 // Получаем внутренний путь из внешнего согласно правилу.
@@ -58,11 +57,8 @@ class Router {
 
                     include($controllerFile);
                 }
-                // var_dump($controllerFile);
                 $obj = new $controller();
-                $obj->$action();
-                // var_dump($obj);
-                // var_dump($action);
+                $obj->$action($parameters);
 //                call_user_func_array(array($controller, $action), $params);
             }
         }

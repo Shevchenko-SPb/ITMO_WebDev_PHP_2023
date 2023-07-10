@@ -1,0 +1,134 @@
+{
+    "packages": [
+        {
+            "name": "josantonius/logger",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/josantonius/php-logger.git",
+                "reference": "212f1db9034f7daeabd34fa8ed8220156f75372d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/josantonius/php-logger/zipball/212f1db9034f7daeabd34fa8ed8220156f75372d",
+                "reference": "212f1db9034f7daeabd34fa8ed8220156f75372d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "time": "2017-01-21T00:36:47+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Josantonius\\Logger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josantonius",
+                    "email": "info@josantonius.com",
+                    "homepage": "https://github.com/josantonius",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Php library to create logs easily and store them in Json format.",
+            "keywords": [
+                "debug",
+                "debugger",
+                "hhvm",
+                "log",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/josantonius/php-logger/issues",
+                "source": "https://github.com/josantonius/php-logger/tree/1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Josantonius",
+                    "type": "github"
+                }
+            ],
+            "abandoned": "monolog/monolog",
+            "install-path": "../josantonius/logger"
+        },
+        {
+            "name": "predis/predis",
+            "version": "v2.2.0",
+            "version_normalized": "2.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/predis/predis.git",
+                "reference": "33b70b971a32b0d28b4f748b0547593dce316e0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/predis/predis/zipball/33b70b971a32b0d28b4f748b0547593dce316e0d",
+                "reference": "33b70b971a32b0d28b4f748b0547593dce316e0d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.3",
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^8.0 || ~9.4.4"
+            },
+            "suggest": {
+                "ext-relay": "Faster connection with in-memory caching (>=0.6.2)"
+            },
+            "time": "2023-06-14T10:37:31+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Till Krüss",
+                    "homepage": "https://till.im",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A flexible and feature-complete Redis client for PHP.",
+            "homepage": "http://github.com/predis/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "support": {
+                "issues": "https://github.com/predis/predis/issues",
+                "source": "https://github.com/predis/predis/tree/v2.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tillkruss",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../predis/predis"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

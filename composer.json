@@ -1,5 +1,0 @@
-{
-  "autoload": {
-    "classmap": ["app/controllers", "app/models", "app/templates", "app/view"]
-  }
-}

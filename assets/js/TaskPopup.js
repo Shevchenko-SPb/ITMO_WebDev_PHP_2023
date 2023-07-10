@@ -24,9 +24,7 @@ class TaskPopup {
     const div = document.createElement('div');
     div.innerHTML = `
       <div data-test-id="task-popup" class="flex flex-col relative min-w-[377px] bg-white p-6 rounded-2xl gap-y-4">
-        <button class="absolute top-4 right-4" data-id="btnClose">
-          <i class="block text-neutral-400 hover:text-neutral-800 text-2xl"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"><path fill="currentColor" d="M3 16.74L7.76 12L3 7.26L7.26 3L12 7.76L16.74 3L21 7.26L16.24 12L21 16.74L16.74 21L12 16.24L7.26 21L3 16.74m9-3.33l4.74 4.75l1.42-1.42L13.41 12l4.75-4.74l-1.42-1.42L12 10.59L7.26 5.84L5.84 7.26L10.59 12l-4.75 4.74l1.42 1.42L12 13.41Z"/></svg></i>
-        </button>
+        <button class="absolute  right-4" data-id="btnClose"> <i class="block text-neutral-400 hover:text-neutral-800 text-2xl"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"><path fill="currentColor" d="M3 16.74L7.76 12L3 7.26L7.26 3L12 7.76L16.74 3L21 7.26L16.24 12L21 16.74L16.74 21L12 16.24L7.26 21L3 16.74m9-3.33l4.74 4.75l1.42-1.42L13.41 12l4.75-4.74l-1.42-1.42L12 10.59L7.26 5.84L5.84 7.26L10.59 12l-4.75 4.74l1.42 1.42L12 13.41Z"/></svg></i> </button>
         <div class="flex flex-row">
           <span class="text-xl font-bold">${this.#title}</span>
         </div>
@@ -69,11 +67,9 @@ class TaskPopup {
             </select>
           </div>
         </div>
-        <div class="flex flex-row pt-2">
-          <button data-id="btnConfirm" class="bg-teal-600 text-white p-2 rounded-lg w-full font-bold">
-            ${this.#confirmText}
-          </button>
-        </div>
+        
+          <button data-id="btnConfirm" class="bg-teal-600 text-white p-2 rounded-lg w-full font-bold">${this.#confirmText}</button>
+       
       </div>
     `;
     console.log('div.firstChild', div.children);

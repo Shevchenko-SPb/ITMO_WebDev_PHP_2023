@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$sessionInstance = Session::instance();
+
 
 require_once "./etc/config.php";
 require_once "./core/db_mysql.php";
@@ -13,9 +15,11 @@ require_once "./core/db_mysql.php";
 $user_login = $_POST["login"];
 $user_password = $_POST["password"];
 
+$sessionInstance->set("is_auth", false);
+$sessionInstance->set("is_auth_admin", false);
 
-$_SESSION["is_auth"] = false;
-$_SESSION["is_auth_admin"] = false;
+//$_SESSION["is_auth"] = false;
+//$_SESSION["is_auth_admin"] = false;
 
 
 
@@ -46,18 +50,18 @@ function loginUser()
 
 
     if($result){
-        $_SESSION["is_auth"] = true;
-        $_SESSION["id_user"] = $result["id"];
-        $_SESSION["name"] = $result["name"];
-        $_SESSION["surname"] = $result["surname"];
-        $_SESSION["href_avatar"] = $result["href_avatar"];
-        $_SESSION["is_auth"] = true;
+        global $sessionInstance;
+        $sessionInstance->set("is_auth", true);
+        $sessionInstance->set($result["id"]);
+        $sessionInstance->set($result["name"]);
+        $sessionInstance->set($result["surname"]);
+        $sessionInstance->set($result["href_avatar"]);
     } else {
-        $_SESSION["is_auth"] = false;
+        global $sessionInstance;
+        $sessionInstance->set("is_auth",false);
     }
     header('location: ./todo');
 }
-
 
 function registrationUser()
 {
@@ -80,11 +84,11 @@ function registrationUser()
 function createUser()
 {
     global $file_User_DATA,
-           $user_password,
-           $user_login,
-           $Token,
-           $salt,
-           $passwordBase;
+        $user_password,
+        $user_login,
+        $Token,
+        $salt,
+        $passwordBase;
     if (count($passwordBase) == null) {
         $uniqId = 1;
     } else {

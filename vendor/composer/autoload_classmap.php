@@ -9,8 +9,11 @@ return array(
     'AboutController' => $baseDir . '/app/controllers/AboutController.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'LoginController' => $baseDir . '/app/controllers/LoginController.php',
+    'PublishController' => $baseDir . '/app/controllers/PublishController.php',
     'RegistrationController' => $baseDir . '/app/controllers/RegistrationController.php',
+    'SubscribeController' => $baseDir . '/app/controllers/SubscribeController.php',
     'ToDoController' => $baseDir . '/app/controllers/ToDoController.php',
     'ToDoModel' => $baseDir . '/app/models/ToDoModel.php',
     'ToDoView' => $baseDir . '/app/view/ToDoView.php',
+    'UserModel' => $baseDir . '/app/models/UserModel.php',
 );
