@@ -228,6 +228,7 @@ axios.get('/tasks', {
     document.onkeyup = (e) => {
       if (e.key === 'Escape') {
         onClosePopup();
+        onClosePopup();
       }
     };
     domPopupContainer.append(taskPopupInstance.render());
