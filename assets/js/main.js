@@ -80,6 +80,7 @@ axios.get('/tasks', {
   //   ? JSON.parse(rawTasks).map((json) => TaskVO.fromJSON(json))
   //   : [];
   // tasks.forEach((taskVO) => renderTask(taskVO));
+
 //console.log('> tasks:', tasks);
 
 
