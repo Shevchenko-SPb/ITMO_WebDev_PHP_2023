@@ -12,6 +12,7 @@ return array(
     'gettask' => 'ToDo/getTaskById',
     'createnewtask' => 'ToDo/createTask',
     'deleteusertask' => 'ToDo/deleteTask',
+    'updatenewtask' => 'ToDo/updateTask',
     'sse' => 'ToDo/sse',
     'logout' => 'ToDo/logout',
     'reguser' => 'Registration/CreateUser'

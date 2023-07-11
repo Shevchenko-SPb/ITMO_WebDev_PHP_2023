@@ -38,18 +38,27 @@ class ToDoController
    public function actionCreateTask ()
    {
        $taskVOdata = json_decode(file_get_contents('php://input'),true);
-       $title = $taskVOdata[0];
-       $body = $taskVOdata [1];
+       $_title = $taskVOdata[0];
+       $_body = $taskVOdata [1];
        $model = new ToDoModel();
-       $result = $model -> createTask($title, $body);
+       $result = $model -> createTask($_title, $_body);
        PublishController::publicTaskInRedis($result);
+   }
+   public function actionUpdateTask ()
+   {
+       $taskVOdata = json_decode(file_get_contents('php://input'),true);
+       $_title = $taskVOdata[0];
+       $_body = $taskVOdata [1];
+       $_id = $taskVOdata [2];
+       $model = new ToDoModel();
+       $model -> updateTask($_title, $_body, $_id);
    }
 
    public function actionDeleteTask ()
    {
-       $taskId = json_decode(file_get_contents('php://input'),true);
+       $_taskId = json_decode(file_get_contents('php://input'),true);
        $model = new ToDoModel();
-       $model -> deleteTask($taskId);
+       $model -> deleteTask($_taskId);
 
    }
 

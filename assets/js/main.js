@@ -115,7 +115,7 @@ axios.get('/tasks', {
 
           const domTaskUpdated = renderTask(taskVO);
           domTaskColumn.replaceChild(domTaskUpdated, domTask);
-          saveTask();
+          updateTask(taskVO);
         }
       );
     },
@@ -269,3 +269,23 @@ axios.get('/tasks', {
           console.log(error);
         });
   }
+function updateTask (taskVO) {
+  console.log('Работает', taskVO)
+
+  var $title = taskVO.title;
+  var $body = taskVO.body;
+  var $id = taskVO.id;
+  let $taskVOdata;
+  $taskVOdata = [$title, $body, $id]
+  console.log($taskVOdata)
+
+  axios.post('/updatenewtask',
+      JSON.parse(JSON.stringify($taskVOdata))
+  )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+}

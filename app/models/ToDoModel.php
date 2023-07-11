@@ -30,7 +30,11 @@ class ToDoModel
 
     const SQL_INSERT_TASK = "INSERT INTO todo.task
                                 (id_status, id_tag, title, body, dt_end, is_archive)
-                                 VALUES(%d, %d, '%s','%s', '%s', NULL );";
+                                 VALUES(%d, %d, '%s','%s', '%s', NULL);";
+
+    const SQL_UPDATE_TASK = "UPDATE todo.task
+                             SET id_status = %d, id_tag = %d, title = '%s', body = '%s', dt_end = '%s', is_archive = NULL 
+                             WHERE id = %d;";
 
     const SQL_CREATE_USER_TASK = "INSERT INTO todo.user_task
                                   (id_users, id_tasks, id_user_owner)   
@@ -90,10 +94,10 @@ class ToDoModel
     }
 
     // ToDo: дописать insert задачи, подключить класс Publisher.
-    public function createTask ($title, $body)
+    public function createTask ($_title, $_body)
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_INSERT_TASK, 1, 2, $title, $body, '2023-10-10');
+        $sql = sprintf(self::SQL_INSERT_TASK, 1, 2, $_title, $_body, '2023-10-10');
 
 
         $db->query($sql);
@@ -104,11 +108,17 @@ class ToDoModel
         $db->query($sql);
         return array('id_task'=>$id_task, 'id_user'=>$id_user);
     }
-
-    public function deleteTask ($taskId)
+    public function updateTask ($_title, $_body, $_id)
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_DELETE_USER_TASK, $taskId);
+        $sql = sprintf(self::SQL_UPDATE_TASK, 1, 2, $_title, $_body, '2023-10-10', $_id);
+        $db->query($sql);
+    }
+
+    public function deleteTask ($task_Id)
+    {
+        $db = DB::getDb();
+        $sql = sprintf(self::SQL_DELETE_USER_TASK, $task_Id);
         $db->query($sql);
     }
 }
