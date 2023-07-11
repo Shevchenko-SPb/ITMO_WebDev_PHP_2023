@@ -33,4 +33,13 @@ class UserModel {
         return sha1($pass . $salt);
     }
 
+    const SQL_INSERT_USER = "INSERT INTO todo.`user`
+(login, pass, dt_create, is_block, name, surname, href_avatar)
+                             VALUES('pavel-1', '123', now(), 0, 'Вася', 'Пупкин', null)";
+
+    public function create($name, $surname, $login, $password){
+        $db = DB::getDB();
+        $stmt = $db->query(self::SQL_INSERT_USER);
+
+    }
 }

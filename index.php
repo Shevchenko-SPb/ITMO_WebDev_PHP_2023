@@ -2,8 +2,6 @@
 
 session_start();
 
-// var_dump($_SESSION);
-// exit(0);
 
 define('ROOT', dirname(__FILE__));
 require_once('./vendor/autoload.php');
@@ -62,12 +60,9 @@ class Router {
 
                     include($controllerFile);
                 }
-                // var_dump($controllerFile);
                 $obj = new $controller();
                 $obj->$action($parameters);
 
-                // var_dump($obj);
-                // var_dump($action);
 //                call_user_func_array(array($controller, $action), $params);
             }
         }

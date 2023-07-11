@@ -1,7 +1,4 @@
-<?php 
-
-
-
+<?php
 
 class ToDoController 
 {
@@ -17,7 +14,7 @@ class ToDoController
        $surname = $_SESSION["surname"];
        $href_avatar = $_SESSION["href_avatar"];
        $v = new ToDoView();
-       // var_dump(array_merge(array("name" => 1234), $resultCount));
+
        $result = $v->render('index.html', array_merge(array(
            "name" => $name,
            "surname" => $surname,
@@ -28,12 +25,6 @@ class ToDoController
    {
       $model = new ToDoModel();
       $result = $model -> getUserTasks();
-     /* $task1 = array(
-         'id'=>'task_1686232804504', 
-         'title'=> 'Что то там', 
-         'date'=> '1686232804503', 
-         'tag'=> 'Web'
-      );*/
       $tasks = array('result' => $result);
       header('Content-Type: application/json; charset=utf-8');
       echo json_encode($tasks);
@@ -49,12 +40,30 @@ class ToDoController
 
    public function actionCreateTask ()
    {
-       $model = new ToDoModel();
-       $result = $model -> createTask();
-//       var_dump($result);
-//       exit();
 
+       $taskVOdata = json_decode(file_get_contents('php://input'),true);
+       $_title = $taskVOdata[0];
+       $_body = $taskVOdata [1];
+       $model = new ToDoModel();
+       $result = $model -> createTask($_title, $_body);
        PublishController::publicTaskInRedis($result);
+   }
+   public function actionUpdateTask ()
+   {
+       $taskVOdata = json_decode(file_get_contents('php://input'),true);
+       $_title = $taskVOdata[0];
+       $_body = $taskVOdata [1];
+       $_id = $taskVOdata [2];
+       $model = new ToDoModel();
+       $model -> updateTask($_title, $_body, $_id);
+   }
+
+   public function actionDeleteTask ()
+   {
+       $_taskId = json_decode(file_get_contents('php://input'),true);
+       $model = new ToDoModel();
+       $model -> deleteTask($_taskId);
+
 
    }
 
@@ -67,7 +76,6 @@ class ToDoController
    public function actionSse()
    {
        SubscribeController::subscribeForCreateTask();
-
    }
 }
 

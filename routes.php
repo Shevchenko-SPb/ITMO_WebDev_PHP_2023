@@ -10,7 +10,10 @@ return array(
     'users/([-_a-z0-9]+)' => 'users/show/$1',
     'tasks' => 'ToDo/getList',
     'gettask' => 'ToDo/getTaskById',
-    'createtask' => 'ToDo/createTask',
+    'createnewtask' => 'ToDo/createTask',
+    'deleteusertask' => 'ToDo/deleteTask',
+    'updatenewtask' => 'ToDo/updateTask',
     'sse' => 'ToDo/sse',
     'logout' => 'ToDo/logout',
+    'reguser' => 'Registration/CreateUser'
 );
