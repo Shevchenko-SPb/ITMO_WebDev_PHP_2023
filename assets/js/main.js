@@ -97,7 +97,6 @@ axios.get('/tasks', {
               taskDate,
               taskTag,
             });
-            // tasks.splice(tasks.indexOf(taskVO), 1);
             domTaskColumn.removeChild(domTask);
             deleteTask(taskVO);
           }
