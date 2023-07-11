@@ -203,8 +203,6 @@ axios.get('/tasks', {
 
     const onClosePopup = () => {
       domPopupContainer.children[0].remove();
-      domPopupContainer.children[0].remove();
-      domPopupContainer.append(domSpinner);
       domPopupContainer.classList.add('hidden');
     };
 
