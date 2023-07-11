@@ -37,8 +37,11 @@ class ToDoController
 
    public function actionCreateTask ()
    {
+       $taskVOdata = json_decode(file_get_contents('php://input'),true);
+       $title = $taskVOdata[0];
+       $body = $taskVOdata [1];
        $model = new ToDoModel();
-       $result = $model -> createTask();
+       $result = $model -> createTask($title, $body);
        PublishController::publicTaskInRedis($result);
    }
 

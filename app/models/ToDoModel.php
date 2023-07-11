@@ -11,7 +11,7 @@ class ToDoModel
                              GROUP BY ut.id_users";
     
 
-    const SQL_GET_LIST_TASKS = "SELECT tk.id_status, tg.name tag, tk.title, tk.dt_end, tk.body
+    const SQL_GET_LIST_TASKS = "SELECT tk.id, tk.id_status, tg.name tag, tk.title, tk.dt_end, tk.body
 
                                   FROM task tk, user_task ut, status st, tag tg
                                  WHERE st.id=tk.id_status 
@@ -29,8 +29,8 @@ class ToDoModel
                                    AND ut.id_users = %d";
 
     const SQL_INSERT_TASK = "INSERT INTO todo.task
-                                (id_status, id_tag, title, dt_end, is_archive)
-                                 VALUES(%d, %d, '%s', '%s', NULL );";
+                                (id_status, id_tag, title, body, dt_end, is_archive)
+                                 VALUES(%d, %d, '%s','%s', '%s', NULL );";
 
     const SQL_CREATE_USER_TASK = "INSERT INTO todo.user_task
                                   (id_users, id_tasks, id_user_owner)   
@@ -84,11 +84,10 @@ class ToDoModel
     }
 
     // ToDo: дописать insert задачи, подключить класс Publisher.
-    public function createTask ()
+    public function createTask ($title, $body)
     {
         $db = DB::getDb();
-        
-        $sql = sprintf(self::SQL_INSERT_TASK, 1, 2, 'title', '2023-10-10');
+        $sql = sprintf(self::SQL_INSERT_TASK, 1, 2, $title, $body, '2023-10-10');
 
 
         $db->query($sql);
@@ -100,7 +99,6 @@ class ToDoModel
         return array('id_task'=>$id_task, 'id_user'=>$id_user);
     }
 }
-
 //$sql1 = "INSERT INTO status
 //                (name)
 //                VALUES('dff');";

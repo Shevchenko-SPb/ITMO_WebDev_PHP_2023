@@ -7,7 +7,6 @@ import DOM from './dom.js';
 
   class TaskVO {
     static fromJSON(json) {
-      console.log(json)
       return new TaskVO(json.id, json.title, json.body, json.date, json.tag);
     }
 
@@ -25,30 +24,32 @@ import DOM from './dom.js';
 
   const domTemplateTask = getDOM(DOM.Template.TASK);
 
-  console.log(domTemplateTask)
-
   const domTaskColumn = domTemplateTask.parentNode;
   domTemplateTask.removeAttribute('id');
   domTemplateTask.remove();
 
   // const rawTasks = localStorage.getItem(KEY_LOCAL_TASKS);
   var rawTasks = undefined;
+  var tasks = undefined;
 //document.addEventListener("DOMContentLoaded", function(event) {
   const headers = {
     'Content-Type': 'application/json'
   }
-
 
 axios.get('/tasks', {
   headers: headers
 })
   .then(function (response) {
     rawTasks = response.data.result
+    // console.log('rawTasks',rawTasks)
     // console.log(JSON.parse(response.data.result));
     const tasks = rawTasks
+
       ? rawTasks.map((json) => TaskVO.fromJSON(json))
       : [];
     tasks.forEach((taskVO) => renderTask(taskVO));
+    // console.log('tasks ->>>',tasks)
+
   })
   .catch(function (error) {
     // handle error
@@ -57,61 +58,58 @@ axios.get('/tasks', {
   .finally(function () {
     // always executed
   });
+
+// console.log('Tasks ->>>>',tasks)
   //console.log('finish');
 //});
-
 //______________________Listner
-  // const eventSource = new EventSource('http://localhost:8081/sse');
-  // const listElement = document.getElementById('message-list');
-  //
-  // eventSource.onmessage = function (currentEvent) {
-  // // const newElement = document.createElement('li');
-  // // newElement.innerText = currentEvent.data;
-  //
-  // // listElement.appendChild(newElement)
-  // console.log(currentEvent);
-  // };
+//   const eventSource = new EventSource('http://localhost:8081/sse');
+//   const listElement = document.getElementById('message-list');
+//
+//   eventSource.onmessage = function (currentEvent) {
+//   // const newElement = document.createElement('li');
+//   // newElement.innerText = currentEvent.data;
+//
+//   // listElement.appendChild(newElement)
+//   console.log(currentEvent);
+//   };
 //________________________________
 
-  const tasks = rawTasks
-    ? JSON.parse(rawTasks).map((json) => TaskVO.fromJSON(json))
-    : [];
-  tasks.forEach((taskVO) => renderTask(taskVO));
+
+  // const tasks = rawTasks
+  //   ? JSON.parse(rawTasks).map((json) => TaskVO.fromJSON(json))
+  //   : [];
+  // tasks.forEach((taskVO) => renderTask(taskVO));
 //console.log('> tasks:', tasks);
+
+
 
   const taskOperations = {
     [DOM.Template.Task.BTN_DELETE]: (taskVO, domTask) => {
       renderTaskPopup(
-        taskVO,
-        'Confirm delete task?',
-        'Delete',
-        (taskTitle, taskBody, taskDate, taskTag) => {
-          console.log('> Delete task -> On Confirm', {
-            taskTitle,
-            taskBody,
-            taskDate,
-            taskTag,
-          });
-          tasks.splice(tasks.indexOf(taskVO), 1);
-          domTaskColumn.removeChild(domTask);
-          saveTask();
-        }
+          taskVO,
+          'Confirm delete task?',
+          'Delete',
+          (taskTitle, taskBody, taskDate, taskTag) => {
+            console.log('> Delete task -> On Confirm', {
+              taskTitle,
+              taskBody,
+              taskDate,
+              taskTag,
+            });
+            tasks.splice(tasks.indexOf(taskVO), 1);
+            domTaskColumn.removeChild(domTask);
+            saveTask();
+          }
       );
     },
     [DOM.Template.Task.BTN_EDIT]: (taskVO, domTask) => {
-      console.log("Button Edit -> click")
-      console.log("taskTitle Edit ->",taskVO.body)
+
       renderTaskPopup(
         taskVO,
         'Update task',
         'Update',
         (taskTitle, taskBody, taskDate, taskTag) => {
-          console.log('> Update task -> On Confirm', {
-            taskTitle,
-            taskBody,
-            taskDate,
-            taskTag,
-          });
           taskVO.title = taskTitle;
           taskVO.body = taskBody;
 
@@ -125,16 +123,11 @@ axios.get('/tasks', {
 
   domTaskColumn.onclick = (e) => {
     e.stopPropagation();
-    console.log('domTaskColumn ->', e.target);
     const domTaskElement = e.target;
-    console.log("domTaskElement -> ", domTaskElement)
     const taskBtn = domTaskElement.dataset.btn;
-    console.log("Кнопка ? Что это такое", taskBtn )
 
     const isNotTaskBtn = !taskBtn;
-    console.log('domTaskColumnBTN 1->', e.target);
     if (isNotTaskBtn) return;
-    console.log('domTaskColumnBTN 2->', e.target);
 
     const allowedButtons = [
       DOM.Template.Task.BTN_EDIT,
@@ -144,13 +137,19 @@ axios.get('/tasks', {
 
     let taskId;
     let domTask = domTaskElement;
+    console.log('domTask ->', domTask)
+
     do {
       domTask = domTask.parentNode;
       taskId = domTask.dataset.id;
     } while (!taskId);
 
-    const taskVO = tasks.find((task) => task.id === taskId);
-    console.log('> taskVO:', taskVO);
+    console.log('rawTasks',rawTasks)
+    const tasks = rawTasks
+        ? rawTasks.map((json) => TaskVO.fromJSON(json))
+        : [];
+
+    const taskVO = tasks.find((task) => task.id == taskId);
 
     const taskOperation = taskOperations[taskBtn];
     if (taskOperation) {
@@ -158,20 +157,19 @@ axios.get('/tasks', {
     }
   };
   function templatePopupCreateTask () {
-    console.log("Кнопка addTask")
+    // console.log("hello")
     renderTaskPopup(
       null,
       'Create task',
       'Create',
       (taskTitle, taskBody, taskDate, taskTag) => {
-        console.log('> Create task -> On Confirm');
         const taskId = `task_${Date.now()}`;
         const taskVO = new TaskVO(taskId, taskTitle, taskBody, taskDate, taskTag);
 
         renderTask(taskVO);
-        tasks.push(taskVO);
+        // tasks.push(taskVO);
 
-        saveTask();
+        saveTask(taskVO);
       }
     );
   }
@@ -205,7 +203,6 @@ axios.get('/tasks', {
     domPopupContainer.classList.remove('hidden');
 
     const onClosePopup = () => {
-      console.log("onClosePopup -> function run")
       domPopupContainer.children[0].remove();
       domPopupContainer.children[0].remove();
       domPopupContainer.append(domSpinner);
@@ -218,12 +215,6 @@ axios.get('/tasks', {
       Tags,
       confirmText,
       (taskTitle, taskBody, taskDate, taskTags) => {
-        console.log('Main -> renderTaskPopup: confirmCallback', {
-          taskTitle,
-          taskBody,
-          taskDate,
-          taskTags,
-        });
         processDataCallback(taskTitle, taskBody, taskDate, taskTags);
         onClosePopup();
       },
@@ -246,6 +237,20 @@ axios.get('/tasks', {
     // }, 1000);
   }
 
-  function saveTask() {
-    localStorage.setItem(KEY_LOCAL_TASKS, JSON.stringify(tasks));
+  function saveTask(taskVO) {
+    var $title = taskVO.title;
+    var $body = taskVO.body;
+    let $taskVOdata;
+    $taskVOdata = [$title, $body]
+    // console.log($taskVOdata)
+
+    axios.post('/createnewtask',
+      JSON.parse(JSON.stringify($taskVOdata))
+    )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
   }
