@@ -97,9 +97,9 @@ axios.get('/tasks', {
               taskDate,
               taskTag,
             });
-            tasks.splice(tasks.indexOf(taskVO), 1);
+            // tasks.splice(tasks.indexOf(taskVO), 1);
             domTaskColumn.removeChild(domTask);
-            saveTask();
+            deleteTask(taskVO);
           }
       );
     },
@@ -246,6 +246,21 @@ axios.get('/tasks', {
 
     axios.post('/createnewtask',
       JSON.parse(JSON.stringify($taskVOdata))
+    )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
+  function deleteTask (taskVO) {
+    console.log('Работает', taskVO)
+    var $taskID = taskVO.id;
+
+    axios.post('/deleteusertask',
+        JSON.parse(JSON.stringify($taskID))
     )
         .then(function (response) {
           console.log(response);

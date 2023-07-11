@@ -45,6 +45,14 @@ class ToDoController
        PublishController::publicTaskInRedis($result);
    }
 
+   public function actionDeleteTask ()
+   {
+       $taskId = json_decode(file_get_contents('php://input'),true);
+       $model = new ToDoModel();
+       $model -> deleteTask($taskId);
+
+   }
+
    public function actionLogout ()
    {
        session_destroy();

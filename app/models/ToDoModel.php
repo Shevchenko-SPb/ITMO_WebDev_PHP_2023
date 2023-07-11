@@ -36,6 +36,12 @@ class ToDoModel
                                   (id_users, id_tasks, id_user_owner)   
                                   VALUES(%d, %d, %d);";
 
+    const SQL_DELETE_USER_TASK = "DELETE FROM todo.task
+                                 WHERE id = %d;";
+
+
+
+
     public function countUserTask()
     {
         $db = DB::getDb();
@@ -97,6 +103,13 @@ class ToDoModel
         $sql = sprintf(self::SQL_CREATE_USER_TASK, $id_user, $id_task, $id_user_owner);
         $db->query($sql);
         return array('id_task'=>$id_task, 'id_user'=>$id_user);
+    }
+
+    public function deleteTask ($taskId)
+    {
+        $db = DB::getDb();
+        $sql = sprintf(self::SQL_DELETE_USER_TASK, $taskId);
+        $db->query($sql);
     }
 }
 //$sql1 = "INSERT INTO status
