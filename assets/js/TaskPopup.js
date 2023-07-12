@@ -52,6 +52,12 @@ class TaskPopup {
               placeholder="Description"
             >${this.#taskBody}</textarea>
           </div> 
+         <div class="flex flex-row">
+          <div class="flex flex-col w-full">
+            <label for="countries" class="ml-1 text-sm text-neutral-600">Deadline:</label>
+            <input class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none" type="date">
+          </div>
+        </div>
         <div class="flex flex-row">
           <div class="flex flex-col w-full">
             <label for="countries" class="ml-1 text-sm text-neutral-600">Select tag:</label>
@@ -69,7 +75,7 @@ class TaskPopup {
         </div>
         <div class="flex flex-row">
           <div class="flex flex-col w-full">
-            <label for="countries" class="ml-1 text-sm text-neutral-600">Select tag:</label>
+            <label for="countries" class="ml-1 text-sm text-neutral-600">Select priority:</label>
             <select
               id="countries_"
               class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"
