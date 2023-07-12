@@ -94,10 +94,10 @@ class ToDoModel
     }
 
     // ToDo: дописать insert задачи, подключить класс Publisher.
-    public function createTask ($_title, $_body, $_date)
+    public function createTask ($_title, $_body, $_date, $_tag)
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_INSERT_TASK, 1, 2, $_title, $_body, $_date);
+        $sql = sprintf(self::SQL_INSERT_TASK, 1, $_tag, $_title, $_body, $_date);
 
 
         $db->query($sql);

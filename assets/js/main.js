@@ -262,11 +262,12 @@ axios.get('/tasks', {
   }
 
   function saveTask(taskVO) {
-    var $title = taskVO.title;
-    var $body = taskVO.body;
-    var $date = taskVO.dt_end;
+    let $title = taskVO.title;
+    let $body = taskVO.body;
+    let $date = taskVO.dt_end;
+    let $tag = taskVO.tag;
     let $taskVOdata;
-    $taskVOdata = [$title, $body, $date]
+    $taskVOdata = [$title, $body, $date, $tag]
     // console.log($taskVOdata)
 
     axios.post('/createnewtask',

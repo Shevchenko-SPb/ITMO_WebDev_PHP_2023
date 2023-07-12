@@ -62,14 +62,14 @@ class TaskPopup {
           <div class="flex flex-col w-full">
             <label for="countries" class="ml-1 text-sm text-neutral-600">Select tag:</label>
             <select
-              id="countries"
+              data-id="selectTag"
               class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"
             >
               <option selected>Choose a tag</option>
-              <option value="web">Web</option>
-              <option value="update">Update</option>
-              <option value="design">Design</option>
-              <option value="content">Content</option>
+              <option value="1">Web</option>
+              <option value="2">Update</option>
+              <option value="3">Design</option>
+              <option value="4">Content</option>
             </select>
           </div>
         </div>
@@ -102,6 +102,7 @@ class TaskPopup {
     const domInpTitle = popup.querySelector('[data-id="inpTitle"]');
     const domInpBody = popup.querySelector('[data-id="inpBody"]');
     const domInpDate = popup.querySelector('[data-id="inpDate"]');
+    const domSelectTag = popup.querySelector('[data-id="selectTag"]');
 
     domBtnClose.onclick = () => {
       console.log("Кнопка закрыть")
@@ -114,8 +115,7 @@ class TaskPopup {
       const taskTitle = domInpTitle.value;
       const taskBody = domInpBody.value;
       const taskDate = domInpDate.value;
-      console.log('taskDate', taskDate)
-      const taskTags = this.#tags[0];
+      const taskTags = domSelectTag.value;
       this.#confirmCallback(taskTitle, taskBody, taskDate, taskTags);
     };
 
