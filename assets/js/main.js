@@ -44,7 +44,7 @@ axios.get('/tasks', {
     // console.log('rawTasks',rawTasks)
     // console.log(JSON.parse(response.data.result));
     const tasks = rawTasks
-    console.log(tasks)
+    // console.log(tasks)
 
       ? rawTasks.map((json) => TaskVO.fromJSON(json))
       : [];
@@ -192,16 +192,26 @@ axios.get('/tasks', {
     QUERY(domTaskClone, DOM.Template.Task.TITLE).innerText = taskVO.title;
     QUERY(domTaskClone, DOM.Template.Task.BODY).innerText = taskVO.body;
     QUERY(domTaskClone, DOM.Template.Task.DATE).innerText = counterDaysLeft(taskVO.dt_end)
+    templateColorIconClock (domTaskClone, counterDaysLeft(taskVO.dt_end))
+
 
     domTaskColumn.prepend(domTaskClone);
     return domTaskClone;
   }
 
+  function templateColorIconClock (domTaskClone, daysLeft) {
+    if (2 < daysLeft && daysLeft < 6) {
+      QUERY(domTaskClone, DOM.Template.Task.ICON).classList.add('text-yellow-500');
+    } else if (2 >= daysLeft) {
+      QUERY(domTaskClone, DOM.Template.Task.ICON).classList.add('text-red-500');
+    }
+  }
+
   function counterDaysLeft (deadline) {
     const endDate = new Date(deadline)
-    console.log(deadline)
-    const currentDate = new Date().getTime()
-    return Math.trunc((endDate.getTime() - currentDate) / 86400000);
+    const currentDate = new Date().toISOString().slice(0, 10);
+    const todayDate = new Date(currentDate)
+    return Math.trunc((endDate.getTime() - todayDate.getTime()) / 86400000) - 1;
   }
 
 
