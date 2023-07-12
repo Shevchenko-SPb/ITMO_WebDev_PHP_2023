@@ -108,10 +108,10 @@ class ToDoModel
         $db->query($sql);
         return array('id_task'=>$id_task, 'id_user'=>$id_user);
     }
-    public function updateTask ($_title, $_body, $_id)
+    public function updateTask ($_title, $_body, $_id, $_date)
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_UPDATE_TASK, 1, 2, $_title, $_body, '2023-10-10', $_id);
+        $sql = sprintf(self::SQL_UPDATE_TASK, 1, 2, $_title, $_body, $_date, $_id);
         $db->query($sql);
     }
 

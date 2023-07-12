@@ -184,6 +184,7 @@ axios.get('/tasks', {
 
 
   function renderTask(taskVO) {
+    console.log(taskVO)
 
     const domTaskClone = domTemplateTask.cloneNode(true);
 
@@ -191,6 +192,7 @@ axios.get('/tasks', {
 
     QUERY(domTaskClone, DOM.Template.Task.TITLE).innerText = taskVO.title;
     QUERY(domTaskClone, DOM.Template.Task.BODY).innerText = taskVO.body;
+    QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = taskVO.tag;
     QUERY(domTaskClone, DOM.Template.Task.DATE).innerText = counterDaysLeft(taskVO.dt_end)
     templateColorIconClock (domTaskClone, counterDaysLeft(taskVO.dt_end))
 
@@ -248,6 +250,8 @@ axios.get('/tasks', {
     if (taskVO) {
       taskPopupInstance.taskTitle = taskVO.title;
       taskPopupInstance.taskBody = taskVO.body;
+      taskPopupInstance.taskTags = taskVO.tag;
+      console.log(taskVO.tag)
     }
 
     // setTimeout(() => {
@@ -298,11 +302,14 @@ axios.get('/tasks', {
 function updateTask (taskVO) {
   console.log('Работает', taskVO)
 
-  var $title = taskVO.title;
-  var $body = taskVO.body;
-  var $id = taskVO.id;
+  let $title = taskVO.title;
+  let $body = taskVO.body;
+  let $id = taskVO.id;
+  let $date = taskVO.dt_end;
+  console.log($date)
+
   let $taskVOdata;
-  $taskVOdata = [$title, $body, $id]
+  $taskVOdata = [$title, $body, $id, $date]
   console.log($taskVOdata)
 
   axios.post('/updatenewtask',
