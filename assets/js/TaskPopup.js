@@ -114,6 +114,7 @@ class TaskPopup {
       const taskTitle = domInpTitle.value;
       const taskBody = domInpBody.value;
       const taskDate = domInpDate.value;
+      console.log('taskDate', taskDate)
       const taskTags = this.#tags[0];
       this.#confirmCallback(taskTitle, taskBody, taskDate, taskTags);
     };

@@ -1,20 +1,20 @@
 import DOM from './dom.js';
 
 
-  const KEY_LOCAL_TASKS = 'tasks';
+const KEY_LOCAL_TASKS = 'tasks';
 
   const Tags = ['Web', 'Update', 'Design', 'Content'];
 
   class TaskVO {
     static fromJSON(json) {
-      return new TaskVO(json.id, json.title, json.body, json.date, json.tag);
+      return new TaskVO(json.id, json.title, json.body, json.dt_end, json.tag);
     }
 
     constructor(id, title, body, date, tag) {
       this.id = id;
       this.title = title;
       this.body = body;
-      this.date = date;
+      this.dt_end = date;
       this.tag = tag;
     }
   }
@@ -44,6 +44,7 @@ axios.get('/tasks', {
     // console.log('rawTasks',rawTasks)
     // console.log(JSON.parse(response.data.result));
     const tasks = rawTasks
+    console.log(tasks)
 
       ? rawTasks.map((json) => TaskVO.fromJSON(json))
       : [];
@@ -181,14 +182,30 @@ axios.get('/tasks', {
     templatePopupCreateTask ()
   };
 
+
   function renderTask(taskVO) {
+
     const domTaskClone = domTemplateTask.cloneNode(true);
+
     domTaskClone.dataset.id = taskVO.id;
+
     QUERY(domTaskClone, DOM.Template.Task.TITLE).innerText = taskVO.title;
     QUERY(domTaskClone, DOM.Template.Task.BODY).innerText = taskVO.body;
+    QUERY(domTaskClone, DOM.Template.Task.DATE).innerText = counterDaysLeft(taskVO.dt_end)
+
     domTaskColumn.prepend(domTaskClone);
     return domTaskClone;
   }
+
+  function counterDaysLeft (deadline) {
+    const endDate = new Date(deadline)
+    console.log(deadline)
+    const currentDate = new Date().getTime()
+    return Math.trunc((endDate.getTime() - currentDate) / 86400000);
+  }
+
+
+
 
   async function renderTaskPopup(
     taskVO,
@@ -237,7 +254,7 @@ axios.get('/tasks', {
   function saveTask(taskVO) {
     var $title = taskVO.title;
     var $body = taskVO.body;
-    var $date = taskVO.date;
+    var $date = taskVO.dt_end;
     let $taskVOdata;
     $taskVOdata = [$title, $body, $date]
     // console.log($taskVOdata)
