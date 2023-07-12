@@ -237,8 +237,9 @@ axios.get('/tasks', {
   function saveTask(taskVO) {
     var $title = taskVO.title;
     var $body = taskVO.body;
+    var $date = taskVO.date;
     let $taskVOdata;
-    $taskVOdata = [$title, $body]
+    $taskVOdata = [$title, $body, $date]
     // console.log($taskVOdata)
 
     axios.post('/createnewtask',

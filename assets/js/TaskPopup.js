@@ -55,7 +55,7 @@ class TaskPopup {
          <div class="flex flex-row">
           <div class="flex flex-col w-full">
             <label for="countries" class="ml-1 text-sm text-neutral-600">Deadline:</label>
-            <input class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none" type="date">
+            <input data-id="inpDate" class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none" type="date">
           </div>
         </div>
         <div class="flex flex-row">
@@ -101,6 +101,7 @@ class TaskPopup {
     const domBtnConfirm = popup.querySelector('[data-id="btnConfirm"]');
     const domInpTitle = popup.querySelector('[data-id="inpTitle"]');
     const domInpBody = popup.querySelector('[data-id="inpBody"]');
+    const domInpDate = popup.querySelector('[data-id="inpDate"]');
 
     domBtnClose.onclick = () => {
       console.log("Кнопка закрыть")
@@ -112,7 +113,7 @@ class TaskPopup {
     domBtnConfirm.onclick = () => {
       const taskTitle = domInpTitle.value;
       const taskBody = domInpBody.value;
-      const taskDate = Date.now();
+      const taskDate = domInpDate.value;
       const taskTags = this.#tags[0];
       this.#confirmCallback(taskTitle, taskBody, taskDate, taskTags);
     };

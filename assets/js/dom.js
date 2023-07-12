@@ -10,6 +10,7 @@ const Dom = {
     Task: {
       TITLE: 'templateTaskTitle',
       BODY: 'templateTaskBody',
+      DATE: 'templateTaskDate',
       BTN_EDIT: 'btnEdit',
       BTN_DELETE: 'btnDelete',
     },
