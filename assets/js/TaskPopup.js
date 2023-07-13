@@ -14,6 +14,8 @@ class TaskPopup {
 
   #taskTitle = '';
   #taskBody = '';
+  #taskDate = '';
+  #taskTag = '';
 
   set taskTitle(value) {
     this.#taskTitle = value;
@@ -21,6 +23,19 @@ class TaskPopup {
   set taskBody(value) {
     this.#taskBody = value;
   }
+  // taskDate, taskTags
+  text = 'Current choice: ';
+ set taskDate(value) {
+    this.#taskDate = value;
+ }
+
+
+ set taskTags (value) {
+
+    this.#taskTag = this.text + value;
+ }
+
+
 
 
   render() {
@@ -56,7 +71,7 @@ class TaskPopup {
          <div class="flex flex-row">
           <div class="flex flex-col w-full">
             <label for="countries" class="ml-1 text-sm text-neutral-600">Deadline:</label>
-            <input data-id="inpDate" class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none" type="date">
+            <input data-id="inpDate" value="${this.#taskDate}" class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none" type="date">
           </div>
         </div>
         <div class="flex flex-row">
@@ -64,13 +79,15 @@ class TaskPopup {
             <label for="countries" class="ml-1 text-sm text-neutral-600">Select tag:</label>
             <select
               data-id="selectTag"
-              class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"
+              class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"  
             >
+            <optgroup label="${this.#taskTag}">
               <option selected>Choose a tag</option>
               <option value="1">Web</option>
               <option value="2">Update</option>
               <option value="3">Design</option>
               <option value="4">Content</option>
+              </optgroup>
             </select>
           </div>
         </div>
@@ -96,6 +113,7 @@ class TaskPopup {
     `;
     console.log('div.firstChild', div.children);
 
+
     const popup = div.children[0];
 
     const domBtnClose = popup.querySelector('[data-id="btnClose"]');
@@ -104,6 +122,8 @@ class TaskPopup {
     const domInpBody = popup.querySelector('[data-id="inpBody"]');
     const domInpDate = popup.querySelector('[data-id="inpDate"]');
     const domSelectTag = popup.querySelector('[data-id="selectTag"]');
+
+    console.log(domSelectTag.value);
 
     domBtnClose.onclick = () => {
       console.log("Кнопка закрыть")

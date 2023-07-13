@@ -104,6 +104,7 @@ axios.get('/tasks', {
       );
     },
     [DOM.Template.Task.BTN_EDIT]: (taskVO, domTask) => {
+      console.log(taskVO)
 
       renderTaskPopup(
         taskVO,
@@ -115,7 +116,7 @@ axios.get('/tasks', {
           taskVO.dt_end = taskDate;
           taskVO.tag = taskTag;
 
-          console.log(taskVO)
+          console.log(taskTitle, taskBody, taskDate, taskTag)
 
           const domTaskUpdated = renderTask(taskVO);
           domTaskColumn.replaceChild(domTaskUpdated, domTask);
@@ -188,7 +189,7 @@ axios.get('/tasks', {
 
 
   function renderTask(taskVO) {
-    console.log(taskVO)
+    // console.log(taskVO)
 
     const domTaskClone = domTemplateTask.cloneNode(true);
 
@@ -217,7 +218,7 @@ axios.get('/tasks', {
     const endDate = new Date(deadline)
     const currentDate = new Date().toISOString().slice(0, 10);
     const todayDate = new Date(currentDate)
-    return Math.trunc((endDate.getTime() - todayDate.getTime()) / 86400000) - 1;
+    return Math.trunc((endDate.getTime() - todayDate.getTime()) / 86400000);
   }
 
 
@@ -250,12 +251,16 @@ axios.get('/tasks', {
       },
       onClosePopup
     );
+    console.log(taskVO)
 
     if (taskVO) {
       taskPopupInstance.taskTitle = taskVO.title;
       taskPopupInstance.taskBody = taskVO.body;
+      taskPopupInstance.taskDate = taskVO.dt_end;
+      // let tagAssociation = {'Web':'1', 'Update':'2', 'Design':'3', 'Content':'4'};
       taskPopupInstance.taskTags = taskVO.tag;
-      console.log(taskVO.tag)
+
+
     }
 
     // setTimeout(() => {
