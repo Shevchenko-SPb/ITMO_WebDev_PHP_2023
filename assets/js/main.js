@@ -315,9 +315,10 @@ function updateTask (taskVO) {
   let $body = taskVO.body;
   let $id = taskVO.id;
   let $date = taskVO.dt_end;
+  let $tag = taskVO.tag;
 
   let $taskVOdata;
-  $taskVOdata = [$title, $body, $id, $date]
+  $taskVOdata = [$title, $body, $id, $date, $tag]
   console.log($taskVOdata)
 
   axios.post('/updatenewtask',

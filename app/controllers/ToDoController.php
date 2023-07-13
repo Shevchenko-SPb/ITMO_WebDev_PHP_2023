@@ -53,9 +53,10 @@ class ToDoController
        $_body = $taskVOdata [1];
        $_id = $taskVOdata [2];
        $_date = $taskVOdata [3];
+       $_tag = $taskVOdata [4];
 
        $model = new ToDoModel();
-       $model -> updateTask($_title, $_body, $_id, $_date);
+       $model -> updateTask($_title, $_body, $_id, $_date, $_tag);
    }
 
    public function actionDeleteTask ()

@@ -83,10 +83,10 @@ class TaskPopup {
             >
             <optgroup label="${this.#taskTag}">
               <option selected>Choose a tag</option>
-              <option value="1">Web</option>
-              <option value="2">Update</option>
-              <option value="3">Design</option>
-              <option value="4">Content</option>
+              <option value="1">Design</option>
+              <option value="2">Web</option>
+              <option value="3">Front</option>
+              <option value="4">Back</option>
               </optgroup>
             </select>
           </div>

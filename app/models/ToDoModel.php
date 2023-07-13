@@ -55,7 +55,7 @@ class ToDoModel
         $sql = sprintf(self::SQL_COUNT_USER_TASK, $id_user);
         $stmt = $db->query($sql);
         $row = $stmt->fetch();
-        
+
         return array (
             'count' => $row['COUNT(ut.id_users)']
         );
@@ -104,10 +104,10 @@ class ToDoModel
         $db->query($sql);
         return array('id_task'=>$id_task, 'id_user'=>$id_user);
     }
-    public function updateTask ($_title, $_body, $_id, $_date)
+    public function updateTask ($_title, $_body, $_id, $_date, $_tag)
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_UPDATE_TASK, 1, 2, $_title, $_body, $_date, $_id);
+        $sql = sprintf(self::SQL_UPDATE_TASK, 1, $_tag, $_title, $_body, $_date, $_id);
         $db->query($sql);
     }
 
