@@ -54,14 +54,10 @@ class ToDoModel
         $id_user = 1;
         $sql = sprintf(self::SQL_COUNT_USER_TASK, $id_user);
         $stmt = $db->query($sql);
-
-        while ($row = $stmt->fetch())
-        {
-//            echo '<pre>';
-//            print_r($row);
-        }
+        $row = $stmt->fetch();
+        
         return array (
-            'count' => 2
+            'count' => $row['COUNT(ut.id_users)']
         );
     }
     public function getUserTasks()
