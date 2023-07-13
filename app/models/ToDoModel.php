@@ -41,7 +41,7 @@ class ToDoModel
                                   VALUES(%d, %d, %d);";
 
     const SQL_DELETE_USER_TASK = "DELETE FROM todo.task
-                                 WHERE id = %d;";
+                                  WHERE id = %d;";
 
 
 
