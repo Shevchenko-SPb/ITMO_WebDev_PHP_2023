@@ -112,6 +112,10 @@ axios.get('/tasks', {
         (taskTitle, taskBody, taskDate, taskTag) => {
           taskVO.title = taskTitle;
           taskVO.body = taskBody;
+          taskVO.dt_end = taskDate;
+          taskVO.tag = taskTag;
+
+          console.log(taskVO)
 
           const domTaskUpdated = renderTask(taskVO);
           domTaskColumn.replaceChild(domTaskUpdated, domTask);
@@ -306,8 +310,6 @@ function updateTask (taskVO) {
   let $body = taskVO.body;
   let $id = taskVO.id;
   let $date = taskVO.dt_end;
-  console.log($date)
-  console.log(taskVO.dt_end)
 
   let $taskVOdata;
   $taskVOdata = [$title, $body, $id, $date]
