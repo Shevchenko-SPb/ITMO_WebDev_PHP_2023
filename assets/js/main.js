@@ -307,6 +307,7 @@ function updateTask (taskVO) {
   let $id = taskVO.id;
   let $date = taskVO.dt_end;
   console.log($date)
+  console.log(taskVO.dt_end)
 
   let $taskVOdata;
   $taskVOdata = [$title, $body, $id, $date]
