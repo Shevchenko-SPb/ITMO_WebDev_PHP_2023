@@ -25,7 +25,8 @@ const KEY_LOCAL_TASKS = 'tasks';
   const domTemplateTask = getDOM(DOM.Template.TASK);
   const domBtnTagFilter = getDOM(DOM.Template.Main.TAG_FILTER)
   const domBtnDateFilter = getDOM(DOM.Template.Main.DATE_FILTER)
-// const domTaskColumn = getDOM(DOM.Template.TASK_COLUMN)
+
+
 
   const domTaskColumn = domTemplateTask.parentNode;
   domTemplateTask.removeAttribute('id');
@@ -55,11 +56,15 @@ function getTasks () {
           mapTags.set(rawTasks[key][0], rawTasks[key][2])
         }
 
+
         const tasks = rawTasks
+        // console.log(tasks.sort((a, b) => a.distance - b.distance))
 
 
             ? rawTasks.map((json) => TaskVO.fromJSON(json))
             : [];
+
+
 
         tasks.forEach((taskVO) => renderTask(taskVO));
 
@@ -93,25 +98,47 @@ function getTasks () {
 //________________________________
 
 
-  // const tasks = rawTasks
-  //   ? JSON.parse(rawTasks).map((json) => TaskVO.fromJSON(json))
-  //   : [];
-  // tasks.forEach((taskVO) => renderTask(taskVO));
-//console.log('> tasks:', tasks);
 domBtnTagFilter.addEventListener('change', function (e) {
-  console.log("Changed to: " + e.target.value)
-})
-domBtnTagFilter.onclick = () => {
-  console.log('cklick')
-  console.log(domBtnTagFilter.value)
-  const mapTagsOriginal = mapTags;
+  console.log('worked1')
   mapTags.forEach((value, key) => {
-    if (value === 'Web') {
-      mapTags.delete(key);
+    if (true) {
+      getDOM(key).classList.remove('hidden')
+    }
+  })
+
+  mapTags.forEach((value, key) => {
+    if (!(value === domBtnTagFilter.value)) {
       getDOM(key).classList.add('hidden')
     }
   })
-}
+
+  mapTags.forEach((value, key) => {
+    if ('Reset' === domBtnTagFilter.value) {
+      getDOM(key).classList.remove('hidden')
+    }
+  })
+})
+
+domBtnDateFilter.addEventListener('change', function (e) {
+  mapTags.forEach((value, key) => {
+    if (true) {
+      getDOM(key).classList.add('hidden')
+    }
+  })
+
+  const tasks = rawTasks
+      ? rawTasks.map((json) => TaskVO.fromJSON(json))
+      : [];
+
+  if ('Deadline' === domBtnDateFilter.value) {
+    console.log(tasks.sort((x, y) => y.dt_end.localeCompare(x.dt_end)));
+    tasks.forEach((taskVO) => renderTask(taskVO));
+  } else if ('NewTasks' === domBtnDateFilter.value) {
+    console.log(tasks.sort((x, y) => x.dt_end.localeCompare(y.dt_end)));
+    tasks.forEach((taskVO) => renderTask(taskVO));
+  }
+})
+
 
 
 
@@ -223,7 +250,7 @@ domBtnTagFilter.onclick = () => {
 
 
   function renderTask(taskVO) {
-    console.log(domTemplateTask)
+    console.log(taskVO)
 
     const domTaskClone = domTemplateTask.cloneNode(true);
     domTaskClone.setAttribute('id', taskVO.id)
@@ -369,19 +396,4 @@ function updateTask (taskVO) {
         console.log(error);
       });
 }
-
-var sel = $('select'),
-    cache = $('option', sel.eq(1));
-sel.eq(0).on('change', function(){
-  var selectedColor = $(':selected',this).data('color'),
-      filtered;
-  if(selectedColor == 'all') {
-    filtered = cache;
-  } else {
-    filtered = cache.filter(function(){
-      return $(this).data('color') == selectedColor;
-    });
-  }
-  sel.eq(1).html(filtered).prop('selectedIndex', 0);
-});
 
