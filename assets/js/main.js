@@ -23,6 +23,9 @@ const KEY_LOCAL_TASKS = 'tasks';
   const QUERY = (container, id) => container.querySelector(`[data-id="${id}"]`);
 
   const domTemplateTask = getDOM(DOM.Template.TASK);
+  const domBtnTagFilter = getDOM(DOM.Template.Main.TAG_FILTER)
+  const domBtnDateFilter = getDOM(DOM.Template.Main.DATE_FILTER)
+// const domTaskColumn = getDOM(DOM.Template.TASK_COLUMN)
 
   const domTaskColumn = domTemplateTask.parentNode;
   domTemplateTask.removeAttribute('id');
@@ -36,29 +39,42 @@ const KEY_LOCAL_TASKS = 'tasks';
     'Content-Type': 'application/json'
   }
 
-axios.get('/tasks', {
-  headers: headers
-})
-  .then(function (response) {
-    rawTasks = response.data.result
-    // console.log('rawTasks',rawTasks)
-    // console.log(JSON.parse(response.data.result));
-    const tasks = rawTasks
-    // console.log(tasks)
+const mapTags = new Map([
+]);
 
-      ? rawTasks.map((json) => TaskVO.fromJSON(json))
-      : [];
-    tasks.forEach((taskVO) => renderTask(taskVO));
-    // console.log('tasks ->>>',tasks)
 
+
+getTasks ()
+function getTasks () {
+  axios.get('/tasks', {
+    headers: headers
   })
-  .catch(function (error) {
-    // handle error
-    //console.log(error);
-  })
-  .finally(function () {
-    // always executed
-  });
+      .then(function (response) {
+        rawTasks = response.data.result
+        for (let key in rawTasks) {
+          mapTags.set(rawTasks[key][0], rawTasks[key][2])
+        }
+
+        const tasks = rawTasks
+
+
+            ? rawTasks.map((json) => TaskVO.fromJSON(json))
+            : [];
+
+        tasks.forEach((taskVO) => renderTask(taskVO));
+
+        // console.log('tasks ->>>',tasks)
+
+      })
+      .catch(function (error) {
+        // handle error
+        //console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+}
+
 
 // console.log('Tasks ->>>>',tasks)
   //console.log('finish');
@@ -82,6 +98,21 @@ axios.get('/tasks', {
   //   : [];
   // tasks.forEach((taskVO) => renderTask(taskVO));
 //console.log('> tasks:', tasks);
+domBtnTagFilter.addEventListener('change', function (e) {
+  console.log("Changed to: " + e.target.value)
+})
+domBtnTagFilter.onclick = () => {
+  console.log('cklick')
+  console.log(domBtnTagFilter.value)
+  const mapTagsOriginal = mapTags;
+  mapTags.forEach((value, key) => {
+    if (value === 'Web') {
+      mapTags.delete(key);
+      getDOM(key).classList.add('hidden')
+    }
+  })
+}
+
 
 
 
@@ -155,6 +186,8 @@ axios.get('/tasks', {
         : [];
 
     const taskVO = tasks.find((task) => task.id == taskId);
+    console.log(taskVO)
+
 
     const taskOperation = taskOperations[taskBtn];
     if (taskOperation) {
@@ -170,6 +203,7 @@ axios.get('/tasks', {
       (taskTitle, taskBody, taskDate, taskTag) => {
         const taskId = `task_${Date.now()}`;
         const taskVO = new TaskVO(taskId, taskTitle, taskBody, taskDate, taskTag);
+
 
         renderTask(taskVO);
         // tasks.push(taskVO);
@@ -189,9 +223,12 @@ axios.get('/tasks', {
 
 
   function renderTask(taskVO) {
-    // console.log(taskVO)
+    console.log(domTemplateTask)
 
     const domTaskClone = domTemplateTask.cloneNode(true);
+    domTaskClone.setAttribute('id', taskVO.id)
+
+    console.log(domTaskClone)
 
     domTaskClone.dataset.id = taskVO.id;
 
@@ -203,6 +240,9 @@ axios.get('/tasks', {
 
 
     domTaskColumn.prepend(domTaskClone);
+
+
+
     return domTaskClone;
   }
 
@@ -222,14 +262,14 @@ axios.get('/tasks', {
   }
 
 
-
-
   async function renderTaskPopup(
     taskVO,
     popupTitle,
     confirmText,
     processDataCallback
   ) {
+
+
     const domPopupContainer = getDOM(DOM.Popup.CONTAINER);
     const domSpinner = domPopupContainer.querySelector('.spinner');
 
@@ -257,22 +297,20 @@ axios.get('/tasks', {
       taskPopupInstance.taskTitle = taskVO.title;
       taskPopupInstance.taskBody = taskVO.body;
       taskPopupInstance.taskDate = taskVO.dt_end;
-      // let tagAssociation = {'Web':'1', 'Update':'2', 'Design':'3', 'Content':'4'};
       taskPopupInstance.taskTags = taskVO.tag;
 
 
     }
 
-    // setTimeout(() => {
-    // domSpinner.remove();
     document.onkeyup = (e) => {
       if (e.key === 'Escape') {
         onClosePopup();
       }
     };
     domPopupContainer.append(taskPopupInstance.render());
-    // }, 1000);
   }
+
+
 
   function saveTask(taskVO) {
     let $title = taskVO.title;
@@ -331,3 +369,19 @@ function updateTask (taskVO) {
         console.log(error);
       });
 }
+
+var sel = $('select'),
+    cache = $('option', sel.eq(1));
+sel.eq(0).on('change', function(){
+  var selectedColor = $(':selected',this).data('color'),
+      filtered;
+  if(selectedColor == 'all') {
+    filtered = cache;
+  } else {
+    filtered = cache.filter(function(){
+      return $(this).data('color') == selectedColor;
+    });
+  }
+  sel.eq(1).html(filtered).prop('selectedIndex', 0);
+});
+

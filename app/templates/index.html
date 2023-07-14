@@ -172,9 +172,20 @@
       <div class="flex flex-row items-center justify-between">
         <div class="flex flex-col">
           <div class="flex flex-row items-center gap-x-1 text-neutral-400">
-            <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14 12v7.88c.04.3-.06.62-.29.83a.996.996 0 0 1-1.41 0l-2.01-2.01a.989.989 0 0 1-.29-.83V12h-.03L4.21 4.62a1 1 0 0 1 .17-1.4c.19-.14.4-.22.62-.22h14c.22 0 .43.08.62.22a1 1 0 0 1 .17 1.4L14.03 12H14Z"/></svg></i>
-            <span class="text-xs"> Filters </span>
-            <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6l1.41-1.42Z"/></svg></i>
+            <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14 12v7.88c.04.3-.06.62-.29.83a.996.996 0 0 1-1.41 0l-2.01-2.01a.989.989 0 0 1-.29-.83V12h-.03L4.21 4.62a1 1 0 0 1 .17-1.4c.19-.14.4-.22.62-.22h14c.22 0 .43.08.62.22a1 1 0 0 1 .17 1.4L14.03 12H14Z"/></svg></i>
+            <button id="btnShowFilter" > Filters: </button>
+            <select id="btnTagFilter" class="bg-neutral-100 p-1 rounded-xl w-full border-1 border-neutral-200 focus:border-none" >
+              <option selected disabled>Tag</option>
+              <option value="Design">Design</option>
+              <option value="Web">Web</option>
+              <option value="Front">Front</option>
+              <option value="Back">Back</option>
+            </select>
+            <select id="btnDateFilter " class="bg-neutral-100 p-1 rounded-xl border-1 border-neutral-200 focus:border-none">
+              <option selected>Date</option>
+              <option value="1">Deadline</option>
+              <option value="2">New tasks</option>
+            </select>
           </div>
         </div>
         <div class="flex flex-col">
@@ -211,7 +222,7 @@
           </div>
           <div class="flex flex-row pt-2 ">
             <div
-                data-test-id="tasks-column"
+                id="tasks-column"
                 class="flex w-full flex-col justify-start justify-between gap-y-4 "
             >
               <div

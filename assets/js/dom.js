@@ -7,6 +7,7 @@ const Dom = {
   },
   Template: {
     TASK: 'templateTask',
+    TASK_COLUMN: 'tasks-column',
     Task: {
       TITLE: 'templateTaskTitle',
       BODY: 'templateTaskBody',
@@ -16,6 +17,11 @@ const Dom = {
       BTN_EDIT: 'btnEdit',
       BTN_DELETE: 'btnDelete',
     },
+    Main: {
+      FILTER: 'btnShowFilter',
+      TAG_FILTER: 'btnTagFilter',
+      DATE_FILTER: 'btnDateFilter',
+    }
   },
   Popup: {
     CONTAINER: 'popupContainer',
