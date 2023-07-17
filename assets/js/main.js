@@ -136,6 +136,8 @@ domBtnDateFilter.addEventListener('change', function (e) {
   } else if ('NewTasks' === domBtnDateFilter.value) {
     console.log(tasks.sort((x, y) => x.dt_end.localeCompare(y.dt_end)));
     tasks.forEach((taskVO) => renderTask(taskVO));
+  } else {
+    tasks.forEach((taskVO) => renderTask(taskVO));
   }
 })
 
@@ -185,6 +187,7 @@ domBtnDateFilter.addEventListener('change', function (e) {
   };
 
   domTaskColumn.onclick = (e) => {
+    console.log('dfgdfgdfdg')
     e.stopPropagation();
     const domTaskElement = e.target;
     const taskBtn = domTaskElement.dataset.btn;
