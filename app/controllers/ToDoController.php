@@ -1,10 +1,12 @@
 <?php
+
 class ToDoController 
 {
    public function actionIndex()
    {   if (!$_SESSION["is_auth"] !== null && $_SESSION["is_auth"] == false) {
        header('Location: ./login');
    }
+
        $count = new ToDoModel();
        $resultCount = $count->countUserTask();
        $resultPriority = $count->countPriorityTask();
@@ -16,6 +18,7 @@ class ToDoController
        $surname = $_SESSION["surname"];
        $href_avatar = $_SESSION["href_avatar"];
        $v = new ToDoView();
+
        $result = $v->render('index.html', array_merge(array(
            "name" => $name,
            "surname" => $surname,
@@ -42,6 +45,7 @@ class ToDoController
 
    public function actionCreateTask ()
    {
+
        $taskVOdata = json_decode(file_get_contents('php://input'),true);
        $_title = $taskVOdata[0];
        $_body = $taskVOdata [1];
@@ -71,6 +75,7 @@ class ToDoController
        $_taskId = json_decode(file_get_contents('php://input'),true);
        $model = new ToDoModel();
        $model -> deleteTask($_taskId);
+
 
    }
 

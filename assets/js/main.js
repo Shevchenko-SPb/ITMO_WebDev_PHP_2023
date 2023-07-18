@@ -100,6 +100,7 @@ function getTasks () {
 //________________________________
 
 
+
 domBtnTagFilter.addEventListener('change', function (e) {
   console.log('worked1')
   mapTags.forEach((value, key) => {
@@ -142,10 +143,6 @@ domBtnDateFilter.addEventListener('change', function (e) {
     tasks.forEach((taskVO) => renderTask(taskVO));
   }
 })
-
-
-
-
 
   const taskOperations = {
     [DOM.Template.Task.BTN_DELETE]: (taskVO, domTask) => {

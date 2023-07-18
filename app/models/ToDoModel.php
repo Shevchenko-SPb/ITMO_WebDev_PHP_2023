@@ -42,15 +42,14 @@ class ToDoModel
                              SET id_status = %d, id_tag = %d, title = '%s', dt_end = '%s', is_archive = NULL, body = '%s', id_priority = %d
                              WHERE id = %d;";
 
+
     const SQL_CREATE_USER_TASK = "INSERT INTO todo.user_task
                                   (id_users, id_tasks, id_user_owner)   
                                   VALUES(%d, %d, %d);";
 
+
     const SQL_DELETE_USER_TASK = "DELETE FROM todo.task
                                   WHERE id = %d;";
-
-
-
 
     public function countUserTask()
     {
@@ -114,8 +113,8 @@ class ToDoModel
     public function createTask ($_title, $_body, $_date, $_tag, $_priority)
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_INSERT_TASK, 1, $_tag, $_title, $_date, $_body, $_priority);
 
+        $sql = sprintf(self::SQL_INSERT_TASK, 1, $_tag, $_title, $_date, $_body, $_priority);
 
         $db->query($sql);
         $id_task = $db->lastInsertId();
@@ -125,7 +124,9 @@ class ToDoModel
         $db->query($sql);
         return array('id_task'=>$id_task, 'id_user'=>$id_user);
     }
+
     public function updateTask ($_title, $_body, $_id, $_date, $_tag, $_priority)
+
     {
         $db = DB::getDb();
         $sql = sprintf(self::SQL_UPDATE_TASK, 1, $_tag, $_title, $_date, $_body, $_priority, $_id);
@@ -139,6 +140,7 @@ class ToDoModel
         $db->query($sql);
     }
 }
+
 //$sql1 = "INSERT INTO status
 //                (name)
 //                VALUES('dff');";

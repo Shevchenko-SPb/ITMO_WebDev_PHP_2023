@@ -18,8 +18,6 @@ class UserModel {
                AND login LIKE '%s'
                AND pass LIKE '%s'";
 
-
-
     public function checkLogin ()
     {
 
@@ -44,5 +42,4 @@ class UserModel {
         $stmt = $db->query(self::SQL_INSERT_USER);
 
     }
-
 }
