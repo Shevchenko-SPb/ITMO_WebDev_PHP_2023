@@ -7,6 +7,10 @@ class ToDoController
    }
        $count = new ToDoModel();
        $resultCount = $count->countUserTask();
+       $resultPriority = $count->countPriorityTask();
+       for ($i = 0; $i < 4; $i++) {
+           $resultCountPriority[]=$resultPriority[$i][1]==NULL ? 0 : $resultPriority[$i][1];
+       };
        #todo: Дописать вывод профиля
        $name = $_SESSION["name"];
        $surname = $_SESSION["surname"];
@@ -15,6 +19,7 @@ class ToDoController
        $result = $v->render('index.html', array_merge(array(
            "name" => $name,
            "surname" => $surname,
+           "priority" => $resultCountPriority,
            "href_avatar" => $href_avatar), $resultCount));
        echo $result;
    }

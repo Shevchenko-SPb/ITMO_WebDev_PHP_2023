@@ -57,7 +57,7 @@ class ToDoModel
         $db = DB::getDb();
         // $db = new PDO('mysql:host=localhost;dbname=todo', 'todo', '123');
         // $id_user = $_SESSION["id_user"];
-        $id_user = 1;
+        $id_user = $_SESSION["id"];
         $sql = sprintf(self::SQL_COUNT_USER_TASK, $id_user);
         $stmt = $db->query($sql);
         $row = $stmt->fetch();
@@ -73,6 +73,7 @@ class ToDoModel
         $id_user = $_SESSION["id"];
         $sql = sprintf(self::SQL_COUNT_PRIORITY_TASK, $id_user);
         $stmt = $db->query($sql);
+        $priority_tasks = [];
         while ($row = $stmt->fetch())
         {
             $priority_tasks[] = $row;
@@ -83,7 +84,7 @@ class ToDoModel
     public function getUserTasks()
     {
         $db = DB::getDb();
-        $id_user = 1;
+        $id_user = $_SESSION["id"];
         $sql = sprintf(self::SQL_GET_LIST_TASKS, $id_user);
         $stmt = $db->query($sql);
         $tasks = [];
@@ -118,7 +119,7 @@ class ToDoModel
 
         $db->query($sql);
         $id_task = $db->lastInsertId();
-        $id_user = 1;
+        $id_user = $_SESSION["id"];
         $id_user_owner = 2;
         $sql = sprintf(self::SQL_CREATE_USER_TASK, $id_user, $id_task, $id_user_owner);
         $db->query($sql);
