@@ -94,12 +94,12 @@
             <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 448 512"><path fill="currentColor" d="m240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495L69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"/></svg></i>
           </div>
         </div>
-        <div class="flex flex-col text-neutral-500">
+        <div class="flex flex-col text-neutral-500 ml-1">
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
                   class=" text-red-500 hover:text-neutral-600"
-              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
+              ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m21 12l-4.35 6.15q-.275.4-.712.625T15 19H5q-.825 0-1.413-.588T3 17V7q0-.825.588-1.413T5 5h10q.5 0 .938.225t.712.625L21 12Z"/></svg></i>
               <span class="mx-2">High Priority</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
@@ -110,7 +110,7 @@
             <div class="my-1 flex flex-row items-center">
               <i
                   class="text-orange-400 hover:text-neutral-600"
-              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
+              ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m21 12l-4.35 6.15q-.275.4-.712.625T15 19H5q-.825 0-1.413-.588T3 17V7q0-.825.588-1.413T5 5h10q.5 0 .938.225t.712.625L21 12Z"/></svg></i>
               <span class="mx-2">Medium Priority</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
@@ -121,7 +121,7 @@
             <div class="my-1 flex flex-row items-center">
               <i
                   class="text-yellow-300 hover:text-neutral-600"
-              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
+              ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m21 12l-4.35 6.15q-.275.4-.712.625T15 19H5q-.825 0-1.413-.588T3 17V7q0-.825.588-1.413T5 5h10q.5 0 .938.225t.712.625L21 12Z"/></svg></i>
               <span class="mx-2">Low Priority</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
@@ -132,7 +132,7 @@
             <div class="my-1 flex flex-row items-center">
               <i
                   class="text-emerald-500 hover:text-neutral-600"
-              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
+              ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m21 12l-4.35 6.15q-.275.4-.712.625T15 19H5q-.825 0-1.413-.588T3 17V7q0-.825.588-1.413T5 5h10q.5 0 .938.225t.712.625L21 12Z"/></svg></i>
               <span class="mx-2">On Standby</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
@@ -232,15 +232,17 @@
                   class="border-1 flex flex-row rounded-lg border-neutral-100 bg-neutral-50 px-3 py-3 shadow"
               >
                 <div class="flex w-full flex-col gap-y-3">
-                      <span data-id="templateTaskTitle" class="pointer-events-none font-bold"
-                      >$name</span
-                      >
+                  <div class="flex flex-row justify-between"><span data-id="templateTaskTitle" class="pointer-events-none font-bold"
+                  >$name</span>
+                    <span data-id="taskPriorityColor" class="flex flex-row items-center">
+                        <i><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m21 12l-4.35 6.15q-.275.4-.712.625T15 19H5q-.825 0-1.413-.588T3 17V7q0-.825.588-1.413T5 5h10q.5 0 .938.225t.712.625L21 12Z"/></svg></i>
+                        </span>
+                  </div>
                   <div data-id="templateTaskBody" class=" max-h-32 overflow-auto"
                   >$body</div
                   >
                   <div class="pointer-events-none flex flex-row justify-between">
                     <div class="flex flex-row gap-x-2">
-                      <div class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600">Update</div>
                       <div data-id="templateTaskTag" class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600">$tag</div>
                     </div>
                     <div class="flex flex-row items-center gap-x-1">

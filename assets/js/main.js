@@ -264,34 +264,35 @@ domBtnDateFilter.addEventListener('change', function (e) {
     QUERY(domTaskClone, DOM.Template.Task.DATE).innerText = counterDaysLeft(taskVO.dt_end)
     templateColorIconClock (domTaskClone, counterDaysLeft(taskVO.dt_end))
 
-    // switch(parseInt(taskVO.tag)) {
-    //   case 1:
-    //     QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Design";
-    //     break;
-    //   case 2:
-    //     QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Web";
-    //     break;
-    //   case 3:
-    //     QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Front";
-    //     break;
-    //   case 4:
-    //     QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Back";
-    //     break;
-    // };
-    // switch(parseInt(taskVO.priority)) {
-    //   case 1:
-    //     QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-red-500');
-    //     break;
-    //   case 2:
-    //     QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-orange-400');
-    //     break;
-    //   case 3:
-    //     QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-yellow-300');
-    //     break;
-    //   case 4:
-    //     QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-emerald-500');
-    //     break;
-    // };
+    switch(parseInt(taskVO.tag)) {
+      case 1:
+        QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Design";
+        break;
+      case 2:
+        QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Web";
+        break;
+      case 3:
+        QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Front";
+        break;
+      case 4:
+        QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Back";
+        break;
+    };
+    switch(parseInt(taskVO.priority)) {
+      case 1:
+        QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-red-500');
+        break;
+      case 2:
+        QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-orange-400');
+        break;
+      case 3:
+        QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-yellow-300');
+        break;
+      case 4:
+        QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-emerald-500');
+        break;
+    };
+
 
     domTaskColumn.prepend(domTaskClone);
     return domTaskClone;

@@ -15,7 +15,7 @@ class TaskPopup {
   #taskTitle = '';
   #taskBody = '';
   #taskDate = '';
-  #taskTag = '';
+  #taskTags = '';
   #taskPriority = '';
 
   set taskTitle(value) {
@@ -24,15 +24,14 @@ class TaskPopup {
   set taskBody(value) {
     this.#taskBody = value;
   }
-  // taskDate, taskTags
-  text = 'Current choice: ';
+
  set taskDate(value) {
     this.#taskDate = value;
  }
 
- set taskTags (value) {
-    this.#taskTag = this.text + value;
- }
+  set taskTags(value) {
+    this.#taskTags = value;
+  }
   set taskPriority(value) {
     this.#taskPriority = value;
   }
@@ -82,13 +81,11 @@ class TaskPopup {
               data-id="selectTag"
               class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"  
             >
-            <optgroup label="${this.#taskTag}">
-              <option selected>Choose a tag</option>
-              <option value="1">Design</option>
-              <option value="2">Web</option>
-              <option value="3">Front</option>
-              <option value="4">Back</option>
-              </optgroup>
+            <option>Choose a tag</option>
+              <option ${ (this.#taskTags=="Design") ? "selected" : "" } value="1">Design</option>
+              <option ${ (this.#taskTags=="Web") ? "selected" : "" } value="2">Web</option>
+              <option ${ (this.#taskTags=="Front") ? "selected" : "" } value="3">Front</option>
+              <option ${ (this.#taskTags=="Back") ? "selected" : "" } value="4">Back</option>
             </select>
           </div>
         </div>
