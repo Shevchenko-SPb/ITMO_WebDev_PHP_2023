@@ -9,6 +9,10 @@ class ToDoController
 
        $count = new ToDoModel();
        $resultCount = $count->countUserTask();
+       $resultPriority = $count->countPriorityTask();
+       for ($i = 0; $i < 4; $i++) {
+           $resultCountPriority[]=$resultPriority[$i][1]==NULL ? 0 : $resultPriority[$i][1];
+       };
        #todo: Дописать вывод профиля
        $name = $_SESSION["name"];
        $surname = $_SESSION["surname"];
@@ -18,6 +22,7 @@ class ToDoController
        $result = $v->render('index.html', array_merge(array(
            "name" => $name,
            "surname" => $surname,
+           "priority" => $resultCountPriority,
            "href_avatar" => $href_avatar), $resultCount));
        echo $result;
    }
@@ -44,8 +49,11 @@ class ToDoController
        $taskVOdata = json_decode(file_get_contents('php://input'),true);
        $_title = $taskVOdata[0];
        $_body = $taskVOdata [1];
+       $_date = $taskVOdata [2];
+       $_tag = $taskVOdata [3];
+       $_priority = $taskVOdata [4];
        $model = new ToDoModel();
-       $result = $model -> createTask($_title, $_body);
+       $result = $model -> createTask($_title, $_body, $_date, $_tag, $_priority);
        PublishController::publicTaskInRedis($result);
    }
    public function actionUpdateTask ()
@@ -54,8 +62,12 @@ class ToDoController
        $_title = $taskVOdata[0];
        $_body = $taskVOdata [1];
        $_id = $taskVOdata [2];
+       $_date = $taskVOdata [3];
+       $_tag = $taskVOdata [4];
+       $_priority = $taskVOdata [5];
+
        $model = new ToDoModel();
-       $model -> updateTask($_title, $_body, $_id);
+       $model -> updateTask($_title, $_body, $_id, $_date, $_tag, $_priority);
    }
 
    public function actionDeleteTask ()

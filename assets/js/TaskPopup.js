@@ -14,6 +14,9 @@ class TaskPopup {
 
   #taskTitle = '';
   #taskBody = '';
+  #taskDate = '';
+  #taskTags = '';
+  #taskPriority = '';
 
   set taskTitle(value) {
     this.#taskTitle = value;
@@ -21,6 +24,19 @@ class TaskPopup {
   set taskBody(value) {
     this.#taskBody = value;
   }
+
+ set taskDate(value) {
+    this.#taskDate = value;
+ }
+
+  set taskTags(value) {
+    this.#taskTags = value;
+  }
+  set taskPriority(value) {
+    this.#taskPriority = value;
+  }
+
+
 
   render() {
     const div = document.createElement('div');
@@ -52,33 +68,39 @@ class TaskPopup {
               placeholder="Description"
             >${this.#taskBody}</textarea>
           </div> 
-        <div class="flex flex-row">
+         <div class="flex flex-row">
           <div class="flex flex-col w-full">
-            <label for="countries" class="ml-1 text-sm text-neutral-600">Select tag:</label>
-            <select
-              id="countries"
-              class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"
-            >
-              <option selected>Choose a tag</option>
-              <option value="web">Web</option>
-              <option value="update">Update</option>
-              <option value="design">Design</option>
-              <option value="content">Content</option>
-            </select>
+            <label for="countries" class="ml-1 text-sm text-neutral-600">Deadline:</label>
+            <input data-id="inpDate" value="${this.#taskDate}" class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none" type="date">
           </div>
         </div>
         <div class="flex flex-row">
           <div class="flex flex-col w-full">
             <label for="countries" class="ml-1 text-sm text-neutral-600">Select tag:</label>
             <select
-              id="countries_"
+              data-id="selectTag"
+              class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"  
+            >
+            <option>Choose a tag</option>
+              <option ${ (this.#taskTags=="Design") ? "selected" : "" } value="1">Design</option>
+              <option ${ (this.#taskTags=="Web") ? "selected" : "" } value="2">Web</option>
+              <option ${ (this.#taskTags=="Front") ? "selected" : "" } value="3">Front</option>
+              <option ${ (this.#taskTags=="Back") ? "selected" : "" } value="4">Back</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex flex-row">
+          <div class="flex flex-col w-full">
+            <label for="countries" class="ml-1 text-sm text-neutral-600">Select priority:</label>
+            <select
+              data-id="inpPriority"
               class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"
             >
-              <option selected>Priority choice</option>
-              <option value="highPriority">High Priority</option>
-              <option value="mediumPriority">Medium Priority</option>
-              <option value="lowPriority">Low Priority</option>
-              <option value="onStandby">On Standby</option>
+               <option>Priority choice</option>
+              <option ${ (this.#taskPriority=="1") ? "selected" : "" } value="1">High Priority</option>
+              <option ${ (this.#taskPriority=="2") ? "selected" : "" } value="2">Medium Priority</option>
+              <option ${ (this.#taskPriority=="3") ? "selected" : "" } value="3">Low Priority</option>
+              <option ${ (this.#taskPriority=="4") ? "selected" : "" } value="4">On Standby</option>
             </select>
           </div>
         </div>
@@ -89,12 +111,17 @@ class TaskPopup {
     `;
     console.log('div.firstChild', div.children);
 
+
     const popup = div.children[0];
 
     const domBtnClose = popup.querySelector('[data-id="btnClose"]');
     const domBtnConfirm = popup.querySelector('[data-id="btnConfirm"]');
     const domInpTitle = popup.querySelector('[data-id="inpTitle"]');
     const domInpBody = popup.querySelector('[data-id="inpBody"]');
+    const domInpDate = popup.querySelector('[data-id="inpDate"]');
+    const domSelectTag = popup.querySelector('[data-id="selectTag"]');
+    const domInpPriority = popup.querySelector('[data-id="inpPriority"]');
+
 
     domBtnClose.onclick = () => {
       console.log("Кнопка закрыть")
@@ -106,9 +133,10 @@ class TaskPopup {
     domBtnConfirm.onclick = () => {
       const taskTitle = domInpTitle.value;
       const taskBody = domInpBody.value;
-      const taskDate = Date.now();
-      const taskTags = this.#tags[0];
-      this.#confirmCallback(taskTitle, taskBody, taskDate, taskTags);
+      const taskDate = domInpDate.value;
+      const taskTags = domSelectTag.value;
+      const taskPriority = domInpPriority.value;
+      this.#confirmCallback(taskTitle, taskBody, taskDate, taskTags, taskPriority);
     };
 
     return div.children[0];

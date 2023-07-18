@@ -23,10 +23,10 @@
 <body class="grid place-items-center bg-teal-100/50 font-sans p-8">
 <div id="popupContainer" class="fixed left-0 top-0 z-10 grid hidden h-screen w-screen place-items-center bg-black/70">
 </div>
-<div class="container flex h-full flex-row rounded-3xl bg-gray-200/90 p-4">
+<div class="container shadow-2xl flex h-full flex-row rounded-3xl bg-gray-200/90 p-4">
   <aside class="flex min-w-[250px] flex-col">
     <div>
-      <div class="flex flex-row items-center gap-x-2 py-4"><i class="text-teal-700"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 256 256"><path fill="currentColor" d="M196 157.43V98.57a17 17 0 0 0-8.42-14.71l-51.34-29.65a16.55 16.55 0 0 0-16.48 0L68.43 83.86A17 17 0 0 0 60 98.57v58.86a17 17 0 0 0 8.42 14.71l51.34 29.65a16.53 16.53 0 0 0 16.48 0l51.33-29.65a17 17 0 0 0 8.43-14.71Zm-68-80.26L160.59 96L128 114.81L95.41 96Zm-44 40l32 18.48v36.3l-32-18.53Zm56 54.78V135.6l32-18.48v36.3ZM236 48v40a12 12 0 0 1-24 0V60h-28a12 12 0 0 1 0-24h40a12 12 0 0 1 12 12ZM84 208a12 12 0 0 1-12 12H32a12 12 0 0 1-12-12v-40a12 12 0 0 1 24 0v28h28a12 12 0 0 1 12 12Zm152-40v40a12 12 0 0 1-12 12h-40a12 12 0 0 1 0-24h28v-28a12 12 0 0 1 24 0ZM20 88V48a12 12 0 0 1 12-12h40a12 12 0 0 1 0 24H44v28a12 12 0 0 1-24 0Z"/></svg></i><span class="text-xl font-bold">Taski</span></div>
+      <div class="flex flex-row items-center gap-x-2 py-4"><i class="text-teal-700"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12.3L3.5 7.05L12 1.8l8.5 5.25z"/><path fill="currentColor" d="M12 22.2v-9.9l8.5-5.25v9.9z" opacity=".25"/><path fill="currentColor" d="m12 22.2l-8.5-5.25v-9.9L12 12.3z" opacity=".5"/></svg></i><span class="text-xl font-bold">Taski</span></div>
       <div class="flex flex-row">
         <div><img src="<?php echo './assets/avatars/'.$href_avatar; ?>" class="m-auto w-12 rounded-full shadow"/></div>
         <div class="mx-2 flex flex-col justify-center"><div class="text-xl font-bold"><?php echo $name." ".$surname; ?></div><div class="text-xs font-thin">Admin account</div>
@@ -95,49 +95,49 @@
             <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 448 512"><path fill="currentColor" d="m240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495L69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"/></svg></i>
           </div>
         </div>
-        <div class="flex flex-col text-neutral-500">
+        <div class="flex flex-col text-neutral-500 ml-1">
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
                   class=" text-red-500 hover:text-neutral-600"
-              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
+              ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m21 12l-4.35 6.15q-.275.4-.712.625T15 19H5q-.825 0-1.413-.588T3 17V7q0-.825.588-1.413T5 5h10q.5 0 .938.225t.712.625L21 12Z"/></svg></i>
               <span class="mx-2">High Priority</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
-              <span class="text-xs">0</span>
+              <span class="text-xs"><?php echo $priority[0]; ?></span>
             </div>
           </div>
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
                   class="text-orange-400 hover:text-neutral-600"
-              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
+              ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m21 12l-4.35 6.15q-.275.4-.712.625T15 19H5q-.825 0-1.413-.588T3 17V7q0-.825.588-1.413T5 5h10q.5 0 .938.225t.712.625L21 12Z"/></svg></i>
               <span class="mx-2">Medium Priority</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
-              <span class="text-xs ">0</span>
+              <span class="text-xs "><?php echo $priority[1]; ?></span>
             </div>
           </div>
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
                   class="text-yellow-300 hover:text-neutral-600"
-              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
+              ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m21 12l-4.35 6.15q-.275.4-.712.625T15 19H5q-.825 0-1.413-.588T3 17V7q0-.825.588-1.413T5 5h10q.5 0 .938.225t.712.625L21 12Z"/></svg></i>
               <span class="mx-2">Low Priority</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
-              <span class="text-xs">0</span>
+              <span class="text-xs"><?php echo $priority[2]; ?></span>
             </div>
           </div>
           <div class="flex w-full flex-row items-center justify-between">
             <div class="my-1 flex flex-row items-center">
               <i
                   class="text-emerald-500 hover:text-neutral-600"
-              ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7L8 5z"/></svg></i>
+              ><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m21 12l-4.35 6.15q-.275.4-.712.625T15 19H5q-.825 0-1.413-.588T3 17V7q0-.825.588-1.413T5 5h10q.5 0 .938.225t.712.625L21 12Z"/></svg></i>
               <span class="mx-2">On Standby</span>
             </div>
             <div class="flex rounded-2xl bg-neutral-300 px-2.5 py-0.5 hover:bg-teal-600 hover:text-white">
-              <span class="text-xs">0</span>
+              <span class="text-xs"><?php echo $priority[3]; ?></span>
             </div>
           </div>
         </div>
@@ -173,9 +173,22 @@
       <div class="flex flex-row items-center justify-between">
         <div class="flex flex-col">
           <div class="flex flex-row items-center gap-x-1 text-neutral-400">
-            <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14 12v7.88c.04.3-.06.62-.29.83a.996.996 0 0 1-1.41 0l-2.01-2.01a.989.989 0 0 1-.29-.83V12h-.03L4.21 4.62a1 1 0 0 1 .17-1.4c.19-.14.4-.22.62-.22h14c.22 0 .43.08.62.22a1 1 0 0 1 .17 1.4L14.03 12H14Z"/></svg></i>
-            <span class="text-xs"> Filters </span>
-            <i class="hover:text-neutral-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.58L12 13.17l4.59-4.59L18 10l-6 6l-6-6l1.41-1.42Z"/></svg></i>
+            <i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14 12v7.88c.04.3-.06.62-.29.83a.996.996 0 0 1-1.41 0l-2.01-2.01a.989.989 0 0 1-.29-.83V12h-.03L4.21 4.62a1 1 0 0 1 .17-1.4c.19-.14.4-.22.62-.22h14c.22 0 .43.08.62.22a1 1 0 0 1 .17 1.4L14.03 12H14Z"/></svg></i>
+            <button id="btnShowFilter" > Filters: </button>
+            <select id="btnTagFilter" class="bg-neutral-100 p-1 rounded-xl w-full border-1 border-neutral-200 focus:border-none"  >
+              <option selected disabled>Tag</option>
+              <option value="Design">Design</option>
+              <option value="Web">Web</option>
+              <option value="Front">Front</option>
+              <option value="Back">Back</option>
+              <option value="Reset">Reset filter</option>
+            </select>
+            <select id="btnDateFilter" class="bg-neutral-100 p-1 rounded-xl border-1 border-neutral-200 focus:border-none">
+              <option selected disabled>Date</option>
+              <option value="Deadline">Deadline</option>
+              <option value="NewTasks">New tasks</option>
+              <option value="Reset">Reset filter</option>
+            </select>
           </div>
         </div>
         <div class="flex flex-col">
@@ -212,7 +225,7 @@
           </div>
           <div class="flex flex-row pt-2 ">
             <div
-                data-test-id="tasks-column"
+                id="tasks-column"
                 class="flex w-full flex-col justify-start justify-between gap-y-4 "
             >
               <div
@@ -220,20 +233,22 @@
                   class="border-1 flex flex-row rounded-lg border-neutral-100 bg-neutral-50 px-3 py-3 shadow"
               >
                 <div class="flex w-full flex-col gap-y-3">
-                      <span data-id="templateTaskTitle" class="pointer-events-none font-bold"
-                      >$name</span
-                      >
-                  <span data-id="templateTaskBody" class="pointer-events-none"
-                  >$body</span
+                  <div class="flex flex-row justify-between"><span data-id="templateTaskTitle" class="pointer-events-none font-bold"
+                  >$name</span>
+                    <span data-id="taskPriorityColor" class="flex flex-row items-center">
+                        <i><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m21 12l-4.35 6.15q-.275.4-.712.625T15 19H5q-.825 0-1.413-.588T3 17V7q0-.825.588-1.413T5 5h10q.5 0 .938.225t.712.625L21 12Z"/></svg></i>
+                        </span>
+                  </div>
+                  <div data-id="templateTaskBody" class=" max-h-32 overflow-auto"
+                  >$body</div
                   >
                   <div class="pointer-events-none flex flex-row justify-between">
                     <div class="flex flex-row gap-x-2">
-                      <div class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600">Update</div>
-                      <div class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600">Web</div>
+                      <div data-id="templateTaskTag" class="rounded-lg bg-neutral-200/60 px-2 py-1 text-xs text-neutral-600">$tag</div>
                     </div>
                     <div class="flex flex-row items-center gap-x-1">
-                      <div class="text-sm text-green-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20c4.4 0 8-3.6 8-8s-3.6-8-8-8s-8 3.6-8 8s3.6 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2m.5 10.8l-4.8 2.8l-.7-1.4l4-2.3V7h1.5v5.8Z"/></svg></div>
-                      <div class="text-xs text-neutral-400">12 days left</div>
+                      <div data-id="templateTaskIcon" class="text-sm text-green-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20c4.4 0 8-3.6 8-8s-3.6-8-8-8s-8 3.6-8 8s3.6 8 8 8m0-18c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12S6.5 2 12 2m.5 10.8l-4.8 2.8l-.7-1.4l4-2.3V7h1.5v5.8Z"/></svg></div>
+                      <div data-id="templateTaskDate" class="text-xs text-neutral-400">$date </div> <span class="text-xs text-neutral-400">days left</span>
                     </div>
                   </div>
                   <div class="flex justify-between">
