@@ -16,6 +16,7 @@ class TaskPopup {
   #taskBody = '';
   #taskDate = '';
   #taskTag = '';
+  #taskPriority = '';
 
   set taskTitle(value) {
     this.#taskTitle = value;
@@ -29,12 +30,12 @@ class TaskPopup {
     this.#taskDate = value;
  }
 
-
  set taskTags (value) {
-
     this.#taskTag = this.text + value;
  }
-
+  set taskPriority(value) {
+    this.#taskPriority = value;
+  }
 
 
 
@@ -95,14 +96,14 @@ class TaskPopup {
           <div class="flex flex-col w-full">
             <label for="countries" class="ml-1 text-sm text-neutral-600">Select priority:</label>
             <select
-              id="countries_"
+              data-id="inpPriority"
               class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"
             >
-              <option selected>Priority choice</option>
-              <option value="highPriority">High Priority</option>
-              <option value="mediumPriority">Medium Priority</option>
-              <option value="lowPriority">Low Priority</option>
-              <option value="onStandby">On Standby</option>
+               <option>Priority choice</option>
+              <option ${ (this.#taskPriority=="1") ? "selected" : "" } value="1">High Priority</option>
+              <option ${ (this.#taskPriority=="2") ? "selected" : "" } value="2">Medium Priority</option>
+              <option ${ (this.#taskPriority=="3") ? "selected" : "" } value="3">Low Priority</option>
+              <option ${ (this.#taskPriority=="4") ? "selected" : "" } value="4">On Standby</option>
             </select>
           </div>
         </div>
@@ -122,8 +123,8 @@ class TaskPopup {
     const domInpBody = popup.querySelector('[data-id="inpBody"]');
     const domInpDate = popup.querySelector('[data-id="inpDate"]');
     const domSelectTag = popup.querySelector('[data-id="selectTag"]');
+    const domInpPriority = popup.querySelector('[data-id="inpPriority"]');
 
-    console.log(domSelectTag.value);
 
     domBtnClose.onclick = () => {
       console.log("Кнопка закрыть")
@@ -137,7 +138,8 @@ class TaskPopup {
       const taskBody = domInpBody.value;
       const taskDate = domInpDate.value;
       const taskTags = domSelectTag.value;
-      this.#confirmCallback(taskTitle, taskBody, taskDate, taskTags);
+      const taskPriority = domInpPriority.value;
+      this.#confirmCallback(taskTitle, taskBody, taskDate, taskTags, taskPriority);
     };
 
     return div.children[0];
