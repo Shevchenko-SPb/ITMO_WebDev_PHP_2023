@@ -9,16 +9,22 @@ class ToDoModel
                                  FROM user_task ut
                                 WHERE ut.id_users  = %d
                              GROUP BY ut.id_users";
-    
 
-    const SQL_GET_LIST_TASKS = "SELECT tk.id, tk.id_status, tg.name tag, tk.title, tk.dt_end, tk.body
+    const SQL_COUNT_PRIORITY_TASK = "SELECT DISTINCT p.id priority, ttk.count priority
+                                         FROM priority p LEFT JOIN (
+                                       SELECT DISTINCT tk.id_priority, count(tk.id_priority) as count
+                                         FROM priority p, task tk, user_task ut
+                                        WHERE p.id=tk.id_priority AND tk.id=ut.id_tasks AND ut.id_users=%d
+                                     GROUP BY p.id) ttk
+                                     ON p.id=ttk.id_priority GROUP BY p.id;";
+
+    const SQL_GET_LIST_TASKS = "SELECT tk.id, tk.id_status, tg.name tag, tk.title, tk.dt_end, tk.body, tk.id_priority priority
 
                                   FROM task tk, user_task ut, status st, tag tg
                                  WHERE st.id=tk.id_status 
                                    AND tg.id=tk.id_tag 
-                                   AND ut.id_tasks = tk.id 
-
-                                   AND ut.id_users = %d";
+                                   AND ut.id_tasks = tk.id
+                                   AND ut.id_users = %d ORDER BY tk.id_priority DESC";
 
     const SQL_GET_TASK_BY_ID = "SELECT tk.id_status, tg.name tag, tk.title, tk.dt_end
                                   FROM task tk, user_task ut, status st, tag tg
@@ -29,11 +35,11 @@ class ToDoModel
                                    AND ut.id_users = %d";
 
     const SQL_INSERT_TASK = "INSERT INTO todo.task
-                                (id_status, id_tag, title, body, dt_end, is_archive)
-                                 VALUES(%d, %d, '%s','%s', '%s', NULL);";
+                                (id_status, id_tag, title, dt_end, is_archive, body, id_priority)
+                                 VALUES(%d, %d, '%s','%s', NULL, '%s', %d);";
 
     const SQL_UPDATE_TASK = "UPDATE todo.task
-                             SET id_status = %d, id_tag = %d, title = '%s', body = '%s', dt_end = '%s', is_archive = NULL 
+                             SET id_status = %d, id_tag = %d, title = '%s', dt_end = '%s', is_archive = NULL, body = '%s', id_priority = %d
                              WHERE id = %d;";
 
     const SQL_CREATE_USER_TASK = "INSERT INTO todo.user_task
@@ -60,6 +66,20 @@ class ToDoModel
             'count' => $row['COUNT(ut.id_users)']
         );
     }
+
+    public function countPriorityTask()
+    {
+        $db = DB::getDb();
+        $id_user = $_SESSION["id"];
+        $sql = sprintf(self::SQL_COUNT_PRIORITY_TASK, $id_user);
+        $stmt = $db->query($sql);
+        while ($row = $stmt->fetch())
+        {
+            $priority_tasks[] = $row;
+        }
+        return $priority_tasks;
+    }
+
     public function getUserTasks()
     {
         $db = DB::getDb();
@@ -90,10 +110,10 @@ class ToDoModel
     }
 
     // ToDo: дописать insert задачи, подключить класс Publisher.
-    public function createTask ($_title, $_body, $_date, $_tag)
+    public function createTask ($_title, $_body, $_date, $_tag, $_priority)
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_INSERT_TASK, 1, $_tag, $_title, $_body, $_date);
+        $sql = sprintf(self::SQL_INSERT_TASK, 1, $_tag, $_title, $_date, $_body, $_priority);
 
 
         $db->query($sql);
@@ -104,10 +124,10 @@ class ToDoModel
         $db->query($sql);
         return array('id_task'=>$id_task, 'id_user'=>$id_user);
     }
-    public function updateTask ($_title, $_body, $_id, $_date, $_tag)
+    public function updateTask ($_title, $_body, $_id, $_date, $_tag, $_priority)
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_UPDATE_TASK, 1, $_tag, $_title, $_body, $_date, $_id);
+        $sql = sprintf(self::SQL_UPDATE_TASK, 1, $_tag, $_title, $_date, $_body, $_priority, $_id);
         $db->query($sql);
     }
 

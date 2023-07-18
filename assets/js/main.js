@@ -7,15 +7,16 @@ const KEY_LOCAL_TASKS = 'tasks';
 
   class TaskVO {
     static fromJSON(json) {
-      return new TaskVO(json.id, json.title, json.body, json.dt_end, json.tag);
+      return new TaskVO(json.id, json.title, json.body, json.dt_end, json.tag, json.priority);
     }
 
-    constructor(id, title, body, date, tag) {
+    constructor(id, title, body, date, tag, priority) {
       this.id = id;
       this.title = title;
       this.body = body;
       this.dt_end = date;
       this.tag = tag;
+      this.priority = priority;
     }
   }
 
@@ -63,6 +64,7 @@ function getTasks () {
 
             ? rawTasks.map((json) => TaskVO.fromJSON(json))
             : [];
+        console.log(tasks)
 
 
 
@@ -151,12 +153,13 @@ domBtnDateFilter.addEventListener('change', function (e) {
           taskVO,
           'Confirm delete task?',
           'Delete',
-          (taskTitle, taskBody, taskDate, taskTag) => {
+          (taskTitle, taskBody, taskDate, taskTag, taskPriority) => {
             console.log('> Delete task -> On Confirm', {
               taskTitle,
               taskBody,
               taskDate,
               taskTag,
+              taskPriority,
             });
             domTaskColumn.removeChild(domTask);
             deleteTask(taskVO);
@@ -170,13 +173,12 @@ domBtnDateFilter.addEventListener('change', function (e) {
         taskVO,
         'Update task',
         'Update',
-        (taskTitle, taskBody, taskDate, taskTag) => {
+        (taskTitle, taskBody, taskDate, taskTag, taskPriority,) => {
           taskVO.title = taskTitle;
           taskVO.body = taskBody;
           taskVO.dt_end = taskDate;
           taskVO.tag = taskTag;
-
-          console.log(taskTitle, taskBody, taskDate, taskTag)
+          taskVO.priority = taskPriority;
 
           const domTaskUpdated = renderTask(taskVO);
           domTaskColumn.replaceChild(domTaskUpdated, domTask);
@@ -187,7 +189,6 @@ domBtnDateFilter.addEventListener('change', function (e) {
   };
 
   domTaskColumn.onclick = (e) => {
-    console.log('dfgdfgdfdg')
     e.stopPropagation();
     const domTaskElement = e.target;
     const taskBtn = domTaskElement.dataset.btn;
@@ -230,9 +231,9 @@ domBtnDateFilter.addEventListener('change', function (e) {
       null,
       'Create task',
       'Create',
-      (taskTitle, taskBody, taskDate, taskTag) => {
+      (taskTitle, taskBody, taskDate, taskTag, taskPriority) => {
         const taskId = `task_${Date.now()}`;
-        const taskVO = new TaskVO(taskId, taskTitle, taskBody, taskDate, taskTag);
+        const taskVO = new TaskVO(taskId, taskTitle, taskBody, taskDate, taskTag, taskPriority);
 
 
         renderTask(taskVO);
@@ -253,13 +254,8 @@ domBtnDateFilter.addEventListener('change', function (e) {
 
 
   function renderTask(taskVO) {
-    console.log(taskVO)
-
     const domTaskClone = domTemplateTask.cloneNode(true);
     domTaskClone.setAttribute('id', taskVO.id)
-
-    console.log(domTaskClone)
-
     domTaskClone.dataset.id = taskVO.id;
 
     QUERY(domTaskClone, DOM.Template.Task.TITLE).innerText = taskVO.title;
@@ -268,11 +264,36 @@ domBtnDateFilter.addEventListener('change', function (e) {
     QUERY(domTaskClone, DOM.Template.Task.DATE).innerText = counterDaysLeft(taskVO.dt_end)
     templateColorIconClock (domTaskClone, counterDaysLeft(taskVO.dt_end))
 
+    // switch(parseInt(taskVO.tag)) {
+    //   case 1:
+    //     QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Design";
+    //     break;
+    //   case 2:
+    //     QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Web";
+    //     break;
+    //   case 3:
+    //     QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Front";
+    //     break;
+    //   case 4:
+    //     QUERY(domTaskClone, DOM.Template.Task.TAG).innerText = "Back";
+    //     break;
+    // };
+    // switch(parseInt(taskVO.priority)) {
+    //   case 1:
+    //     QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-red-500');
+    //     break;
+    //   case 2:
+    //     QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-orange-400');
+    //     break;
+    //   case 3:
+    //     QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-yellow-300');
+    //     break;
+    //   case 4:
+    //     QUERY(domTaskClone, DOM.Template.Task.PRIORITY).classList.add('text-emerald-500');
+    //     break;
+    // };
 
     domTaskColumn.prepend(domTaskClone);
-
-
-
     return domTaskClone;
   }
 
@@ -315,21 +336,19 @@ domBtnDateFilter.addEventListener('change', function (e) {
       popupTitle,
       Tags,
       confirmText,
-      (taskTitle, taskBody, taskDate, taskTags) => {
-        processDataCallback(taskTitle, taskBody, taskDate, taskTags);
+      (taskTitle, taskBody, taskDate, taskTags, taskPriority) => {
+        processDataCallback(taskTitle, taskBody, taskDate, taskTags, taskPriority);
         onClosePopup();
       },
       onClosePopup
     );
-    console.log(taskVO)
 
     if (taskVO) {
       taskPopupInstance.taskTitle = taskVO.title;
       taskPopupInstance.taskBody = taskVO.body;
       taskPopupInstance.taskDate = taskVO.dt_end;
       taskPopupInstance.taskTags = taskVO.tag;
-
-
+      taskPopupInstance.taskPriority = taskVO.priority;
     }
 
     document.onkeyup = (e) => {
@@ -347,8 +366,9 @@ domBtnDateFilter.addEventListener('change', function (e) {
     let $body = taskVO.body;
     let $date = taskVO.dt_end;
     let $tag = taskVO.tag;
+    let $priority = taskVO.priority;
     let $taskVOdata;
-    $taskVOdata = [$title, $body, $date, $tag]
+    $taskVOdata = [$title, $body, $date, $tag, $priority]
     // console.log($taskVOdata)
 
     axios.post('/createnewtask',
@@ -377,16 +397,16 @@ domBtnDateFilter.addEventListener('change', function (e) {
         });
   }
 function updateTask (taskVO) {
-  console.log('Работает', taskVO)
 
   let $title = taskVO.title;
   let $body = taskVO.body;
   let $id = taskVO.id;
   let $date = taskVO.dt_end;
   let $tag = taskVO.tag;
+  let $priority = taskVO.priority;
 
   let $taskVOdata;
-  $taskVOdata = [$title, $body, $id, $date, $tag]
+  $taskVOdata = [$title, $body, $id, $date, $tag, $priority]
   console.log($taskVOdata)
 
   axios.post('/updatenewtask',

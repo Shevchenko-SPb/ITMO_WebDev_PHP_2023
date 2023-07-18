@@ -14,6 +14,7 @@ const Dom = {
       DATE: 'templateTaskDate',
       TAG: 'templateTaskTag',
       ICON: 'templateTaskIcon',
+      PRIORITY: 'taskPriorityColor',
       BTN_EDIT: 'btnEdit',
       BTN_DELETE: 'btnDelete',
     },

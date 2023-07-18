@@ -42,8 +42,9 @@ class ToDoController
        $_body = $taskVOdata [1];
        $_date = $taskVOdata [2];
        $_tag = $taskVOdata [3];
+       $_priority = $taskVOdata [4];
        $model = new ToDoModel();
-       $result = $model -> createTask($_title, $_body, $_date, $_tag);
+       $result = $model -> createTask($_title, $_body, $_date, $_tag, $_priority);
        PublishController::publicTaskInRedis($result);
    }
    public function actionUpdateTask ()
@@ -54,9 +55,10 @@ class ToDoController
        $_id = $taskVOdata [2];
        $_date = $taskVOdata [3];
        $_tag = $taskVOdata [4];
+       $_priority = $taskVOdata [5];
 
        $model = new ToDoModel();
-       $model -> updateTask($_title, $_body, $_id, $_date, $_tag);
+       $model -> updateTask($_title, $_body, $_id, $_date, $_tag, $_priority);
    }
 
    public function actionDeleteTask ()
