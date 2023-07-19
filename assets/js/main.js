@@ -44,8 +44,6 @@ const KEY_LOCAL_TASKS = 'tasks';
 const mapTags = new Map([
 ]);
 
-
-
 getTasks ()
 function getTasks () {
   axios.get('/tasks', {
@@ -360,7 +358,7 @@ domBtnDateFilter.addEventListener('change', function (e) {
     domPopupContainer.append(taskPopupInstance.render());
   }
 
-
+  //____________________ Функции работы с базой данных_________________
 
   function saveTask(taskVO) {
     let $title = taskVO.title;
@@ -421,3 +419,59 @@ function updateTask (taskVO) {
       });
 }
 
+//_________________Drag N Drop_______________________
+
+getDOM('tasks-column').addEventListener("drag", e)
+getDOM('tasks-column').addEventListener("dragstart", dragStart)
+
+function dragStart(e) {
+  console.log(e.target.id)
+  console.log('drag starts...');
+  e.dataTransfer.setData('text/plain', e.target.id);
+  setTimeout(() => {
+  e.target.classList.add('hidden');
+  }, 0);
+}
+function e () {
+  console.log("тык")
+}
+
+const boxes = document.querySelectorAll("div[data-box]");
+
+boxes.forEach(box => {
+  box.addEventListener('dragenter', dragEnter)
+  box.addEventListener('dragover', dragOver);
+  box.addEventListener('dragleave', dragLeave);
+  box.addEventListener('drop', drop);
+});
+
+function dragEnter(e) {
+  // e.target.classList.add('border-1 border-black');
+  e.preventDefault();
+  e.target.classList.add('drag-over');
+}
+
+function dragOver(e) {
+  // e.target.classList.add('border-1 border-black');
+  e.preventDefault();
+  e.target.classList.add('drag-over');
+}
+
+function dragLeave(e) {
+  // e.target.classList.remove('border-1 border-black');
+}
+
+function drop(e) {
+  // e.target.classList.remove('border-1 border-black');
+  const id = e.dataTransfer.getData('text/plain');
+  console.log(id)
+  const draggable = document.getElementById(id);
+  console.log(draggable)
+
+  // add it to the drop target
+  e.target.appendChild(draggable);
+
+  // display the draggable element
+  draggable.classList.remove('hidden');
+
+}
