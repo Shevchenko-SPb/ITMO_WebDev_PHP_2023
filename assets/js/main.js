@@ -422,15 +422,26 @@ function updateTask (taskVO) {
 //_________________Drag N Drop_______________________
 
 getDOM('tasks-column').addEventListener("drag", e)
+getDOM('tasks-column-2').addEventListener("drag", e)
+getDOM('tasks-column-3').addEventListener("drag", e)
 getDOM('tasks-column').addEventListener("dragstart", dragStart)
+getDOM('tasks-column-2').addEventListener("dragstart", dragStart)
+getDOM('tasks-column-3').addEventListener("dragstart", dragStart)
 
 function dragStart(e) {
-  console.log(e.target.id)
-  console.log('drag starts...');
-  e.dataTransfer.setData('text/plain', e.target.id);
-  setTimeout(() => {
-  e.target.classList.add('hidden');
-  }, 0);
+  let elem = e.target;
+  console.log(elem.id)
+  console.log(elem);
+  elem.downX = e.pageX;
+  elem.downY = e.pageY;
+
+
+
+
+  e.dataTransfer.setData('text/plain', elem.id);
+//   setTimeout(() => {
+//   e.target.classList.add('hidden');
+//   }, 0);
 }
 function e () {
   console.log("тык")
@@ -462,16 +473,18 @@ function dragLeave(e) {
 }
 
 function drop(e) {
-  // e.target.classList.remove('border-1 border-black');
-  const id = e.dataTransfer.getData('text/plain');
-  console.log(id)
-  const draggable = document.getElementById(id);
-  console.log(draggable)
+  if (e.target === getDOM('tasks-column') || e.target === getDOM('tasks-column-2') || e.target === getDOM('tasks-column-3')) {
+    // e.target.classList.remove('border-1 border-black');
+    const id = e.dataTransfer.getData('text/plain');
+    console.log(id)
+    const draggable = document.getElementById(id);
+    console.log(draggable)
 
-  // add it to the drop target
-  e.target.appendChild(draggable);
+    // add it to the drop target
+    e.target.appendChild(draggable);
 
-  // display the draggable element
-  draggable.classList.remove('hidden');
+    // display the draggable element
+    draggable.classList.remove('hidden');
+  }
 
 }
