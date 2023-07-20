@@ -7,16 +7,17 @@ const KEY_LOCAL_TASKS = 'tasks';
 
   class TaskVO {
     static fromJSON(json) {
-      return new TaskVO(json.id, json.title, json.body, json.dt_end, json.tag, json.priority);
+      return new TaskVO(json.id, json.title, json.body, json.dt_end, json.tag, json.priority, json.id_status);
     }
 
-    constructor(id, title, body, date, tag, priority) {
+    constructor(id, title, body, date, tag, priority, status) {
       this.id = id;
       this.title = title;
       this.body = body;
       this.dt_end = date;
       this.tag = tag;
       this.priority = priority;
+      this.id_status = status;
     }
   }
 
@@ -56,6 +57,7 @@ function getTasks () {
         for (let key in rawTasks) {
           mapTags.set(rawTasks[key][0], rawTasks[key][2])
         }
+        console.log(rawTasks)
 
 
         const tasks = rawTasks
@@ -254,6 +256,7 @@ domBtnDateFilter.addEventListener('change', function (e) {
 
 
   function renderTask(taskVO) {
+    console.log(taskVO)
     const domTaskClone = domTemplateTask.cloneNode(true);
     domTaskClone.setAttribute('id', taskVO.id)
     domTaskClone.dataset.id = taskVO.id;

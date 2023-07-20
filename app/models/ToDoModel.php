@@ -19,7 +19,6 @@ class ToDoModel
                                      ON p.id=ttk.id_priority GROUP BY p.id;";
 
     const SQL_GET_LIST_TASKS = "SELECT tk.id, tk.id_status, tg.name tag, tk.title, tk.dt_end, tk.body, tk.id_priority priority
-
                                   FROM task tk, user_task ut, status st, tag tg
                                  WHERE st.id=tk.id_status 
                                    AND tg.id=tk.id_tag 
