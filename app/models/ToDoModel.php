@@ -125,10 +125,10 @@ class ToDoModel
         $db->query($sql);
         return array('id_task'=>$id_task, 'id_user'=>$id_user);
     }
-    public function updateTask ($_title, $_body, $_id, $_date, $_tag, $_priority)
+    public function updateTask ($_title, $_body, $_id, $_date, $_tag, $_priority, $_status)
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_UPDATE_TASK, 1, $_tag, $_title, $_date, $_body, $_priority, $_id);
+        $sql = sprintf(self::SQL_UPDATE_TASK, $_status, $_tag, $_title, $_date, $_body, $_priority, $_id);
         $db->query($sql);
     }
 

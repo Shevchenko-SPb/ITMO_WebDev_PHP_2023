@@ -26,6 +26,8 @@ const KEY_LOCAL_TASKS = 'tasks';
   const domTemplateTask = getDOM(DOM.Template.TASK);
   const domBtnTagFilter = getDOM(DOM.Template.Main.TAG_FILTER)
   const domBtnDateFilter = getDOM(DOM.Template.Main.DATE_FILTER)
+  const tagsArray = {'Design': 1, 'Web' : 2 , 'Front' : 3, 'Back': 4}
+console.log(tagsArray['Web'])
 
 
 
@@ -186,7 +188,7 @@ domBtnDateFilter.addEventListener('change', function (e) {
     },
   };
 
-  domTaskColumn.onclick = (e) => {
+  getDOM('taskColumns').onclick = (e) => {
     e.stopPropagation();
     const domTaskElement = e.target;
     const taskBtn = domTaskElement.dataset.btn;
@@ -403,9 +405,10 @@ function updateTask (taskVO) {
   let $date = taskVO.dt_end;
   let $tag = taskVO.tag;
   let $priority = taskVO.priority;
+  let $status = taskVO.id_status
 
   let $taskVOdata;
-  $taskVOdata = [$title, $body, $id, $date, $tag, $priority]
+  $taskVOdata = [$title, $body, $id, $date, $tag, $priority, $status]
   console.log($taskVOdata)
 
   axios.post('/updatenewtask',
@@ -421,10 +424,10 @@ function updateTask (taskVO) {
 
 //_________________Drag N Drop_______________________
 
-getDOM('tasks-column').addEventListener("drag", e)
+getDOM('tasks-column-1').addEventListener("drag", e)
 getDOM('tasks-column-2').addEventListener("drag", e)
 getDOM('tasks-column-3').addEventListener("drag", e)
-getDOM('tasks-column').addEventListener("dragstart", dragStart)
+getDOM('tasks-column-1').addEventListener("dragstart", dragStart)
 getDOM('tasks-column-2').addEventListener("dragstart", dragStart)
 getDOM('tasks-column-3').addEventListener("dragstart", dragStart)
 
@@ -473,18 +476,30 @@ function dragLeave(e) {
 }
 
 function drop(e) {
-  if (e.target === getDOM('tasks-column') || e.target === getDOM('tasks-column-2') || e.target === getDOM('tasks-column-3')) {
+  if (e.target === getDOM('tasks-column-1') || e.target === getDOM('tasks-column-2') || e.target === getDOM('tasks-column-3')) {
     // e.target.classList.remove('border-1 border-black');
     const id = e.dataTransfer.getData('text/plain');
-    console.log(id)
+
     const draggable = document.getElementById(id);
     console.log(draggable)
-
     // add it to the drop target
     e.target.appendChild(draggable);
-
     // display the draggable element
     draggable.classList.remove('hidden');
-  }
+    console.log(rawTasks)
 
+    const taskVO = rawTasks.find((task) => task.id == id);
+    console.log(taskVO.tag)
+    if ( typeof taskVO.tag === 'string') {
+      taskVO.tag = tagsArray[taskVO.tag]
+    }
+
+    console.log(taskVO)
+    console.log(tagsArray)
+    // Дописать status
+    taskVO.id_status = Number(e.target.id.toString().slice(-1))
+    console.log(taskVO.id_status)
+    updateTask(taskVO)
+
+  }
 }
