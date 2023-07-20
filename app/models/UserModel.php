@@ -35,11 +35,13 @@ class UserModel {
 
     const SQL_INSERT_USER = "INSERT INTO todo.`user`
 (login, pass, dt_create, is_block, name, surname, href_avatar)
-                             VALUES('pavel-1', '123', now(), 0, 'Вася', 'Пупкин', null)";
+                             VALUES('%s', '%s', now(), 0, '%s', '%s', null)";
 
     public function create($name, $surname, $login, $password){
         $db = DB::getDB();
-        $stmt = $db->query(self::SQL_INSERT_USER);
+        $sql = sprintf(self::SQL_INSERT_USER, $this->login,  $this->pass,  $name,  $surname);
+        $stmt = $db->query($sql);
+        //добавить пользователя
 
     }
 }

@@ -1,4 +1,5 @@
 import DOM from './dom.js';
+import Dom from "./dom.js";
 
 
 const KEY_LOCAL_TASKS = 'tasks';
@@ -7,16 +8,17 @@ const KEY_LOCAL_TASKS = 'tasks';
 
   class TaskVO {
     static fromJSON(json) {
-      return new TaskVO(json.id, json.title, json.body, json.dt_end, json.tag, json.priority);
+      return new TaskVO(json.id, json.title, json.body, json.dt_end, json.tag, json.priority, json.id_status);
     }
 
-    constructor(id, title, body, date, tag, priority) {
+    constructor(id, title, body, date, tag, priority, status) {
       this.id = id;
       this.title = title;
       this.body = body;
       this.dt_end = date;
       this.tag = tag;
       this.priority = priority;
+      this.id_status = status;
     }
   }
 
@@ -26,6 +28,8 @@ const KEY_LOCAL_TASKS = 'tasks';
   const domTemplateTask = getDOM(DOM.Template.TASK);
   const domBtnTagFilter = getDOM(DOM.Template.Main.TAG_FILTER)
   const domBtnDateFilter = getDOM(DOM.Template.Main.DATE_FILTER)
+  const tagsArray = {'Design': 1, 'Web' : 2 , 'Front' : 3, 'Back': 4}
+console.log(tagsArray['Web'])
 
 
 
@@ -44,8 +48,6 @@ const KEY_LOCAL_TASKS = 'tasks';
 const mapTags = new Map([
 ]);
 
-
-
 getTasks ()
 function getTasks () {
   axios.get('/tasks', {
@@ -56,6 +58,7 @@ function getTasks () {
         for (let key in rawTasks) {
           mapTags.set(rawTasks[key][0], rawTasks[key][2])
         }
+        console.log(rawTasks)
 
 
         const tasks = rawTasks
@@ -158,7 +161,17 @@ domBtnDateFilter.addEventListener('change', function (e) {
               taskTag,
               taskPriority,
             });
-            domTaskColumn.removeChild(domTask);
+            switch (taskVO.id_status) {
+              case 1:
+                getDOM(Dom.Template.TASK_COLUMN_1).removeChild(domTask);
+                break;
+              case 2:
+                getDOM(Dom.Template.TASK_COLUMN_2).removeChild(domTask);
+                break;
+              case 3:
+                getDOM(Dom.Template.TASK_COLUMN_3).removeChild(domTask);
+                break;
+            }
             deleteTask(taskVO);
           }
       );
@@ -178,14 +191,24 @@ domBtnDateFilter.addEventListener('change', function (e) {
           taskVO.priority = taskPriority;
 
           const domTaskUpdated = renderTask(taskVO);
-          domTaskColumn.replaceChild(domTaskUpdated, domTask);
+          switch (taskVO.id_status) {
+            case 1:
+              getDOM(Dom.Template.TASK_COLUMN_1).replaceChild(domTaskUpdated, domTask);
+              break;
+            case 2:
+              getDOM(Dom.Template.TASK_COLUMN_2).replaceChild(domTaskUpdated, domTask);
+              break;
+            case 3:
+              getDOM(Dom.Template.TASK_COLUMN_3).replaceChild(domTaskUpdated, domTask);
+              break;
+          }
           updateTask(taskVO);
         }
       );
     },
   };
 
-  domTaskColumn.onclick = (e) => {
+  getDOM('taskColumns').onclick = (e) => {
     e.stopPropagation();
     const domTaskElement = e.target;
     const taskBtn = domTaskElement.dataset.btn;
@@ -229,8 +252,11 @@ domBtnDateFilter.addEventListener('change', function (e) {
       'Create task',
       'Create',
       (taskTitle, taskBody, taskDate, taskTag, taskPriority) => {
+        console.log(taskTitle, taskBody, taskDate, taskTag, taskPriority)
         const taskId = `task_${Date.now()}`;
         const taskVO = new TaskVO(taskId, taskTitle, taskBody, taskDate, taskTag, taskPriority);
+        console.log(taskVO)
+        taskVO.id_status = 1;
 
 
         renderTask(taskVO);
@@ -251,6 +277,7 @@ domBtnDateFilter.addEventListener('change', function (e) {
 
 
   function renderTask(taskVO) {
+    console.log(taskVO)
     const domTaskClone = domTemplateTask.cloneNode(true);
     domTaskClone.setAttribute('id', taskVO.id)
     domTaskClone.dataset.id = taskVO.id;
@@ -291,7 +318,18 @@ domBtnDateFilter.addEventListener('change', function (e) {
     };
 
 
-    domTaskColumn.prepend(domTaskClone);
+    switch (taskVO.id_status) {
+      case 1:
+        getDOM(Dom.Template.TASK_COLUMN_1).prepend(domTaskClone);
+        break;
+      case 2:
+        getDOM(Dom.Template.TASK_COLUMN_2).prepend(domTaskClone);
+        break;
+      case 3:
+        getDOM(Dom.Template.TASK_COLUMN_3).prepend(domTaskClone);
+        break;
+    }
+
     return domTaskClone;
   }
 
@@ -357,7 +395,7 @@ domBtnDateFilter.addEventListener('change', function (e) {
     domPopupContainer.append(taskPopupInstance.render());
   }
 
-
+  //____________________ Функции работы с базой данных_________________
 
   function saveTask(taskVO) {
     let $title = taskVO.title;
@@ -402,9 +440,10 @@ function updateTask (taskVO) {
   let $date = taskVO.dt_end;
   let $tag = taskVO.tag;
   let $priority = taskVO.priority;
+  let $status = taskVO.id_status
 
   let $taskVOdata;
-  $taskVOdata = [$title, $body, $id, $date, $tag, $priority]
+  $taskVOdata = [$title, $body, $id, $date, $tag, $priority, $status]
   console.log($taskVOdata)
 
   axios.post('/updatenewtask',
@@ -418,3 +457,64 @@ function updateTask (taskVO) {
       });
 }
 
+//_________________Drag N Drop_______________________
+
+getDOM(Dom.Template.TASK_COLUMN_1).addEventListener("drag", e)
+getDOM(Dom.Template.TASK_COLUMN_2).addEventListener("drag", e)
+getDOM(Dom.Template.TASK_COLUMN_3).addEventListener("drag", e)
+getDOM(Dom.Template.TASK_COLUMN_1).addEventListener("dragstart", dragStart)
+getDOM(Dom.Template.TASK_COLUMN_2).addEventListener("dragstart", dragStart)
+getDOM(Dom.Template.TASK_COLUMN_3).addEventListener("dragstart", dragStart)
+
+function dragStart(e) {
+  let elem = e.target;
+  if (!elem.draggable) {
+    return
+  }
+  e.dataTransfer.setData('text/plain', elem.id);
+}
+function e () {
+}
+
+const boxes = document.querySelectorAll("div[data-box]");
+boxes.forEach(box => {
+  box.addEventListener('dragenter', dragEnter)
+  box.addEventListener('dragover', dragOver);
+  box.addEventListener('dragleave', dragLeave);
+  box.addEventListener('drop', drop);
+});
+
+function dragEnter(e) {
+  e.preventDefault();
+  e.target.classList.add('drag-over');
+}
+
+function dragOver(e) {
+  e.preventDefault();
+  e.target.classList.add('drag-over');
+}
+
+function dragLeave(e) {
+}
+
+function drop(e) {
+  if (e.target === getDOM('tasks-column-1') || e.target === getDOM('tasks-column-2') || e.target === getDOM('tasks-column-3')) {
+
+    const id = e.dataTransfer.getData('text/plain');
+    const draggable = document.getElementById(id);
+
+    e.target.appendChild(draggable);
+    draggable.classList.remove('hidden');
+
+
+    const taskVO = rawTasks.find((task) => task.id == id);
+
+    if ( typeof taskVO.tag === 'string') {
+      taskVO.tag = tagsArray[taskVO.tag]
+    }
+    taskVO.id_status = Number(e.target.id.toString().slice(-1))
+
+    updateTask(taskVO)
+
+  }
+}

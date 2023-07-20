@@ -137,6 +137,7 @@ class TaskPopup {
       const taskTags = domSelectTag.value;
       const taskPriority = domInpPriority.value;
       this.#confirmCallback(taskTitle, taskBody, taskDate, taskTags, taskPriority);
+
     };
 
     return div.children[0];

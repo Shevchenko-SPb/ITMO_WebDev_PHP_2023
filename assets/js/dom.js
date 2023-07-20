@@ -7,7 +7,9 @@ const Dom = {
   },
   Template: {
     TASK: 'templateTask',
-    TASK_COLUMN: 'tasks-column',
+    TASK_COLUMN_1: 'tasks-column-1',
+    TASK_COLUMN_2: 'tasks-column-2',
+    TASK_COLUMN_3: 'tasks-column-3',
     Task: {
       TITLE: 'templateTaskTitle',
       BODY: 'templateTaskBody',

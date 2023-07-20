@@ -19,7 +19,6 @@ class ToDoModel
                                      ON p.id=ttk.id_priority GROUP BY p.id;";
 
     const SQL_GET_LIST_TASKS = "SELECT tk.id, tk.id_status, tg.name tag, tk.title, tk.dt_end, tk.body, tk.id_priority priority
-
                                   FROM task tk, user_task ut, status st, tag tg
                                  WHERE st.id=tk.id_status 
                                    AND tg.id=tk.id_tag 
@@ -125,11 +124,11 @@ class ToDoModel
         return array('id_task'=>$id_task, 'id_user'=>$id_user);
     }
 
-    public function updateTask ($_title, $_body, $_id, $_date, $_tag, $_priority)
+    public function updateTask ($_title, $_body, $_id, $_date, $_tag, $_priority, $_status)
 
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_UPDATE_TASK, 1, $_tag, $_title, $_date, $_body, $_priority, $_id);
+        $sql = sprintf(self::SQL_UPDATE_TASK, $_status, $_tag, $_title, $_date, $_body, $_priority, $_id);
         $db->query($sql);
     }
 
