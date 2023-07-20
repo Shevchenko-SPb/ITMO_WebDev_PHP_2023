@@ -1,4 +1,5 @@
 import DOM from './dom.js';
+import Dom from "./dom.js";
 
 
 const KEY_LOCAL_TASKS = 'tasks';
@@ -297,7 +298,18 @@ domBtnDateFilter.addEventListener('change', function (e) {
     };
 
 
-    domTaskColumn.prepend(domTaskClone);
+    switch (taskVO.id_status) {
+      case 1:
+        getDOM(Dom.Template.TASK_COLUMN_1).prepend(domTaskClone);
+        break;
+      case 2:
+        getDOM(Dom.Template.TASK_COLUMN_2).prepend(domTaskClone);
+        break;
+      case 3:
+        getDOM(Dom.Template.TASK_COLUMN_3).prepend(domTaskClone);
+        break;
+    }
+
     return domTaskClone;
   }
 
@@ -427,34 +439,24 @@ function updateTask (taskVO) {
 
 //_________________Drag N Drop_______________________
 
-getDOM('tasks-column-1').addEventListener("drag", e)
-getDOM('tasks-column-2').addEventListener("drag", e)
-getDOM('tasks-column-3').addEventListener("drag", e)
-getDOM('tasks-column-1').addEventListener("dragstart", dragStart)
-getDOM('tasks-column-2').addEventListener("dragstart", dragStart)
-getDOM('tasks-column-3').addEventListener("dragstart", dragStart)
+getDOM(Dom.Template.TASK_COLUMN_1).addEventListener("drag", e)
+getDOM(Dom.Template.TASK_COLUMN_2).addEventListener("drag", e)
+getDOM(Dom.Template.TASK_COLUMN_3).addEventListener("drag", e)
+getDOM(Dom.Template.TASK_COLUMN_1).addEventListener("dragstart", dragStart)
+getDOM(Dom.Template.TASK_COLUMN_2).addEventListener("dragstart", dragStart)
+getDOM(Dom.Template.TASK_COLUMN_3).addEventListener("dragstart", dragStart)
 
 function dragStart(e) {
   let elem = e.target;
-  console.log(elem.id)
-  console.log(elem);
-  elem.downX = e.pageX;
-  elem.downY = e.pageY;
-
-
-
-
+  if (!elem.draggable) {
+    return
+  }
   e.dataTransfer.setData('text/plain', elem.id);
-//   setTimeout(() => {
-//   e.target.classList.add('hidden');
-//   }, 0);
 }
 function e () {
-  console.log("тык")
 }
 
 const boxes = document.querySelectorAll("div[data-box]");
-
 boxes.forEach(box => {
   box.addEventListener('dragenter', dragEnter)
   box.addEventListener('dragover', dragOver);
@@ -463,45 +465,35 @@ boxes.forEach(box => {
 });
 
 function dragEnter(e) {
-  // e.target.classList.add('border-1 border-black');
   e.preventDefault();
   e.target.classList.add('drag-over');
 }
 
 function dragOver(e) {
-  // e.target.classList.add('border-1 border-black');
   e.preventDefault();
   e.target.classList.add('drag-over');
 }
 
 function dragLeave(e) {
-  // e.target.classList.remove('border-1 border-black');
 }
 
 function drop(e) {
   if (e.target === getDOM('tasks-column-1') || e.target === getDOM('tasks-column-2') || e.target === getDOM('tasks-column-3')) {
-    // e.target.classList.remove('border-1 border-black');
-    const id = e.dataTransfer.getData('text/plain');
 
+    const id = e.dataTransfer.getData('text/plain');
     const draggable = document.getElementById(id);
-    console.log(draggable)
-    // add it to the drop target
+
     e.target.appendChild(draggable);
-    // display the draggable element
     draggable.classList.remove('hidden');
-    console.log(rawTasks)
+
 
     const taskVO = rawTasks.find((task) => task.id == id);
-    console.log(taskVO.tag)
+
     if ( typeof taskVO.tag === 'string') {
       taskVO.tag = tagsArray[taskVO.tag]
     }
-
-    console.log(taskVO)
-    console.log(tagsArray)
-    // Дописать status
     taskVO.id_status = Number(e.target.id.toString().slice(-1))
-    console.log(taskVO.id_status)
+
     updateTask(taskVO)
 
   }
