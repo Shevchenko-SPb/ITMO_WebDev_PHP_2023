@@ -164,7 +164,17 @@ domBtnDateFilter.addEventListener('change', function (e) {
               taskTag,
               taskPriority,
             });
-            domTaskColumn.removeChild(domTask);
+            switch (taskVO.id_status) {
+              case 1:
+                getDOM(Dom.Template.TASK_COLUMN_1).removeChild(domTask);
+                break;
+              case 2:
+                getDOM(Dom.Template.TASK_COLUMN_2).removeChild(domTask);
+                break;
+              case 3:
+                getDOM(Dom.Template.TASK_COLUMN_3).removeChild(domTask);
+                break;
+            }
             deleteTask(taskVO);
           }
       );
@@ -184,7 +194,17 @@ domBtnDateFilter.addEventListener('change', function (e) {
           taskVO.priority = taskPriority;
 
           const domTaskUpdated = renderTask(taskVO);
-          domTaskColumn.replaceChild(domTaskUpdated, domTask);
+          switch (taskVO.id_status) {
+            case 1:
+              getDOM(Dom.Template.TASK_COLUMN_1).replaceChild(domTaskUpdated, domTask);
+              break;
+            case 2:
+              getDOM(Dom.Template.TASK_COLUMN_2).replaceChild(domTaskUpdated, domTask);
+              break;
+            case 3:
+              getDOM(Dom.Template.TASK_COLUMN_3).replaceChild(domTaskUpdated, domTask);
+              break;
+          }
           updateTask(taskVO);
         }
       );
@@ -235,8 +255,11 @@ domBtnDateFilter.addEventListener('change', function (e) {
       'Create task',
       'Create',
       (taskTitle, taskBody, taskDate, taskTag, taskPriority) => {
+        console.log(taskTitle, taskBody, taskDate, taskTag, taskPriority)
         const taskId = `task_${Date.now()}`;
         const taskVO = new TaskVO(taskId, taskTitle, taskBody, taskDate, taskTag, taskPriority);
+        console.log(taskVO)
+        taskVO.id_status = 1;
 
 
         renderTask(taskVO);

@@ -7,8 +7,8 @@
     <style>
     </style>
 </head>
-<body>
-<form class="fixed left-0 top-0 z-10 grid h-screen w-screen place-items-center bg-black/10"
+<body class="fixed left-0 top-0 z-10 grid h-screen w-screen place-items-center bg-black/10 shadow-2xl">
+<form
       action='./loginCheck' method='POST'>
     <div class="flex flex-col justify-center relative min-w-[377px] bg-white p-6 rounded-2xl gap-y-4">
         <span class="text-4xl font-bold text-center">Taski</span>
@@ -18,7 +18,9 @@
         <input class="border-2 flex border-gray-500/50 mx-9 text-center" name="login" placeholder="Login">
         <input class="border-2 flex border-gray-500/50 mx-9 text-center" name="password" placeholder="Password">
         <input class="bg-teal-600 text-white p-2 rounded-lg mx-20 font-bold" type="submit" name="Login" value="Sign in" />
-        <input class="bg-teal-600 text-white p-2 rounded-lg mx-20 font-bold" type="submit" name="Registration" value="Registration" /></div>
+</form>
+<form action='./registration' method='POST' class="justify-center">
+        <input class="bg-teal-600 text-white p-2 rounded-lg mx-20 font-bold w-44" type="submit" name="Registration" value="Registration"/></div>
 </form>
 </body>
 </html>
