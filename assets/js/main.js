@@ -29,7 +29,20 @@ const KEY_LOCAL_TASKS = 'tasks';
   const domBtnTagFilter = getDOM(DOM.Template.Main.TAG_FILTER)
   const domBtnDateFilter = getDOM(DOM.Template.Main.DATE_FILTER)
   const tagsArray = {'Design': 1, 'Web' : 2 , 'Front' : 3, 'Back': 4}
-console.log(tagsArray['Web'])
+
+//////////////////Клонирование колонки///////////////////
+document.getElementById('addColumn').onclick = () => {
+  let column = document.getElementById('testColumn')
+  let clone = column.cloneNode(true);
+  console.log(clone.querySelectorAll('[data-id]'))
+  let tasksArray = clone.querySelectorAll('[data-id]')
+  for (let i = 0; i < tasksArray.length; i++) {
+    tasksArray[i].remove();
+  }
+  // columns.insertAfter(column, clone);
+  column.parentNode.insertBefore(clone, column.nextSibling);
+}
+
 
 
 

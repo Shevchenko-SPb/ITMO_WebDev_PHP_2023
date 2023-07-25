@@ -213,14 +213,14 @@
       <hr />
       <div    id="taskColumns"
               class="flex flex-row justify-between gap-x-4 h-full">
-        <div class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
+        <div id="testColumn" class="border-1 flex min-w-[150px] h-full flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
         >
           <div class="flex flex-row justify-between px-1 py-1">
             <div class="flex flex-row gap-x-1 font-bold">
               <span>To Do </span>
               <span class="text-gray-400">0</span>
             </div>
-            <div class="flex flex-col text-neutral-500">+ ...</div>
+            <div class="flex flex-col text-neutral-500"><button id="addColumn">+</button></div>
           </div>
           <div class="flex flex-col h-full justify-between pt-2 ">
             <div
@@ -231,7 +231,7 @@
               <div
                   id="templateTask"
                   draggable="true"
-                  class="border-1 flex flex-row rounded-lg border-neutral-100 bg-neutral-50 px-3 py-3 shadow mt-2.5"
+                  class="border-1 flex flex-row  rounded-lg border-neutral-100 bg-neutral-50 px-3 py-3 shadow mt-2.5"
               >
                 <div class="flex w-full flex-col gap-y-3">
                   <div class="flex flex-row justify-between"><span data-id="templateTaskTitle" class="pointer-events-none font-bold"
@@ -276,7 +276,7 @@
             <button id="btnAddTask" class="w-full rounded-lg bg-neutral-50 py-2 text-neutral-500 shadow mt-2.5">+ Add task</button>
           </div>
         </div>
-        <div  class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2">
+        <div  class="border-1 flex h-full flex-col min-w-[150px] rounded-xl border-gray-300/50 bg-gray-200 p-2">
           <div class="flex flex-row justify-between px-1 py-1">
             <div class="flex flex-row gap-x-1 font-bold">
               <span>In Progress </span>
@@ -291,7 +291,7 @@
           </div>
         </div>
         <div
-            class=" border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
+            class=" border-1 flex h-full flex-col min-w-[150px] rounded-xl border-gray-300/50 bg-gray-200 p-2"
 
         >
           <div class="flex flex-row justify-between px-1 py-1">
