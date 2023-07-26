@@ -33,23 +33,36 @@ const KEY_LOCAL_TASKS = 'tasks';
   const domBtnCreateDashboard = getDOM(DOM.Button.CREATE_DASHBOARD)
   const domDashboard = getDOM(Dom.Template.DASHBOARD);
   const domDashboardTemplate = getDOM(Dom.Template.DASHBOARD_TEMPLATE);
+  const domDashboardList = getDOM(Dom.Template.DASHBOARD_LIST);
+  const domSafeDashboard = getDOM(Dom.Button.SAFE_DASHBOARD)
   const tagsArray = {'Design': 1, 'Web' : 2 , 'Front' : 3, 'Back': 4}
 
 domTemplateTask.removeAttribute('id');
 domTemplateTask.remove();
 
 ////////////////// Создание Dashboard////////////////////
-const newDashboard = domDashboardTemplate.cloneNode(true);
+const newDashboard = domDashboard.querySelector("div[id]").cloneNode(true);
 
 domBtnCreateDashboard.onclick = () => {
-  console.log('создание доски')
-  const parentDashboard = domDashboardTemplate.parentNode;
+
   domDashboardTemplate.removeAttribute('id');
   domDashboardTemplate.remove();
+
   newDashboard.id = randomString(5) + Date.now();
-  console.log(newDashboard.childNodes)
   newDashboard.childNodes.forEach(element => element.id = newDashboard.id + "||" + randomString(5))
-  parentDashboard.appendChild(newDashboard);
+  domDashboard.appendChild(newDashboard);
+
+  const dashboardListName = QUERY(domDashboardList, 'dashboardList');
+  const newDashboardListName = dashboardListName.cloneNode(true)
+  newDashboardListName.dataset.id = newDashboard.id
+  newDashboardListName.classList.remove("hidden");
+  domDashboardList.appendChild(newDashboardListName)
+
+
+  domSafeDashboard.classList.remove("hidden")
+  QUERY(domSafeDashboard, "cancel").onclick = () => {
+    window.location.reload(true);
+  }
 }
 
 //////////////////Клонирование колонки///////////////////
