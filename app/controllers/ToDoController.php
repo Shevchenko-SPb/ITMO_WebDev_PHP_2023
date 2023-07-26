@@ -13,6 +13,7 @@ class ToDoController
        };
        #todo: Дописать вывод профиля
        $name = $_SESSION["name"];
+       $idUser = $_SESSION["id"];
        $surname = $_SESSION["surname"];
        $href_avatar = $_SESSION["href_avatar"];
        $v = new ToDoView();

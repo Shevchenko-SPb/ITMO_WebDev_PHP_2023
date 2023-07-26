@@ -230,7 +230,7 @@
       <hr />
       <div class="flex flex-row justify-between gap-x-4">
         <div
-            class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
+            class="border-1 flex h-full flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
         >
           <div class="flex flex-row justify-between px-1 py-1">
             <div class="flex flex-row gap-x-1 font-bold">
@@ -304,14 +304,11 @@
                   </div>
                 </div>
               </div>
-              <button class="w-full rounded-lg bg-neutral-50 py-2 text-neutral-500 shadow">
-                + Add task
-              </button>
             </div>
           </div>
         </div>
         <div
-            class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
+            class="border-1 flex h-full flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
         >
           <div class="flex flex-row justify-between px-1 py-1">
             <div class="flex flex-row gap-x-1 font-bold">
@@ -332,7 +329,7 @@
           </div>
         </div>
         <div
-            class="border-1 flex h-full w-1/3 flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
+            class="border-1 flex h-full flex-col rounded-xl border-gray-300/50 bg-gray-200 p-2"
         >
           <div class="flex flex-row justify-between px-1 py-1">
             <div class="flex flex-row gap-x-1 font-bold">

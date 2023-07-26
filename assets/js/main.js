@@ -1,5 +1,6 @@
 import DOM from './dom.js';
 import Dom from "./dom.js";
+import {randomString} from "./stringUtils.js";
 
 
 const KEY_LOCAL_TASKS = 'tasks';
@@ -25,32 +26,47 @@ const KEY_LOCAL_TASKS = 'tasks';
   const getDOM = (id) => document.getElementById(id);
   const QUERY = (container, id) => container.querySelector(`[data-id="${id}"]`);
 
-  const domTemplateTask = getDOM(DOM.Template.TASK);
-  const domBtnTagFilter = getDOM(DOM.Template.Main.TAG_FILTER)
-  const domBtnDateFilter = getDOM(DOM.Template.Main.DATE_FILTER)
+  const domTemplateTask = getDOM(DOM.Template.TASK)
+  const domBtnShowFilter = getDOM(DOM.Button.SHOW_FILTERS)
+  const domBtnTagFilter = getDOM(DOM.Button.TAG_FILTER)
+  const domBtnDateFilter = getDOM(DOM.Button.DATE_FILTER)
+  const domBtnCreateDashboard = getDOM(DOM.Button.CREATE_DASHBOARD)
+  const domDashboard = getDOM(Dom.Template.DASHBOARD);
+  const domDashboardTemplate = getDOM(Dom.Template.DASHBOARD_TEMPLATE);
   const tagsArray = {'Design': 1, 'Web' : 2 , 'Front' : 3, 'Back': 4}
 
+domTemplateTask.removeAttribute('id');
+domTemplateTask.remove();
+
+////////////////// Создание Dashboard////////////////////
+const newDashboard = domDashboardTemplate.cloneNode(true);
+
+domBtnCreateDashboard.onclick = () => {
+  console.log('создание доски')
+  const parentDashboard = domDashboardTemplate.parentNode;
+  domDashboardTemplate.removeAttribute('id');
+  domDashboardTemplate.remove();
+  newDashboard.id = randomString(5) + Date.now();
+  console.log(newDashboard.childNodes)
+  newDashboard.childNodes.forEach(element => element.id = newDashboard.id + "||" + randomString(5))
+  parentDashboard.appendChild(newDashboard);
+}
+
 //////////////////Клонирование колонки///////////////////
-document.getElementById('addColumn').onclick = () => {
-  let column = document.getElementById('testColumn')
-  let clone = column.cloneNode(true);
-  console.log(clone.querySelectorAll('[data-id]'))
-  let tasksArray = clone.querySelectorAll('[data-id]')
+function createNewColumn (elem) {
+  let taskColumn = elem.closest(".column")
+  let clone = taskColumn.cloneNode(true);
+  let tasksArray = clone.querySelectorAll('div.task')
   for (let i = 0; i < tasksArray.length; i++) {
     tasksArray[i].remove();
   }
-  // columns.insertAfter(column, clone);
-  column.parentNode.insertBefore(clone, column.nextSibling);
+  clone.id = newDashboard.id + "||" + randomString(5);
+  console.log(clone.id)
+  taskColumn.parentNode.insertBefore(clone, taskColumn.nextSibling);
 }
+//////////////////////////////////////////////////////////////
 
-
-
-
-  const domTaskColumn = domTemplateTask.parentNode;
-  domTemplateTask.removeAttribute('id');
-  domTemplateTask.remove();
-
-  // const rawTasks = localStorage.getItem(KEY_LOCAL_TASKS);
+// const rawTasks = localStorage.getItem(KEY_LOCAL_TASKS);
   var rawTasks = undefined;
   var tasks = undefined;
 //document.addEventListener("DOMContentLoaded", function(event) {
@@ -60,6 +76,7 @@ document.getElementById('addColumn').onclick = () => {
 
 const mapTags = new Map([
 ]);
+
 
 getTasks ()
 function getTasks () {
@@ -72,30 +89,16 @@ function getTasks () {
           mapTags.set(rawTasks[key][0], rawTasks[key][2])
         }
         console.log(rawTasks)
-
-
         const tasks = rawTasks
-        // console.log(tasks.sort((a, b) => a.distance - b.distance))
-
-
             ? rawTasks.map((json) => TaskVO.fromJSON(json))
             : [];
         console.log(tasks)
-
-
-
         tasks.forEach((taskVO) => renderTask(taskVO));
-
-        // console.log('tasks ->>>',tasks)
-
       })
       .catch(function (error) {
-        // handle error
-        //console.log(error);
       })
       .finally(function () {
-        // always executed
-      });
+      })
 }
 
 
@@ -114,52 +117,6 @@ function getTasks () {
 //   console.log(currentEvent);
 //   };
 //________________________________
-
-
-domBtnTagFilter.addEventListener('change', function (e) {
-  console.log('worked1')
-  mapTags.forEach((value, key) => {
-    if (true) {
-      getDOM(key).classList.remove('hidden')
-    }
-  })
-
-  mapTags.forEach((value, key) => {
-    if (!(value === domBtnTagFilter.value)) {
-      getDOM(key).classList.add('hidden')
-    }
-  })
-
-  mapTags.forEach((value, key) => {
-    if ('Reset' === domBtnTagFilter.value) {
-      getDOM(key).classList.remove('hidden')
-    }
-  })
-})
-
-domBtnDateFilter.addEventListener('change', function (e) {
-  mapTags.forEach((value, key) => {
-    if (true) {
-      getDOM(key).classList.add('hidden')
-    }
-  })
-
-  const tasks = rawTasks
-      ? rawTasks.map((json) => TaskVO.fromJSON(json))
-      : [];
-
-  if ('Deadline' === domBtnDateFilter.value) {
-    console.log(tasks.sort((x, y) => y.dt_end.localeCompare(x.dt_end)));
-    tasks.forEach((taskVO) => renderTask(taskVO));
-  } else if ('NewTasks' === domBtnDateFilter.value) {
-    console.log(tasks.sort((x, y) => x.dt_end.localeCompare(y.dt_end)));
-    tasks.forEach((taskVO) => renderTask(taskVO));
-  } else {
-    tasks.forEach((taskVO) => renderTask(taskVO));
-  }
-})
-
-
 
 
 
@@ -224,7 +181,20 @@ domBtnDateFilter.addEventListener('change', function (e) {
     },
   };
 
-  getDOM('taskColumns').onclick = (e) => {
+
+  getDOM(Dom.Template.DASHBOARD).onclick = (e) => {
+    switch (e.target.dataset.id) {
+      case 'btnAddTask':
+        console.log('addTask')
+        templatePopupCreateTask ();
+        break;
+      case 'btnAddColumn':
+        console.log('click')
+        createNewColumn (e.target);
+        break;
+    }
+
+
     e.stopPropagation();
     const domTaskElement = e.target;
     const taskBtn = domTaskElement.dataset.btn;
@@ -283,17 +253,10 @@ domBtnDateFilter.addEventListener('change', function (e) {
     );
   }
 
-  getDOM(DOM.Button.ADD_TASK).onclick = () => {
-    templatePopupCreateTask ()
-  }
-
-  getDOM(DOM.Button.CREATE_TASK).onclick = () => {
-    templatePopupCreateTask ()
-  };
-
 
   function renderTask(taskVO) {
-    console.log(taskVO)
+
+    domTemplateTask.classList.remove("hidden");
     const domTaskClone = domTemplateTask.cloneNode(true);
     domTaskClone.setAttribute('id', taskVO.id)
     domTaskClone.dataset.id = taskVO.id;
@@ -475,14 +438,18 @@ function updateTask (taskVO) {
 
 //_________________Drag N Drop_______________________
 
-getDOM(Dom.Template.TASK_COLUMN_1).addEventListener("drag", e)
-getDOM(Dom.Template.TASK_COLUMN_2).addEventListener("drag", e)
-getDOM(Dom.Template.TASK_COLUMN_3).addEventListener("drag", e)
-getDOM(Dom.Template.TASK_COLUMN_1).addEventListener("dragstart", dragStart)
-getDOM(Dom.Template.TASK_COLUMN_2).addEventListener("dragstart", dragStart)
-getDOM(Dom.Template.TASK_COLUMN_3).addEventListener("dragstart", dragStart)
+domDashboard.addEventListener("drag", e)
+domDashboard.addEventListener("dragstart", dragStart)
 
 function dragStart(e) {
+  const boxes = document.querySelectorAll("div[data-box]");
+  boxes.forEach(box => {
+    box.addEventListener('dragenter', dragEnter)
+    box.addEventListener('dragover', dragOver);
+    box.addEventListener('dragleave', dragLeave);
+    box.addEventListener('drop', drop);
+  });
+
   let elem = e.target;
   if (!elem.draggable) {
     return
@@ -491,14 +458,6 @@ function dragStart(e) {
 }
 function e () {
 }
-
-const boxes = document.querySelectorAll("div[data-box]");
-boxes.forEach(box => {
-  box.addEventListener('dragenter', dragEnter)
-  box.addEventListener('dragover', dragOver);
-  box.addEventListener('dragleave', dragLeave);
-  box.addEventListener('drop', drop);
-});
 
 function dragEnter(e) {
   e.preventDefault();
@@ -514,7 +473,7 @@ function dragLeave(e) {
 }
 
 function drop(e) {
-  if (e.target === getDOM('tasks-column-1') || e.target === getDOM('tasks-column-2') || e.target === getDOM('tasks-column-3')) {
+  if (e.target.dataset.box) {
 
     const id = e.dataTransfer.getData('text/plain');
     const draggable = document.getElementById(id);
@@ -529,8 +488,63 @@ function drop(e) {
       taskVO.tag = tagsArray[taskVO.tag]
     }
     taskVO.id_status = Number(e.target.id.toString().slice(-1))
+    console.log(taskVO)
 
     updateTask(taskVO)
 
   }
 }
+////////////////// TASKS FILTERS /////////////////////////
+
+domBtnShowFilter.onclick = () => {
+  if (domBtnTagFilter.classList.contains("hidden")) {
+    domBtnTagFilter.classList.remove("hidden")
+    domBtnDateFilter.classList.remove("hidden")
+  } else {
+    domBtnTagFilter.classList.add("hidden")
+    domBtnDateFilter.classList.add("hidden")
+  }
+
+  domBtnTagFilter.addEventListener('change', function (e) {
+    mapTags.forEach((value, key) => {
+      if (true) {
+        getDOM(key).classList.remove('hidden')
+      }
+    })
+
+    mapTags.forEach((value, key) => {
+      if (!(value === domBtnTagFilter.value)) {
+        getDOM(key).classList.add('hidden')
+      }
+    })
+
+    mapTags.forEach((value, key) => {
+      if ('Reset' === domBtnTagFilter.value) {
+        getDOM(key).classList.remove('hidden')
+      }
+    })
+  })
+
+  domBtnDateFilter.addEventListener('change', function (e) {
+    mapTags.forEach((value, key) => {
+      if (true) {
+        getDOM(key).classList.add('hidden')
+      }
+    })
+
+    const tasks = rawTasks
+        ? rawTasks.map((json) => TaskVO.fromJSON(json))
+        : [];
+
+    if ('Deadline' === domBtnDateFilter.value) {
+      console.log(tasks.sort((x, y) => y.dt_end.localeCompare(x.dt_end)));
+      tasks.forEach((taskVO) => renderTask(taskVO));
+    } else if ('NewTasks' === domBtnDateFilter.value) {
+      console.log(tasks.sort((x, y) => x.dt_end.localeCompare(y.dt_end)));
+      tasks.forEach((taskVO) => renderTask(taskVO));
+    } else {
+      tasks.forEach((taskVO) => renderTask(taskVO));
+    }
+  })
+}
+////////////////////////////////////////////////////////////
