@@ -13,6 +13,8 @@ return array(
     'createnewtask' => 'ToDo/createTask',
     'deleteusertask' => 'ToDo/deleteTask',
     'updatenewtask' => 'ToDo/updateTask',
+    'createnewdashboard' => 'ToDo/createDashboard',
+    'getListdashboards' => 'ToDo/getListDashboards',
     'sse' => 'ToDo/sse',
     'logout' => 'ToDo/logout',
     'reguser' => 'Registration/CreateUser'

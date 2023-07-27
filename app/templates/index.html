@@ -19,10 +19,10 @@
     }
   </style>
 </head>
-<body class="grid place-items-center bg-teal-100/50 font-sans p-8">
+<body class="grid place-items-center bg-teal-100/50 font-sans p-8 flex">
 <div id="popupContainer" class="fixed left-0 top-0 z-10 grid hidden h-screen w-screen place-items-center bg-black/70">
 </div>
-<div class="container shadow-2xl flex h-full flex-row rounded-3xl bg-gray-200/90 p-4">
+<div class=" w-fit shadow-2xl flex h-full flex-row rounded-3xl bg-gray-200/90 p-4">
   <aside class="flex min-w-[250px] flex-col">
     <div>
       <div class="flex flex-row items-center gap-x-2 py-4" ><i class="text-teal-700"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12.3L3.5 7.05L12 1.8l8.5 5.25z"/><path fill="currentColor" d="M12 22.2v-9.9l8.5-5.25v9.9z" opacity=".25"/><path fill="currentColor" d="m12 22.2l-8.5-5.25v-9.9L12 12.3z" opacity=".5"/></svg></i><span class="text-xl font-bold">Taski</span></div>
@@ -45,18 +45,24 @@
                 <span class="text-xs text-white">0</span>
               </div>
           </div>
-          <ul id="dashboardsList">
-            <li data-id="dashboardList" class="hidden">
+          <div id="dashboardsList" class="flex flex-col">
+            <div data-id="dashboardItem" class="hidden flex flex-row justify-between ml-2.5 mr-1">
+              <button data-id="dashboardName">r</button>
+              <button data-id="dashboardDelete">...
+              </button>
+            </div>
+            <div data-id="dashboardInpName" class="hidden">
               <input
                     class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200"
                     data-id="inpTitle"
                     type="text"
-                    placeholder="New dashboard"
-            /></li>
-          </ul>
+                    placeholder="New dashboard"/>
+            </div>
+          </div>
           <div id="btnSafeDashboard" class="hidden flex flex-row mt-2 mb-2">
             <button data-id="confirm" class="w-1/2 rounded-md hover:bg-teal-600 hover:text-white">Сохранить</button>
-            <button data-id="cancel" class="w-1/2 rounded-md hover:bg-teal-600 hover:text-white">Отменить</button></div>
+            <button data-id="cancel" class="w-1/2 rounded-md hover:bg-teal-600 hover:text-white">Отменить</button>
+          </div>
           <button id="btnCreateDashboard" class="ml-1.5 hover:bg-teal-600/20 w-6 rounded-md active:hover:bg-teal-600/60"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"/></svg></button>
         </div>
       </div>
@@ -130,7 +136,7 @@
     <div class="flex h-full w-full flex-col gap-y-4 rounded-t-2xl bg-gray-50 px-4 pb-4 pt-2">
       <div class="flex flex-row items-center justify-between">
         <div class="flex flex-col">
-          <span class="text-lg font-bold">Dashboard</span>
+          <span id="dashboardName" class="text-2xl font-bold"></span>
         </div>
         <div class="flex flex-col">
           <div class="flex flex-row items-center gap-x-4 ">
@@ -171,7 +177,7 @@
           >
             <div class="flex flex-row justify-between px-1 py-1">
               <div class="flex flex-row gap-x-1 font-bold">
-                <span>To Do </span>
+                <span data-id="columnName">To Do </span>
                 <span class="text-gray-400">0</span>
               </div>
               <div class="flex flex-col text-neutral-500">
@@ -267,7 +273,7 @@
           <div class="column border-1 flex h-full flex-col min-w-[200px] rounded-xl border-gray-300/50 bg-gray-200 p-2">
             <div class="flex flex-row justify-between px-1 py-1">
               <div class="flex flex-row gap-x-1 font-bold">
-                <span>In Progress </span>
+                <span data-id="columnName">In Progress </span>
                 <span class="text-gray-400">0</span>
               </div>
               <div class="flex flex-col text-neutral-500">
@@ -291,7 +297,7 @@
           <div class="column border-1 flex h-full flex-col min-w-[200px] rounded-xl border-gray-300/50 bg-gray-200 p-2">
             <div class="flex flex-row justify-between px-1 py-1">
               <div class="flex flex-row gap-x-1 font-bold">
-                <span>In Review </span>
+                <span data-id="columnName">In Review </span>
                 <span class="text-gray-400">0</span>
               </div>
               <div class="flex flex-col text-neutral-500">

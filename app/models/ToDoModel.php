@@ -48,6 +48,22 @@ class ToDoModel
     const SQL_DELETE_USER_TASK = "DELETE FROM todo.task
                                   WHERE id = %d;";
 
+    const SQL_CREATE_DASHBOARD = "INSERT INTO todo.dashboard
+                                    (id, id_user_owner, dashboard_name, id_column1, name_column1, id_column2,
+                                     name_column2, id_column3, name_column3, id_column4, name_column4, id_column5,
+                                     name_column5, id_column6, name_column6, id_column7, name_column7, id_column8,
+                                     name_column8, id_column9, name_column9, id_column10, name_column10)
+                                    VALUES('%s', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s',
+                                           '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');";
+
+    const SQL_GET_LIST_DASHBOARDS = "SELECT id, id_user_owner, dashboard_name, id_column1, name_column1, id_column2, 
+                                        name_column2, id_column3, name_column3, id_column4, name_column4, id_column5,
+                                        name_column5, id_column6, name_column6, id_column7, name_column7, id_column8,
+                                        name_column8, id_column9, name_column9, id_column10, name_column10
+                                    FROM todo.dashboard
+                                    WHERE id_user_owner = %d;";
+
+
 
 
 
@@ -94,6 +110,20 @@ class ToDoModel
         return $tasks;
     }
 
+    public function getUserDashboards()
+    {
+        $db = DB::getDb();
+        $id_user = $_SESSION["id"];
+        $sql = sprintf(self::SQL_GET_LIST_DASHBOARDS, $id_user);
+        $stmt = $db->query($sql);
+        $dashboards = [];
+        while ($row = $stmt->fetch())
+        {
+            $dashboards[] = $row;
+        }
+        return $dashboards;
+    }
+
     public function getTaskById ($id_task)
     {
         $id_task = array_shift($id_task);
@@ -110,6 +140,16 @@ class ToDoModel
     }
 
     // ToDo: дописать insert задачи, подключить класс Publisher.
+    public function createDashboard ($_id, $_idUserOwner, $_dashboardName, $_idCol1, $_nameCol1,
+                                     $_idCol2, $_nameCol2, $_idCol3, $_nameCol3, $_idCol4, $_nameCol4, $_idCol5, $_nameCol5,
+                                     $_idCol6, $_nameCol6, $_idCol7, $_nameCol7, $_idCol8, $_nameCol8, $_idCol9, $_nameCol9, $_idCol10, $_nameCol10)
+    {
+        $db = DB::getDb();
+        $sql = sprintf(self::SQL_CREATE_DASHBOARD, $_id, $_idUserOwner, $_dashboardName, $_idCol1, $_nameCol1,
+                         $_idCol2, $_nameCol2, $_idCol3, $_nameCol3, $_idCol4, $_nameCol4, $_idCol5, $_nameCol5, $_idCol6,
+                        $_nameCol6, $_idCol7, $_nameCol7, $_idCol8, $_nameCol8, $_idCol9, $_nameCol9, $_idCol10, $_nameCol10);
+        $db->query($sql);
+    }
     public function createTask ($_title, $_body, $_date, $_tag, $_priority)
     {
         $db = DB::getDb();

@@ -41,6 +41,37 @@ class ToDoController
        echo json_encode($tasks);
    }
 
+    public function actionGetListDashboards()
+    {
+        $model = new ToDoModel();
+        $result = $model -> getUserDashboards();
+        $dashboards = array('result' => $result);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($dashboards);
+    }
+   public function actionCreateDashboard ()
+   {
+       $dashboardVOdata = json_decode(file_get_contents('php://input'),true);
+       $_id = $dashboardVOdata[0];
+       $_idUserOwner = $_SESSION["id"];
+       $_dashboardName = $dashboardVOdata[1];
+       $_idCol1 = $dashboardVOdata[2]; $_nameCol1 = $dashboardVOdata[3];
+       $_idCol2 = $dashboardVOdata[4]; $_nameCol2 = $dashboardVOdata[5];
+       $_idCol3 = $dashboardVOdata[6]; $_nameCol3 = $dashboardVOdata[7];
+       $_idCol4 = $dashboardVOdata[8]; $_nameCol4 = $dashboardVOdata[9];
+       $_idCol5 = $dashboardVOdata[10]; $_nameCol5 = $dashboardVOdata[11];
+       $_idCol6 = $dashboardVOdata[12]; $_nameCol6 = $dashboardVOdata[13];
+       $_idCol7 = $dashboardVOdata[14]; $_nameCol7 = $dashboardVOdata[15];
+       $_idCol8 = $dashboardVOdata[16]; $_nameCol8 = $dashboardVOdata[17];
+       $_idCol9 = $dashboardVOdata[18]; $_nameCol9 = $dashboardVOdata[19];
+       $_idCol10 = $dashboardVOdata[20]; $_nameCol10 = $dashboardVOdata[21];
+
+       $model = new ToDoModel();
+       $result = $model -> createDashboard($_id, $_idUserOwner, $_dashboardName, $_idCol1, $_nameCol1,
+                 $_idCol2, $_nameCol2, $_idCol3, $_nameCol3, $_idCol4, $_nameCol4, $_idCol5, $_nameCol5,
+                 $_idCol6, $_nameCol6, $_idCol7, $_nameCol7, $_idCol8, $_nameCol8, $_idCol9, $_nameCol9, $_idCol10, $_nameCol10);
+   }
+
    public function actionCreateTask ()
    {
        $taskVOdata = json_decode(file_get_contents('php://input'),true);

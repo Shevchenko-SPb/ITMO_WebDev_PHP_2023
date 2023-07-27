@@ -15,6 +15,7 @@ const Dom = {
     DASHBOARD: 'dashboard',
     DASHBOARD_TEMPLATE: 'dashboardTemplate',
     DASHBOARD_LIST: 'dashboardsList',
+    DASHBOARD_NANE: 'dashboardName',
     TASK_COLUMN_1: 'tasks-column-1',
     TASK_COLUMN_2: 'tasks-column-2',
     TASK_COLUMN_3: 'tasks-column-3',

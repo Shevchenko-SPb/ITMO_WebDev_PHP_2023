@@ -22,7 +22,36 @@ const KEY_LOCAL_TASKS = 'tasks';
       this.id_status = status;
     }
   }
-
+  class DashboardVO {
+    static fromJSON(json) {
+      return new DashboardVO(json.id, json.dashboard_name, json.id_column1, json.name_column1, json.id_column2, json.name_column2, json.id_column3, json.name_column3, json.id_column4, json.name_column4, json.id_column5, json.name_column5, json.id_column6, json.name_column6, json.id_column7, json.name_column7, json.id_column8, json.name_column8, json.id_column9, json.name_column9, json.id_column10, json.name_column10)
+    }
+    constructor(id, dashboardName, idColumn1, nameColumn1, idColumn2, nameColumn2, idColumn3, nameColumn3, idColumn4, nameColumn4, idColumn5, nameColumn5, idColumn6, nameColumn6, idColumn7, nameColumn7, idColumn8, nameColumn8, idColumn9, nameColumn9, idColumn10, nameColumn10) {
+      this.id = id;
+      this.dashboard_name = dashboardName;
+      this.id_column1 = idColumn1;
+      this.name_column1 = nameColumn1;
+      this.id_column2 = idColumn2;
+      this.name_column2 = nameColumn2;
+      this.id_column3 = idColumn3;
+      this.name_column3 = nameColumn3;
+      this.id_column4 = idColumn4;
+      this.name_column4 = nameColumn4;
+      this.id_column5 = idColumn5;
+      this.name_column5 = nameColumn5;
+      this.id_column6 = idColumn6;
+      this.name_column6 = nameColumn6;
+      this.id_column7 = idColumn7;
+      this.name_column7 = nameColumn7;
+      this.id_column8 = idColumn8;
+      this.name_column8 = nameColumn8;
+      this.id_column9 = idColumn9;
+      this.name_column9 = nameColumn9;
+      this.id_column10 = idColumn10;
+      this.name_column10 = nameColumn10;
+    }
+  }
+const dashboardVO = new DashboardVO();
   const getDOM = (id) => document.getElementById(id);
   const QUERY = (container, id) => container.querySelector(`[data-id="${id}"]`);
 
@@ -35,6 +64,7 @@ const KEY_LOCAL_TASKS = 'tasks';
   const domDashboardTemplate = getDOM(Dom.Template.DASHBOARD_TEMPLATE);
   const domDashboardList = getDOM(Dom.Template.DASHBOARD_LIST);
   const domSafeDashboard = getDOM(Dom.Button.SAFE_DASHBOARD)
+  const domDashboardName = getDOM(Dom.Template.DASHBOARD_NANE);
   const tagsArray = {'Design': 1, 'Web' : 2 , 'Front' : 3, 'Back': 4}
 
 domTemplateTask.removeAttribute('id');
@@ -42,8 +72,14 @@ domTemplateTask.remove();
 
 ////////////////// Создание Dashboard////////////////////
 const newDashboard = domDashboard.querySelector("div[id]").cloneNode(true);
+const dashboardItem = QUERY(domDashboardList, 'dashboardItem');
+const newDashboardItem = dashboardItem.cloneNode(true)
+const dashboards = undefined;
 
 domBtnCreateDashboard.onclick = () => {
+  if (!domSafeDashboard.classList.contains("hidden")) {
+    return
+  }
 
   domDashboardTemplate.removeAttribute('id');
   domDashboardTemplate.remove();
@@ -52,14 +88,51 @@ domBtnCreateDashboard.onclick = () => {
   newDashboard.childNodes.forEach(element => element.id = newDashboard.id + "||" + randomString(5))
   domDashboard.appendChild(newDashboard);
 
-  const dashboardListName = QUERY(domDashboardList, 'dashboardList');
-  const newDashboardListName = dashboardListName.cloneNode(true)
-  newDashboardListName.dataset.id = newDashboard.id
-  newDashboardListName.classList.remove("hidden");
-  domDashboardList.appendChild(newDashboardListName)
+  const newDashboardListName = QUERY(domDashboardList, 'dashboardInpName');
+  newDashboardListName.classList.remove("hidden")
+  let dashboardName;
 
+  newDashboardListName.addEventListener('keyup', function (e) {
 
+    dashboardName = newDashboardListName.querySelector("input").value;
+    domDashboardName.innerText = dashboardName
+    QUERY(newDashboardItem, "dashboardName").innerText = dashboardName
+  })
+  newDashboardItem.dataset.id = newDashboard.id
+  domDashboardList.appendChild(newDashboardItem)
   domSafeDashboard.classList.remove("hidden")
+
+
+  QUERY(domSafeDashboard, "confirm").onclick = () => {
+
+
+    console.log(dashboardVO)
+    dashboardVO.id = newDashboard.id;
+    dashboardVO.dashboard_name = dashboardName;
+    const columnsList = newDashboard.querySelectorAll(".column")
+
+    columnsList.forEach(element => {
+      for (var key in dashboardVO) {
+        if(!(dashboardVO[key]) && key.indexOf('name_column')) {
+          dashboardVO[key] = element.id
+          return;
+        }
+      }
+    })
+    columnsList.forEach(element => {
+      for (var key in dashboardVO) {
+        if(!(dashboardVO[key]) && key.indexOf('id_column')) {
+          dashboardVO[key] = QUERY(element, 'columnName').innerText
+          return
+        }
+      }
+    })
+
+    saveDashboard(dashboardVO);
+    newDashboardItem.classList.remove("hidden");
+    newDashboardListName.classList.add("hidden")
+    domSafeDashboard.classList.add("hidden")
+  }
   QUERY(domSafeDashboard, "cancel").onclick = () => {
     window.location.reload(true);
   }
@@ -75,12 +148,17 @@ function createNewColumn (elem) {
   }
   clone.id = newDashboard.id + "||" + randomString(5);
   console.log(clone.id)
+  if (taskColumn.parentNode.children.length === 9) {
+    alert("Количество колонок не более 10")
+    return
+  }
   taskColumn.parentNode.insertBefore(clone, taskColumn.nextSibling);
 }
 //////////////////////////////////////////////////////////////
 
 // const rawTasks = localStorage.getItem(KEY_LOCAL_TASKS);
   var rawTasks = undefined;
+  var rawDashboards = undefined;
   var tasks = undefined;
 //document.addEventListener("DOMContentLoaded", function(event) {
   const headers = {
@@ -89,6 +167,81 @@ function createNewColumn (elem) {
 
 const mapTags = new Map([
 ]);
+
+getDashboards ()
+  function getDashboards () {
+    axios.get('/getListdashboards', {
+      headers: headers
+    })
+        .then(function (response) {
+          rawDashboards = response.data.result
+          for (let key in rawDashboards) {
+            mapTags.set(rawDashboards[key][0], rawDashboards[key][2])
+          }
+          const dashboards = rawDashboards
+              ? rawDashboards.map((json) => DashboardVO.fromJSON(json))
+              : [];
+          console.log(dashboards)
+          dashboards.forEach((dashboardVO) => renderDashboardList(dashboardVO));
+        })
+        .catch(function (error) {
+        })
+        .finally(function () {
+        })
+  }
+
+function renderDashboardList (dashboardVO) {
+  const newDashboardItem =   dashboardItem.cloneNode(true);
+  newDashboardItem.setAttribute('data-id', dashboardVO.id)
+  QUERY(newDashboardItem, 'dashboardName').innerText = dashboardVO.dashboard_name
+  newDashboardItem.classList.remove("hidden")
+  domDashboardList.appendChild(newDashboardItem)
+  QUERY(newDashboardItem, "dashboardName").onclick = (e) =>
+  {
+    templateDashboard (e)
+  }
+}
+function templateDashboard (e) {
+  const targetElement = e.target.parentNode
+  console.log(targetElement.dataset.id)
+  console.log(rawDashboards)
+  const dashboards = rawDashboards
+      ? rawDashboards.map((json) => DashboardVO.fromJSON(json))
+      : [];
+
+  dashboards.forEach((dashboardVO) => {
+    if (targetElement.dataset.id === dashboardVO.id) {
+
+      domDashboardTemplate.removeAttribute('id');
+      domDashboardTemplate.remove();
+
+      newDashboard.id = dashboardVO.id
+      const cloneColumn = newDashboard.childNodes[1].cloneNode(true)
+      deleteItems()
+      function deleteItems() {
+        let deleteElement = newDashboard.querySelectorAll('div');
+        for (let i = 0; i < deleteElement.length; i++) {
+          deleteElement[i].remove();
+        }
+      }
+      // console.log(newDashboard.childNodes)
+      domDashboard.appendChild(newDashboard);
+
+      for (var key in dashboardVO) {
+        console.log(dashboardVO[key])
+        createColumns ()
+      }
+      function createColumns () {
+        newDashboard.append(cloneColumn)
+        newDashboard.append(cloneColumn)
+        newDashboard.append(cloneColumn)
+      }
+
+
+    }
+  })
+
+}
 
 
 getTasks ()
@@ -101,11 +254,9 @@ function getTasks () {
         for (let key in rawTasks) {
           mapTags.set(rawTasks[key][0], rawTasks[key][2])
         }
-        console.log(rawTasks)
         const tasks = rawTasks
             ? rawTasks.map((json) => TaskVO.fromJSON(json))
             : [];
-        console.log(tasks)
         tasks.forEach((taskVO) => renderTask(taskVO));
       })
       .catch(function (error) {
@@ -388,6 +539,21 @@ function getTasks () {
   }
 
   //____________________ Функции работы с базой данных_________________
+function saveDashboard(dasboardVO) {
+  let $dashboardVOdata = [];
+  for (var key in dashboardVO) {
+    $dashboardVOdata.push(dashboardVO[key])
+  }
+  axios.post('/createnewdashboard',
+      JSON.parse(JSON.stringify($dashboardVOdata))
+  )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+}
 
   function saveTask(taskVO) {
     let $title = taskVO.title;
