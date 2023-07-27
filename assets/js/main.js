@@ -65,6 +65,7 @@ const dashboardVO = new DashboardVO();
   const domDashboardList = getDOM(Dom.Template.DASHBOARD_LIST);
   const domSafeDashboard = getDOM(Dom.Button.SAFE_DASHBOARD)
   const domDashboardName = getDOM(Dom.Template.DASHBOARD_NANE);
+  const domDashboardCount = getDOM(Dom.Template.DASHBOARD_COUNT)
   const tagsArray = {'Design': 1, 'Web' : 2 , 'Front' : 3, 'Back': 4}
 
 domTemplateTask.removeAttribute('id');
@@ -75,6 +76,8 @@ const newDashboard = domDashboard.querySelector("div[id]").cloneNode(true);
 const dashboardItem = QUERY(domDashboardList, 'dashboardItem');
 const newDashboardItem = dashboardItem.cloneNode(true)
 const dashboards = undefined;
+const cloneColumn = newDashboard.childNodes[1].cloneNode(true)
+
 
 domBtnCreateDashboard.onclick = () => {
   if (!domSafeDashboard.classList.contains("hidden")) {
@@ -104,8 +107,6 @@ domBtnCreateDashboard.onclick = () => {
 
 
   QUERY(domSafeDashboard, "confirm").onclick = () => {
-
-
     console.log(dashboardVO)
     dashboardVO.id = newDashboard.id;
     dashboardVO.dashboard_name = dashboardName;
@@ -190,12 +191,18 @@ getDashboards ()
         })
   }
 
+  function countDashboards () {
+  domDashboardCount.innerText = domDashboardList.childNodes.length - 5;
+  }
+
 function renderDashboardList (dashboardVO) {
   const newDashboardItem =   dashboardItem.cloneNode(true);
   newDashboardItem.setAttribute('data-id', dashboardVO.id)
   QUERY(newDashboardItem, 'dashboardName').innerText = dashboardVO.dashboard_name
   newDashboardItem.classList.remove("hidden")
   domDashboardList.appendChild(newDashboardItem)
+  countDashboards ()
+
   QUERY(newDashboardItem, "dashboardName").onclick = (e) =>
   {
     templateDashboard (e)
@@ -212,36 +219,45 @@ function templateDashboard (e) {
   dashboards.forEach((dashboardVO) => {
     if (targetElement.dataset.id === dashboardVO.id) {
 
+
       domDashboardTemplate.removeAttribute('id');
       domDashboardTemplate.remove();
 
       newDashboard.id = dashboardVO.id
-      const cloneColumn = newDashboard.childNodes[1].cloneNode(true)
-      deleteItems()
-      function deleteItems() {
-        let deleteElement = newDashboard.querySelectorAll('div');
-        for (let i = 0; i < deleteElement.length; i++) {
-          deleteElement[i].remove();
-        }
-      }
-      // console.log(newDashboard.childNodes)
       domDashboard.appendChild(newDashboard);
-
-      for (var key in dashboardVO) {
-        console.log(dashboardVO[key])
-        createColumns ()
+      while (newDashboard.children.length > 1) {
+        newDashboard.removeChild(newDashboard.lastChild);
       }
-      function createColumns () {
-        newDashboard.append(cloneColumn)
-        newDashboard.append(cloneColumn)
-        newDashboard.append(cloneColumn)
-      }
+      console.log()
 
+      console.log(dashboardVO)
+      const columList = []
 
+        for (var key in dashboardVO) {
+          if(dashboardVO[key] && key !== 'id' && key !== 'dashboard_name') {
+            columList.push(dashboardVO[key])
+          }
+        }
+      console.log(columList)
+       columList.forEach(element => {
+         const clone = getDOM('cloneColumn')
+         // clone.classList.remove("hidden")
+         const cloneCol = clone.cloneNode(true)
+         if (!element.indexOf(dashboardVO.id)) {
+           cloneCol.id = element
+           return
+         } else {
+           QUERY(cloneCol, 'columnName').innerText = element
+         }
+
+         newDashboard.appendChild(cloneCol)
+         cloneCol.classList.remove("hidden")
+       })
+      domDashboardName.innerText = dashboardVO.dashboard_name
     }
   })
-
 }
+
 
 
 getTasks ()
@@ -472,8 +488,6 @@ function getTasks () {
         getDOM(Dom.Template.TASK_COLUMN_3).prepend(domTaskClone);
         break;
     }
-
-    return domTaskClone;
   }
 
   function templateColorIconClock (domTaskClone, daysLeft) {
