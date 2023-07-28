@@ -139,6 +139,7 @@ domBtnCreateDashboard.onclick = () => {
 
     saveDashboard(dashboardVO);
     newDashboardItem.classList.remove("hidden");
+    cloneCol.classList.add("hidden")
     newDashboardListName.classList.add("hidden")
     domSafeDashboard.classList.add("hidden")
   }
