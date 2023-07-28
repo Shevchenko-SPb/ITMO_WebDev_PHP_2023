@@ -52,7 +52,8 @@ const KEY_LOCAL_TASKS = 'tasks';
       this.name_column10 = nameColumn10;
     }
   }
-const dashboardVO = new DashboardVO();
+
+  const dashboardVO = new DashboardVO();
   const getDOM = (id) => document.getElementById(id);
   const QUERY = (container, id) => container.querySelector(`[data-id="${id}"]`);
 
@@ -228,10 +229,22 @@ function renderDashboardList (dashboardVO) {
 
   QUERY(newDashboardItem, "dashboardName").onclick = (e) =>
   {
-    templateDashboard (e)
+    renderDashboard (e)
   }
 }
-function templateDashboard (e) {
+if (domDashboardList.childNodes.length > 3) {
+  let arr = []
+  console.log(domDashboardList.childNodes)
+  domDashboardList.childNodes.forEach(element => {
+    console.log(element)
+    arr.push(element)
+  })
+  console.log(arr[5])
+}
+
+
+
+function renderDashboard (e) {
   console.log(e.target.parentNode)
   const targetElement = e.target.parentNode
   const dashboards = rawDashboards
@@ -270,19 +283,19 @@ function templateDashboard (e) {
          QUERY(cloneCol, 'columnNameInp').classList.add("hidden")
        })
       domDashboardName.innerText = dashboardVO.dashboard_name
+      getTasks (newDashboard.id)
     }
   })
 }
 
 
-
-getTasks ()
-function getTasks () {
+function getTasks (id) {
   axios.get('/tasks', {
     headers: headers
   })
       .then(function (response) {
         rawTasks = response.data.result
+        console.log(rawTasks)
         for (let key in rawTasks) {
           mapTags.set(rawTasks[key][0], rawTasks[key][2])
         }
@@ -494,17 +507,11 @@ function getTasks () {
         break;
     };
 
-
-    switch (taskVO.id_status) {
-      case 1:
-        getDOM(Dom.Template.TASK_COLUMN_1).prepend(domTaskClone);
-        break;
-      case 2:
-        getDOM(Dom.Template.TASK_COLUMN_2).prepend(domTaskClone);
-        break;
-      case 3:
-        getDOM(Dom.Template.TASK_COLUMN_3).prepend(domTaskClone);
-        break;
+    if (getDOM(taskVO.id_status)) {
+      const targetCol = getDOM(taskVO.id_status)
+      targetCol.querySelector("div[data-box]").prepend(domTaskClone);
+    } else {
+      console.log('Колонки не существует')
     }
   }
 
@@ -632,10 +639,11 @@ function updateTask (taskVO) {
   let $date = taskVO.dt_end;
   let $tag = taskVO.tag;
   let $priority = taskVO.priority;
-  let $status = taskVO.id_status
+  let $status = taskVO.id_status;
+  let $dashboard = taskVO.id_dashboard;
 
   let $taskVOdata;
-  $taskVOdata = [$title, $body, $id, $date, $tag, $priority, $status]
+  $taskVOdata = [$title, $body, $id, $date, $tag, $priority, $status, $dashboard]
   console.log($taskVOdata)
 
   axios.post('/updatenewtask',
@@ -687,7 +695,6 @@ function dragLeave(e) {
 
 function drop(e) {
   if (e.target.dataset.box) {
-
     const id = e.dataTransfer.getData('text/plain');
     const draggable = document.getElementById(id);
 
@@ -700,11 +707,11 @@ function drop(e) {
     if ( typeof taskVO.tag === 'string') {
       taskVO.tag = tagsArray[taskVO.tag]
     }
-    taskVO.id_status = Number(e.target.id.toString().slice(-1))
+    taskVO.id_status = e.target.parentNode.parentNode.id
+
     console.log(taskVO)
 
     updateTask(taskVO)
-
   }
 }
 ////////////////// TASKS FILTERS /////////////////////////

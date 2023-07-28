@@ -33,12 +33,18 @@ class ToDoModel
                                    AND tk.id = %d
                                    AND ut.id_users = %d";
 
+    const SQL_GET_TASK_BY_ID_DASHBOARD = "SELECT id, id_status, id_tag, title, dt_end, is_archive, body, 
+                                            id_priority, id_dashboard
+                                            FROM todo.task;
+                                            WHERE id_dashboard = '%d'";
+
     const SQL_INSERT_TASK = "INSERT INTO todo.task
                                 (id_status, id_tag, title, dt_end, is_archive, body, id_priority, id_dashboard)
                                  VALUES('%s', %d, '%s','%s', NULL, '%s', %d, '%s');";
 
     const SQL_UPDATE_TASK = "UPDATE todo.task
-                             SET id_status = %d, id_tag = %d, title = '%s', dt_end = '%s', is_archive = NULL, body = '%s', id_priority = %d
+                             SET id_status = '%s', id_tag = %d, title = '%s', dt_end = '%s', is_archive = NULL, 
+                                 body = '%s', id_priority = %d, id_dashboard = '%s'
                              WHERE id = %d;";
 
     const SQL_CREATE_USER_TASK = "INSERT INTO todo.user_task
@@ -138,6 +144,18 @@ class ToDoModel
         }
         return $tasks;
     }
+    public function getTaskByIdDashboard ($_dashboard)
+    {
+        $db = DB::getDb();
+        $sql = sprintf(self::SQL_GET_TASK_BY_ID_DASHBOARD, $_dashboard);
+        $stmt = $db->query($sql);
+        $tasks = [];
+        while ($row = $stmt->fetch())
+        {
+            $tasks[] = $row;
+        }
+        return $tasks;
+    }
 
     // ToDo: дописать insert задачи, подключить класс Publisher.
     public function createDashboard ($_id, $_idUserOwner, $_dashboardName, $_idCol1, $_nameCol1,
@@ -164,10 +182,10 @@ class ToDoModel
         $db->query($sql);
         return array('id_task'=>$id_task, 'id_user'=>$id_user);
     }
-    public function updateTask ($_title, $_body, $_id, $_date, $_tag, $_priority, $_status)
+    public function updateTask ($_title, $_body, $_id, $_date, $_tag, $_priority, $_status, $_dashboard)
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_UPDATE_TASK, $_status, $_tag, $_title, $_date, $_body, $_priority, $_id);
+        $sql = sprintf(self::SQL_UPDATE_TASK, $_status, $_tag, $_title, $_date, $_body, $_priority,$_dashboard, $_id);
         $db->query($sql);
     }
 

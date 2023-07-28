@@ -40,6 +40,15 @@ class ToDoController
        header('Content-Type: application/json; charset=utf-8');
        echo json_encode($tasks);
    }
+    public function actionGetTaskByIdDashboard ($id_dashboard)
+    {
+        $model = new ToDoModel();
+        $id_dashboard = 'orfbO1690541873948';
+        $result = $model -> getTaskByIdDashboard($id_dashboard);
+        $tasks = array('result' => $result);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($tasks);
+    }
 
     public function actionGetListDashboards()
     {
@@ -96,9 +105,10 @@ class ToDoController
        $_tag = $taskVOdata [4];
        $_priority = $taskVOdata [5];
        $_status = $taskVOdata [6];
+       $_dashboard = $taskVOdata [7];
 
        $model = new ToDoModel();
-       $model -> updateTask($_title, $_body, $_id, $_date, $_tag, $_priority, $_status);
+       $model -> updateTask($_title, $_body, $_id, $_date, $_tag, $_priority, $_status, $_dashboard);
    }
 
    public function actionDeleteTask ()
