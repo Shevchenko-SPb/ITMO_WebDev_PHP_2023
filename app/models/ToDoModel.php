@@ -34,8 +34,8 @@ class ToDoModel
                                    AND ut.id_users = %d";
 
     const SQL_INSERT_TASK = "INSERT INTO todo.task
-                                (id_status, id_tag, title, dt_end, is_archive, body, id_priority)
-                                 VALUES(%d, %d, '%s','%s', NULL, '%s', %d);";
+                                (id_status, id_tag, title, dt_end, is_archive, body, id_priority, id_dashboard)
+                                 VALUES('%s', %d, '%s','%s', NULL, '%s', %d, '%s');";
 
     const SQL_UPDATE_TASK = "UPDATE todo.task
                              SET id_status = %d, id_tag = %d, title = '%s', dt_end = '%s', is_archive = NULL, body = '%s', id_priority = %d
@@ -150,10 +150,10 @@ class ToDoModel
                         $_nameCol6, $_idCol7, $_nameCol7, $_idCol8, $_nameCol8, $_idCol9, $_nameCol9, $_idCol10, $_nameCol10);
         $db->query($sql);
     }
-    public function createTask ($_title, $_body, $_date, $_tag, $_priority)
+    public function createTask ($_title, $_body, $_date, $_tag, $_priority, $_status, $_dashboard)
     {
         $db = DB::getDb();
-        $sql = sprintf(self::SQL_INSERT_TASK, 1, $_tag, $_title, $_date, $_body, $_priority);
+        $sql = sprintf(self::SQL_INSERT_TASK, $_status, $_tag, $_title, $_date, $_body, $_priority, $_dashboard);
 
 
         $db->query($sql);

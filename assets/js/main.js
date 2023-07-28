@@ -9,10 +9,10 @@ const KEY_LOCAL_TASKS = 'tasks';
 
   class TaskVO {
     static fromJSON(json) {
-      return new TaskVO(json.id, json.title, json.body, json.dt_end, json.tag, json.priority, json.id_status);
+      return new TaskVO(json.id, json.title, json.body, json.dt_end, json.tag, json.priority, json.id_status, json.id_dashboard);
     }
 
-    constructor(id, title, body, date, tag, priority, status) {
+    constructor(id, title, body, date, tag, priority, status, dashboard) {
       this.id = id;
       this.title = title;
       this.body = body;
@@ -20,6 +20,7 @@ const KEY_LOCAL_TASKS = 'tasks';
       this.tag = tag;
       this.priority = priority;
       this.id_status = status;
+      this.id_dashboard = dashboard;
     }
   }
   class DashboardVO {
@@ -381,7 +382,7 @@ function getTasks () {
     switch (e.target.dataset.id) {
       case 'btnAddTask':
         console.log('addTask')
-        templatePopupCreateTask ();
+        templatePopupCreateTask (e);
         break;
       case 'btnAddColumn':
         console.log('click')
@@ -426,8 +427,12 @@ function getTasks () {
       taskOperation(taskVO, domTask);
     }
   };
-  function templatePopupCreateTask () {
-    // console.log("hello")
+  function templatePopupCreateTask (e) {
+
+    //_____Написать функцию вместо parentNode
+    const idCol = e.target.parentNode.parentNode.id
+    const idDash = e.target.parentNode.parentNode.parentNode.id
+
     renderTaskPopup(
       null,
       'Create task',
@@ -436,13 +441,11 @@ function getTasks () {
         console.log(taskTitle, taskBody, taskDate, taskTag, taskPriority)
         const taskId = `task_${Date.now()}`;
         const taskVO = new TaskVO(taskId, taskTitle, taskBody, taskDate, taskTag, taskPriority);
-        console.log(taskVO)
-        taskVO.id_status = 1;
 
+        taskVO.id_status = idCol;
+        taskVO.id_dashboard = idDash;
 
         renderTask(taskVO);
-        // tasks.push(taskVO);
-
         saveTask(taskVO);
       }
     );
@@ -568,7 +571,7 @@ function getTasks () {
   }
 
   //____________________ Функции работы с базой данных_________________
-function saveDashboard(dasboardVO) {
+function saveDashboard(dashboardVO) {
   let $dashboardVOdata = [];
   for (var key in dashboardVO) {
     $dashboardVOdata.push(dashboardVO[key])
@@ -584,15 +587,18 @@ function saveDashboard(dasboardVO) {
       });
 }
 
-  function saveTask(taskVO) {
+function saveTask(taskVO) {
     let $title = taskVO.title;
     let $body = taskVO.body;
     let $date = taskVO.dt_end;
     let $tag = taskVO.tag;
     let $priority = taskVO.priority;
+    let $status = taskVO.id_status;
+    let $dashboard = taskVO.id_dashboard;
     let $taskVOdata;
-    $taskVOdata = [$title, $body, $date, $tag, $priority]
-    // console.log($taskVOdata)
+
+    $taskVOdata = [$title, $body, $date, $tag, $priority, $status, $dashboard]
+    console.log($taskVOdata)
 
     axios.post('/createnewtask',
       JSON.parse(JSON.stringify($taskVOdata))
@@ -604,7 +610,6 @@ function saveDashboard(dasboardVO) {
           console.log(error);
         });
   }
-
   function deleteTask (taskVO) {
     console.log('Работает', taskVO)
     var $taskID = taskVO.id;

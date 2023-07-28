@@ -80,8 +80,10 @@ class ToDoController
        $_date = $taskVOdata [2];
        $_tag = $taskVOdata [3];
        $_priority = $taskVOdata [4];
+       $_status = $taskVOdata [5];
+       $_dashboard = $taskVOdata [6];
        $model = new ToDoModel();
-       $result = $model -> createTask($_title, $_body, $_date, $_tag, $_priority);
+       $result = $model -> createTask($_title, $_body, $_date, $_tag, $_priority, $_status, $_dashboard);
        PublishController::publicTaskInRedis($result);
    }
    public function actionUpdateTask ()
