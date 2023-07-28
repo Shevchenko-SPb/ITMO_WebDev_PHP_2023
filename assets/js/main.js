@@ -76,18 +76,24 @@ const newDashboard = domDashboard.querySelector("div[id]").cloneNode(true);
 const dashboardItem = QUERY(domDashboardList, 'dashboardItem');
 const newDashboardItem = dashboardItem.cloneNode(true)
 const dashboards = undefined;
-const cloneColumn = newDashboard.childNodes[1].cloneNode(true)
+const clone = getDOM('cloneColumn')
+const cloneCol = clone.cloneNode(true)
+
 
 
 domBtnCreateDashboard.onclick = () => {
   if (!domSafeDashboard.classList.contains("hidden")) {
     return
   }
-
   domDashboardTemplate.removeAttribute('id');
   domDashboardTemplate.remove();
 
   newDashboard.id = randomString(5) + Date.now();
+  while (newDashboard.children.length > 1) {
+    newDashboard.removeChild(newDashboard.lastChild);
+  }
+  newDashboard.appendChild(cloneCol)
+
   newDashboard.childNodes.forEach(element => element.id = newDashboard.id + "||" + randomString(5))
   domDashboard.appendChild(newDashboard);
 
@@ -123,11 +129,12 @@ domBtnCreateDashboard.onclick = () => {
     columnsList.forEach(element => {
       for (var key in dashboardVO) {
         if(!(dashboardVO[key]) && key.indexOf('id_column')) {
-          dashboardVO[key] = QUERY(element, 'columnName').innerText
+          dashboardVO[key] = QUERY(element, 'columnNameTemp').innerText
           return
         }
       }
     })
+    console.log(dashboardVO)
 
     saveDashboard(dashboardVO);
     newDashboardItem.classList.remove("hidden");
@@ -138,6 +145,19 @@ domBtnCreateDashboard.onclick = () => {
     window.location.reload(true);
   }
 }
+
+domDashboard.addEventListener('click', function (e) {
+  e.target.addEventListener('keyup', function (e) {
+    const columnName = e.target.parentNode.querySelector(`[data-id="columnNameTemp"]`)
+    columnName.innerText = e.target.value
+        if (e.key === 'Enter') {
+          e.target.classList.add('hidden')
+          columnName.classList.remove('hidden')
+        }
+      }
+  )
+
+})
 
 //////////////////Клонирование колонки///////////////////
 function createNewColumn (elem) {
@@ -228,9 +248,7 @@ function templateDashboard (e) {
       while (newDashboard.children.length > 1) {
         newDashboard.removeChild(newDashboard.lastChild);
       }
-      console.log()
 
-      console.log(dashboardVO)
       const columList = []
 
         for (var key in dashboardVO) {
@@ -238,17 +256,16 @@ function templateDashboard (e) {
             columList.push(dashboardVO[key])
           }
         }
-      console.log(columList)
+      const cloneCol = clone.cloneNode(true)
        columList.forEach(element => {
-         const clone = getDOM('cloneColumn')
-         // clone.classList.remove("hidden")
-         const cloneCol = clone.cloneNode(true)
+
          if (!element.indexOf(dashboardVO.id)) {
            cloneCol.id = element
            return
          } else {
-           QUERY(cloneCol, 'columnName').innerText = element
+           QUERY(cloneCol, 'columnNameTemp').innerText = element
          }
+         console.log(cloneCol)
 
          newDashboard.appendChild(cloneCol)
          cloneCol.classList.remove("hidden")
