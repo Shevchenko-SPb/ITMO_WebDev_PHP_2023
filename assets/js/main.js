@@ -79,8 +79,6 @@ const dashboards = undefined;
 const clone = getDOM('cloneColumn')
 const cloneCol = clone.cloneNode(true)
 
-
-
 domBtnCreateDashboard.onclick = () => {
   if (!domSafeDashboard.classList.contains("hidden")) {
     return
@@ -89,9 +87,10 @@ domBtnCreateDashboard.onclick = () => {
   domDashboardTemplate.remove();
 
   newDashboard.id = randomString(5) + Date.now();
-  while (newDashboard.children.length > 1) {
+  while (newDashboard.children.length > 0) {
     newDashboard.removeChild(newDashboard.lastChild);
   }
+  cloneCol.classList.remove("hidden")
   newDashboard.appendChild(cloneCol)
 
   newDashboard.childNodes.forEach(element => element.id = newDashboard.id + "||" + randomString(5))
@@ -173,7 +172,10 @@ function createNewColumn (elem) {
     alert("Количество колонок не более 10")
     return
   }
+  QUERY(clone, 'columnNameTemp').classList.add("hidden")
+  QUERY(clone, 'columnNameInp').classList.remove("hidden")
   taskColumn.parentNode.insertBefore(clone, taskColumn.nextSibling);
+
 }
 //////////////////////////////////////////////////////////////
 
@@ -229,9 +231,8 @@ function renderDashboardList (dashboardVO) {
   }
 }
 function templateDashboard (e) {
+  console.log(e.target.parentNode)
   const targetElement = e.target.parentNode
-  console.log(targetElement.dataset.id)
-  console.log(rawDashboards)
   const dashboards = rawDashboards
       ? rawDashboards.map((json) => DashboardVO.fromJSON(json))
       : [];
@@ -239,24 +240,21 @@ function templateDashboard (e) {
   dashboards.forEach((dashboardVO) => {
     if (targetElement.dataset.id === dashboardVO.id) {
 
-
       domDashboardTemplate.removeAttribute('id');
       domDashboardTemplate.remove();
 
       newDashboard.id = dashboardVO.id
       domDashboard.appendChild(newDashboard);
+      //_________ Рендер колонок____________
       while (newDashboard.children.length > 1) {
         newDashboard.removeChild(newDashboard.lastChild);
       }
-
       const columList = []
-
         for (var key in dashboardVO) {
           if(dashboardVO[key] && key !== 'id' && key !== 'dashboard_name') {
             columList.push(dashboardVO[key])
           }
         }
-
       columList.forEach(element => {
          const cloneCol = clone.cloneNode(true)
          if (!element.indexOf(dashboardVO.id)) {
@@ -270,7 +268,6 @@ function templateDashboard (e) {
          QUERY(cloneCol, 'columnNameTemp').classList.remove("hidden")
          QUERY(cloneCol, 'columnNameInp').classList.add("hidden")
        })
-
       domDashboardName.innerText = dashboardVO.dashboard_name
     }
   })
