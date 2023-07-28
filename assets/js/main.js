@@ -256,20 +256,21 @@ function templateDashboard (e) {
             columList.push(dashboardVO[key])
           }
         }
-      const cloneCol = clone.cloneNode(true)
-       columList.forEach(element => {
 
+      columList.forEach(element => {
+         const cloneCol = clone.cloneNode(true)
          if (!element.indexOf(dashboardVO.id)) {
            cloneCol.id = element
-           return
          } else {
-           QUERY(cloneCol, 'columnNameTemp').innerText = element
+           return
          }
-         console.log(cloneCol)
-
+         QUERY(cloneCol, 'columnNameTemp').innerText = columList[columList.indexOf(element) + 1]
          newDashboard.appendChild(cloneCol)
          cloneCol.classList.remove("hidden")
+         QUERY(cloneCol, 'columnNameTemp').classList.remove("hidden")
+         QUERY(cloneCol, 'columnNameInp').classList.add("hidden")
        })
+
       domDashboardName.innerText = dashboardVO.dashboard_name
     }
   })
