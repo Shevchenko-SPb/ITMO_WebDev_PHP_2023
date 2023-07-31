@@ -9,7 +9,7 @@ return array(
     'page/([-_a-z0-9]+)' => 'page/show/$1',
     'users/([-_a-z0-9]+)' => 'users/show/$1',
 //    'tasks' => 'ToDo/getList',
-    'tasks' => 'ToDo/getTaskByIdDashboard',
+    'tasks' => 'ToDo/getTaskByIdDashboard/$1',
     'gettask' => 'ToDo/getTaskById',
     'createnewtask' => 'ToDo/createTask',
     'deleteusertask' => 'ToDo/deleteTask',

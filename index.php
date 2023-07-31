@@ -48,9 +48,17 @@ class Router {
                 // Первый сегмент — контроллер.
                 $controller = ucfirst(array_shift($segments)).'Controller';
                 // Второй — действие.
+
                 $action = 'action'.ucfirst(array_shift($segments));
+//                var_dump($action);
                 // Остальные сегменты — параметры.
-                $parameters = $segments;
+                $parameters = [];
+                var_dump($segments);
+                $segments = str_replace('?', '', $segments[0]);
+                parse_str($segments, $parameters);
+
+                var_dump($parameters);
+
 
                 $controllerFile = ROOT.'/app/controllers/'.$controller.'.php';
                 if(file_exists($controllerFile)){
@@ -58,7 +66,9 @@ class Router {
                     include($controllerFile);
                 }
                 $obj = new $controller();
-                $obj->$action($parameters);
+//                var_dump($parameters);
+                $obj->$action(...$parameters);
+
 //                call_user_func_array(array($controller, $action), $params);
             }
         }

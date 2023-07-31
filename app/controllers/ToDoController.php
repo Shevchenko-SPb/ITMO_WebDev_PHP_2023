@@ -40,11 +40,10 @@ class ToDoController
        header('Content-Type: application/json; charset=utf-8');
        echo json_encode($tasks);
    }
-    public function actionGetTaskByIdDashboard ($id_dashboard)
+    public function actionGetTaskByIdDashboard ($id)
     {
         $model = new ToDoModel();
-        $id_dashboard = 'orfbO1690541873948';
-        $result = $model -> getTaskByIdDashboard($id_dashboard);
+        $result = $model -> getTaskByIdDashboard($id);
         $tasks = array('result' => $result);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($tasks);
