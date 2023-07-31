@@ -36,7 +36,11 @@ class ToDoModel
     const SQL_GET_TASK_BY_ID_DASHBOARD = "SELECT id, id_status, id_tag, title, dt_end, is_archive, body, 
                                             id_priority, id_dashboard
                                             FROM todo.task;
-                                            WHERE id_dashboard = '%d'";
+                                            WHERE id_dashboard = '%s'";
+    const SQL_DELETE_DASHBOARD_TASKS = "DELETE FROM todo.task
+                                        WHERE id_dashboard = '%s';";
+    const SQL_DELETE_DASHBOARD = "DELETE FROM todo.dashboard
+                                    WHERE id='%s'";
 
     const SQL_INSERT_TASK = "INSERT INTO todo.task
                                 (id_status, id_tag, title, dt_end, is_archive, body, id_priority, id_dashboard)
@@ -167,6 +171,15 @@ class ToDoModel
                          $_idCol2, $_nameCol2, $_idCol3, $_nameCol3, $_idCol4, $_nameCol4, $_idCol5, $_nameCol5, $_idCol6,
                         $_nameCol6, $_idCol7, $_nameCol7, $_idCol8, $_nameCol8, $_idCol9, $_nameCol9, $_idCol10, $_nameCol10);
         $db->query($sql);
+    }
+    public function deleteDashboard($_dashboardId)
+    {
+        $db = DB::getDb();
+        $sql = sprintf(self::SQL_DELETE_DASHBOARD_TASKS, $_dashboardId);
+        $db->query($sql);
+        $sql = sprintf(self::SQL_DELETE_DASHBOARD, $_dashboardId);
+        $db->query($sql);
+
     }
     public function createTask ($_title, $_body, $_date, $_tag, $_priority, $_status, $_dashboard)
     {

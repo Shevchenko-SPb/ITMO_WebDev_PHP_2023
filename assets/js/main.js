@@ -89,11 +89,17 @@ domBtnCreateDashboard.onclick = () => {
   domDashboardTemplate.removeAttribute('id');
   domDashboardTemplate.remove();
 
+  domDashboardList.classList.add('pointer-events-none')
+  domDashboardList.classList.add('text-neutral-400/50')
+
+  console.log(domDashboardList.disabled)
+
   newDashboard.id = randomString(5) + Date.now();
   while (newDashboard.children.length > 0) {
     newDashboard.removeChild(newDashboard.lastChild);
   }
   cloneCol.classList.remove("hidden")
+  QUERY(cloneCol, 'btnAddColumn').classList.remove("hidden")
   newDashboard.appendChild(cloneCol)
 
   newDashboard.childNodes.forEach(element => element.id = newDashboard.id + "||" + randomString(5))
@@ -102,7 +108,7 @@ domBtnCreateDashboard.onclick = () => {
 
   domNewDashboardListName.classList.remove("hidden")
   let dashboardName;
-
+  domDashboardName.innerText = ''
   domNewDashboardListName.addEventListener('keyup', function (e) {
 
     dashboardName = domNewDashboardListName.querySelector("input").value;
@@ -115,7 +121,10 @@ domBtnCreateDashboard.onclick = () => {
 
 
   QUERY(domSafeDashboard, "confirm").onclick = () => {
-    console.log(dashboardVO)
+
+    domDashboardList.classList.remove('pointer-events-none')
+    domDashboardList.classList.remove('text-neutral-400/50')
+
     dashboardVO.id = newDashboard.id;
     dashboardVO.dashboard_name = dashboardName;
     const columnsList = newDashboard.querySelectorAll(".column")
@@ -136,13 +145,26 @@ domBtnCreateDashboard.onclick = () => {
         }
       }
     })
-    console.log(dashboardVO)
+    console.log(newDashboard)
+    newDashboard.childNodes.forEach(e => {
+      if (newDashboard.childNodes[0] !== e) {
+        QUERY(e, 'columnNameTemp').classList.remove('hidden')
+        QUERY(e, 'columnNameInp').classList.add('hidden')
+        QUERY(e, 'btnAddColumn').classList.add('hidden')
+      }
+    })
 
-    saveDashboard(dashboardVO);
+
+    saveDashboard(dashboardVO)
+
+
+
     newDashboardItem.classList.remove("hidden");
-    cloneCol.classList.add("hidden")
+    // cloneCol.classList.add("hidden")
     domNewDashboardListName.classList.add("hidden")
     domSafeDashboard.classList.add("hidden")
+ location.reload()
+
   }
   QUERY(domSafeDashboard, "cancel").onclick = () => {
     window.location.reload(true);
@@ -208,7 +230,9 @@ getDashboards ()
           const dashboards = rawDashboards
               ? rawDashboards.map((json) => DashboardVO.fromJSON(json))
               : [];
-          console.log(dashboards)
+          if (dashboards[0].id) {
+          renderDashboard(dashboards[0].id) }
+
           dashboards.forEach((dashboardVO) => renderDashboardList(dashboardVO));
         })
         .catch(function (error) {
@@ -218,7 +242,7 @@ getDashboards ()
   }
 
   function countDashboards () {
-  domDashboardCount.innerText = domDashboardList.childNodes.length - 5;
+  domDashboardCount.innerText = domDashboardList.childNodes.length - 3;
   }
 
 function renderDashboardList (dashboardVO) {
@@ -244,17 +268,45 @@ if (domDashboardList.childNodes.length > 3) {
   console.log(arr[5])
 }
 
+domDashboardList.onclick = (e) => {
+  console.log(e.target)
+  switch (e.target.dataset.id) {
+    case 'dashboardListButtons':
+      QUERY(e.target.parentNode, 'dashboardListEdit').classList.remove('hidden')
+      QUERY(e.target.parentNode, 'dashboardListDelete').classList.remove('hidden')
+      QUERY(e.target.parentNode, 'dashboardCloseListButtons').classList.remove('hidden')
+        e.target.classList.add('hidden')
+      break;
+    case 'dashboardListDelete':
+      let choice = confirm('Действительно удалить таблицу?  Все сохранённые задачи текущей таблицы будут удалены!')
+      if (choice) {
+        deleteDashboard(e.target.parentNode.parentNode.dataset.id)
+        location.reload()
+      }
+    case 'dashboardCloseListButtons':
+      console.log(e.target)
+      QUERY(e.target.parentNode, 'dashboardListButtons').classList.remove('hidden')
+      QUERY(e.target.parentNode, 'dashboardListEdit').classList.add('hidden')
+      QUERY(e.target.parentNode, 'dashboardListDelete').classList.add('hidden')
+      QUERY(e.target.parentNode, 'dashboardCloseListButtons').classList.add('hidden')
+
+  }
+}
 
 
 function renderDashboard (e) {
-  console.log(e.target.parentNode)
-  const targetElement = e.target.parentNode
+  let targetElementId = undefined;
+  if (e.target) {
+    let element = e.target.parentNode
+    targetElementId = element.dataset.id
+  }
+
   const dashboards = rawDashboards
       ? rawDashboards.map((json) => DashboardVO.fromJSON(json))
       : [];
 
   dashboards.forEach((dashboardVO) => {
-    if (targetElement.dataset.id === dashboardVO.id) {
+    if (targetElementId === dashboardVO.id || dashboardVO.id === e) {
 
       domDashboardTemplate.removeAttribute('id');
       domDashboardTemplate.remove();
@@ -595,7 +647,18 @@ function saveDashboard(dashboardVO) {
         console.log(error);
       });
 }
-
+function deleteDashboard(idDashboard) {
+    let $dashboardData = [idDashboard]
+  axios.post('/deleteuserdashboard',
+      JSON.parse(JSON.stringify($dashboardData))
+  )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+}
 function saveTask(taskVO) {
     let $title = taskVO.title;
     let $body = taskVO.body;

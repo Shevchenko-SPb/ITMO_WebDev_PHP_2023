@@ -15,6 +15,7 @@ return array(
     'deleteusertask' => 'ToDo/deleteTask',
     'updatenewtask' => 'ToDo/updateTask',
     'createnewdashboard' => 'ToDo/createDashboard',
+    'deleteuserdashboard' => 'ToDo/deleteDashboard',
     'getListdashboards' => 'ToDo/getListDashboards',
     'sse' => 'ToDo/sse',
     'logout' => 'ToDo/logout',

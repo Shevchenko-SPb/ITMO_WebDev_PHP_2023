@@ -6,7 +6,7 @@ class ToDoController
        header('Location: ./login');
    }
        $count = new ToDoModel();
-       $resultCount = $count->countUserTask();
+//       $resultCount = $count->countUserTask();
        $resultPriority = $count->countPriorityTask();
        for ($i = 0; $i < 4; $i++) {
            $resultCountPriority[]=$resultPriority[$i][1]==NULL ? 0 : $resultPriority[$i][1];
@@ -21,7 +21,7 @@ class ToDoController
            "name" => $name,
            "surname" => $surname,
            "priority" => $resultCountPriority,
-           "href_avatar" => $href_avatar), $resultCount));
+           "href_avatar" => $href_avatar)));
        echo $result;
    }
    public function actionGetList()
@@ -79,6 +79,12 @@ class ToDoController
        $result = $model -> createDashboard($_id, $_idUserOwner, $_dashboardName, $_idCol1, $_nameCol1,
                  $_idCol2, $_nameCol2, $_idCol3, $_nameCol3, $_idCol4, $_nameCol4, $_idCol5, $_nameCol5,
                  $_idCol6, $_nameCol6, $_idCol7, $_nameCol7, $_idCol8, $_nameCol8, $_idCol9, $_nameCol9, $_idCol10, $_nameCol10);
+   }
+   public function actionDeleteDashboard () {
+       $dashboardData = json_decode(file_get_contents('php://input'),true);
+       $_dashboardId = $dashboardData[0];
+       $model = new ToDoModel();
+       $model -> deleteDashboard($_dashboardId);
    }
 
    public function actionCreateTask ()
