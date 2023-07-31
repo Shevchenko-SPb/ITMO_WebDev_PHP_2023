@@ -80,6 +80,7 @@ const newDashboardItem = dashboardItem.cloneNode(true)
 const dashboards = undefined;
 const clone = getDOM('cloneColumn')
 const cloneCol = clone.cloneNode(true)
+const domNewDashboardListName = getDOM('dashboardInpName');
 
 domBtnCreateDashboard.onclick = () => {
   if (!domSafeDashboard.classList.contains("hidden")) {
@@ -98,13 +99,13 @@ domBtnCreateDashboard.onclick = () => {
   newDashboard.childNodes.forEach(element => element.id = newDashboard.id + "||" + randomString(5))
   domDashboard.appendChild(newDashboard);
 
-  const newDashboardListName = QUERY(domDashboardList, 'dashboardInpName');
-  newDashboardListName.classList.remove("hidden")
+
+  domNewDashboardListName.classList.remove("hidden")
   let dashboardName;
 
-  newDashboardListName.addEventListener('keyup', function (e) {
+  domNewDashboardListName.addEventListener('keyup', function (e) {
 
-    dashboardName = newDashboardListName.querySelector("input").value;
+    dashboardName = domNewDashboardListName.querySelector("input").value;
     domDashboardName.innerText = dashboardName
     QUERY(newDashboardItem, "dashboardName").innerText = dashboardName
   })
@@ -140,7 +141,7 @@ domBtnCreateDashboard.onclick = () => {
     saveDashboard(dashboardVO);
     newDashboardItem.classList.remove("hidden");
     cloneCol.classList.add("hidden")
-    newDashboardListName.classList.add("hidden")
+    domNewDashboardListName.classList.add("hidden")
     domSafeDashboard.classList.add("hidden")
   }
   QUERY(domSafeDashboard, "cancel").onclick = () => {
