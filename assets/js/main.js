@@ -194,7 +194,7 @@ function createNewColumn (elem) {
   }
   clone.id = newDashboard.id + "||" + randomString(5);
   console.log(clone.id)
-  if (taskColumn.parentNode.children.length === 9) {
+  if (taskColumn.parentNode.children.length === 10) {
     alert("Количество колонок не более 10")
     return
   }
