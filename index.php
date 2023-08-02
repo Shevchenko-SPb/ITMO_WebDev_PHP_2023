@@ -53,11 +53,12 @@ class Router {
 //                var_dump($action);
                 // Остальные сегменты — параметры.
                 $parameters = [];
-                var_dump($segments);
-                $segments = str_replace('?', '', $segments[0]);
-                parse_str($segments, $parameters);
 
-                var_dump($parameters);
+//                $segments = str_replace('?', '', $segments[0]);
+
+//                parse_str($segments, $parameters);
+
+
 
 
                 $controllerFile = ROOT.'/app/controllers/'.$controller.'.php';
@@ -66,8 +67,10 @@ class Router {
                     include($controllerFile);
                 }
                 $obj = new $controller();
+
 //                var_dump($parameters);
                 $obj->$action(...$parameters);
+                var_dump($obj);
 
 //                call_user_func_array(array($controller, $action), $params);
             }

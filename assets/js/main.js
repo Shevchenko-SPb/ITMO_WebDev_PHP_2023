@@ -342,7 +342,6 @@ function renderDashboard (e) {
   })
 }
 
-
 function getTasks (id) {
   axios.get('/tasks', {
     headers: headers

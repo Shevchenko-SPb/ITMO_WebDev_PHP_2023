@@ -44,6 +44,7 @@ class ToDoController
     {
         $model = new ToDoModel();
         $result = $model -> getTaskByIdDashboard($id);
+        $id = 'DhSP71690805127733';
         $tasks = array('result' => $result);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($tasks);
