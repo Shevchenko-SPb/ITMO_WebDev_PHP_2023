@@ -223,6 +223,7 @@ getDashboards ()
       headers: headers
     })
         .then(function (response) {
+          console.log(response.request.responseURL)
           rawDashboards = response.data.result
           for (let key in rawDashboards) {
             mapTags.set(rawDashboards[key][0], rawDashboards[key][2])
@@ -351,7 +352,8 @@ function getTasks (id) {
   })
       .then(function (response) {
         console.log(response.request.responseURL)
-        rawTasks = response.data.id
+        console.log( response.data.result)
+        rawTasks = response.data.result
 
         console.log(rawTasks)
         for (let key in rawTasks) {

@@ -43,10 +43,10 @@ class ToDoController
     public function actionGetTaskByIdDashboard ($id)
     {
         $model = new ToDoModel();
-        var_dump($id);
         $result = $model -> getTaskByIdDashboard($id);
         $tasks = array('result' => $result);
         header('Content-Type: application/json; charset=utf-8');
+
         echo json_encode($tasks);
     }
 

@@ -35,8 +35,8 @@ class ToDoModel
 
     const SQL_GET_TASK_BY_ID_DASHBOARD = "SELECT id, id_status, id_tag, title, dt_end, is_archive, body, 
                                             id_priority, id_dashboard
-                                            FROM todo.task;
-                                            WHERE id_dashboard = '%s'";
+                                            FROM todo.task
+                                            WHERE id_dashboard = '%s';";
     const SQL_DELETE_DASHBOARD_TASKS = "DELETE FROM todo.task
                                         WHERE id_dashboard = '%s';";
     const SQL_DELETE_DASHBOARD = "DELETE FROM todo.dashboard
@@ -123,7 +123,8 @@ class ToDoModel
     public function getUserDashboards()
     {
         $db = DB::getDb();
-        $id_user = $_SESSION["id"];
+//        $id_user = $_SESSION["id"];
+        $id_user = 1;
         $sql = sprintf(self::SQL_GET_LIST_DASHBOARDS, $id_user);
         $stmt = $db->query($sql);
         $dashboards = [];

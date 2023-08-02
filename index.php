@@ -58,8 +58,6 @@ class Router {
                     $segments = str_replace('?', '', $segments[0]);
 
                     parse_str($segments, $parameters);
-
-                    var_dump($parameters);
                 }
 
 
