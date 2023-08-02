@@ -53,10 +53,14 @@ class Router {
 //                var_dump($action);
                 // Остальные сегменты — параметры.
                 $parameters = [];
+                if ($segments) {
 
-//                $segments = str_replace('?', '', $segments[0]);
+                    $segments = str_replace('?', '', $segments[0]);
 
-//                parse_str($segments, $parameters);
+                    parse_str($segments, $parameters);
+
+                    var_dump($parameters);
+                }
 
 
 
@@ -70,7 +74,6 @@ class Router {
 
 //                var_dump($parameters);
                 $obj->$action(...$parameters);
-                var_dump($obj);
 
 //                call_user_func_array(array($controller, $action), $params);
             }

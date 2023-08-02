@@ -344,10 +344,15 @@ function renderDashboard (e) {
 
 function getTasks (id) {
   axios.get('/tasks', {
+    params: {
+      id: id
+    },
     headers: headers
   })
       .then(function (response) {
-        rawTasks = response.data.result
+        console.log(response.request.responseURL)
+        rawTasks = response.data.id
+
         console.log(rawTasks)
         for (let key in rawTasks) {
           mapTags.set(rawTasks[key][0], rawTasks[key][2])
